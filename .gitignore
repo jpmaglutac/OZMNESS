@@ -1,1 +1,4 @@
 target/**/*
+*.log
+logs
+web-app/WEB-INF/classes
