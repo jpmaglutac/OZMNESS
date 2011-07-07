@@ -1,4 +1,4 @@
-import OZMNESS.*
+import com.orangeandbronze.ozmness.*
 
 class BootStrap {
 
