@@ -5,8 +5,8 @@ class Rating {
 	double value
 	String comment
 	Date dateCreated
-	//Employee creator
-	//Employee employeeRated
+	Employee creator
+	Employee employeeRated
 	Technology technology
 
     static constraints = {

@@ -7,6 +7,6 @@ class Position {
 
     static constraints = {
     	name nullable: false, blank: false
-    	value minSize:1.0, maxSize:3.0
+    	recommendedRating minSize:1.0, maxSize:3.0
     }
 }
