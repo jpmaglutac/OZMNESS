@@ -1,6 +1,6 @@
 package com.orangeandbronze.ozmness
 
-class Position {
+class EmployeePosition {
 
 	String name
 	double recommendedRating
