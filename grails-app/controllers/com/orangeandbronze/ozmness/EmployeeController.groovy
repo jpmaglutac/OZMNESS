@@ -21,6 +21,7 @@ class EmployeeController {
 
     def save = {
         def employeeInstance = new Employee(params)
+		params.password = springSecurityService.encodePassword(params.password)
         if (employeeInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
             redirect(action: "show", id: employeeInstance.id)
