@@ -11,4 +11,8 @@ class Project {
 		lead nullable:false
 		
     }
+	
+	String toString(){
+		return name
+	}
 }

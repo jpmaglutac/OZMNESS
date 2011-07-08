@@ -10,4 +10,8 @@ class Employee extends User{
     static constraints = {
 		position nullable:false
     }
+	
+	String toString() {
+		return username
+	}
 }

@@ -14,4 +14,8 @@ class Rating {
     	comment size:0..65535, nullable: true, blank: true
     	technology nullable: false
     }
+	
+	String toString(){
+		return technology + ": " + value
+	}
 }

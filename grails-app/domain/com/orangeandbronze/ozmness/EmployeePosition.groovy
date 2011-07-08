@@ -9,4 +9,8 @@ class EmployeePosition {
     	name nullable: false, blank: false
     	recommendedRating minSize:1.0, maxSize:3.0
     }
+	
+	String toString(){
+		return name
+	}
 }
