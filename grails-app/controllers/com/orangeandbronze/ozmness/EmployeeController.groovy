@@ -1,6 +1,8 @@
 package com.orangeandbronze.ozmness
 
 class EmployeeController {
+	
+	def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
