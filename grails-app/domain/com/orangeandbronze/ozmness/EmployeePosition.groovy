@@ -7,7 +7,7 @@ class EmployeePosition {
 
     static constraints = {
     	name nullable: false, blank: false
-    	recommendedRating minSize:1.0, maxSize:3.0
+    	recommendedRating min:1.0d, max:3.0d
     }
 	
 	String toString(){
