@@ -3,6 +3,7 @@ package com.orangeandbronze.ozmness
 class Employee extends User{
 
 	static hasMany = [projects:Project]
+	static belongsTo = [Project]
 	Employee mentor
 	EmployeePosition position
 	

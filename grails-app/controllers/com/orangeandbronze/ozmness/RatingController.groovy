@@ -1,6 +1,9 @@
 package com.orangeandbronze.ozmness
 
 class RatingController {
+	
+	def springSecurityService
+	def ratingService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -21,6 +24,12 @@ class RatingController {
 
     def save = {
         def ratingInstance = new Rating(params)
+		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
+		if(!ratingService.canRateEmployee(ratingInstance.creator, ratingInstance.employeeRated)){
+			flash.message = "You are not allowed to rate that employee."
+			render(view: "create", model: [ratingInstance: ratingInstance])
+			return
+		}
         if (ratingInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])}"
             redirect(action: "show", id: ratingInstance.id)
