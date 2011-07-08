@@ -52,7 +52,7 @@ class RatingController {
 
     def edit = {
         def ratingInstance = Rating.get(params.id)
-		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator) {
+		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || Role.get(springSecurityService.principal.id)) {
 		    if (!ratingInstance) {
 		        flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
 		        redirect(action: "list")
@@ -96,7 +96,7 @@ class RatingController {
 
     def delete = {
         def ratingInstance = Rating.get(params.id)
-		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator) {
+		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || Role.get(springSecurityService.principal.id)) {
 	        if (ratingInstance) {
 	            try {
 	                ratingInstance.delete(flush: true)
