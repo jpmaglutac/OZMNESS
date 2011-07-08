@@ -9,6 +9,7 @@ class Employee extends User{
 	
     static constraints = {
 		position nullable:false
+		mentor nullable:true
     }
 	
 	String toString() {
