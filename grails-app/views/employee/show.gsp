@@ -37,13 +37,6 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="employee.password.label" default="Password" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: employeeInstance, field: "password")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="employee.position.label" default="Position" /></td>
                             
                             <td valign="top" class="value"><g:link controller="employeePosition" action="show" id="${employeeInstance?.position?.id}">${employeeInstance?.position?.encodeAsHTML()}</g:link></td>
