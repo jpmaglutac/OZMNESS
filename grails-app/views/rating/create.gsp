@@ -60,7 +60,7 @@
                                     <label for="employeeRated"><g:message code="rating.employeeRated.label" default="Employee Rated" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'employeeRated', 'errors')}">
-                                    <g:select name="employeeRated.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${ratingInstance?.employeeRated?.id}"  />
+                                    <g:select name="employeeRated.id" from="${canBeRated}" optionKey="id" value="${ratingInstance?.employeeRated?.id}"  />
                                 </td>
                             </tr>
                         
