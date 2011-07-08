@@ -52,13 +52,19 @@ class RatingController {
 
     def edit = {
         def ratingInstance = Rating.get(params.id)
-        if (!ratingInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [ratingInstance: ratingInstance]
-        }
+		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator) {
+		    if (!ratingInstance) {
+		        flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+		        redirect(action: "list")
+		    }
+		    else {
+		        return [ratingInstance: ratingInstance]
+		    }
+		}
+		else {
+			flash.message = "You are not allowed to edit this entry."
+			redirect(action: "list")
+		}
     }
 
     def update = {
@@ -90,20 +96,26 @@ class RatingController {
 
     def delete = {
         def ratingInstance = Rating.get(params.id)
-        if (ratingInstance) {
-            try {
-                ratingInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-            redirect(action: "list")
-        }
+		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator) {
+	        if (ratingInstance) {
+	            try {
+	                ratingInstance.delete(flush: true)
+	                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+	                redirect(action: "list")
+	            }
+	            catch (org.springframework.dao.DataIntegrityViolationException e) {
+	                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+	                redirect(action: "show", id: params.id)
+	            }
+	        }
+	        else {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+	            redirect(action: "list")
+	        }
+		}
+		else {
+			flash.message = "You are not allowed to delete this entry."
+			redirect(action: "list")
+		}
     }
 }
