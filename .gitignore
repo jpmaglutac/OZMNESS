@@ -1,4 +1,4 @@
-target/**/*
-*.log
-logs
+target/**
 web-app/WEB-INF/classes
+*.log
+target/stacktrace.log
