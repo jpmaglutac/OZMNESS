@@ -97,4 +97,29 @@ class ProjectController {
             redirect(action: "list")
         }
     }
+	
+	def showPossibleCollaborators =  {
+		def projectInstance = Project.get(params.id)
+		if(projectInstance){
+			def possibleCollaborators = Employee.list() - projectInstance.collaborators 
+			
+			return  [projectInstance: projectInstance, possibleCollaborators: possibleCollaborators]
+		}
+	}
+	
+	def addCollaborator ={
+		def employeeInstance = Employee.get(params.collaboratorID)
+		def projectInstance = Project.get(params.id)
+		if(employeeInstance && projectInstance){
+			try{
+				projectInstance.addToCollaborators(employeeInstance)
+				redirect(action: "show", id: params.id)
+			}catch (org.springframework.dao.DataIntegrityViolationException e) {
+                flash.message = "${message(code: 'default.not.added.message', args: [message(code: 'project.collaborators', default: 'Project'), params.collaboratorID])}"
+                redirect(action: "show", collaboratorID: params.collaboratorID)
+            }
+		}
+		
+		
+    }
 }
