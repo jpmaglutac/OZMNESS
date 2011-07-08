@@ -52,7 +52,9 @@ class EmployeeController {
             redirect(action: "list")
         }
         else {
-            return [employeeInstance: employeeInstance]
+			def possibleMentors = Employee.list() - employeeInstance
+		
+            return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
         }
     }
 

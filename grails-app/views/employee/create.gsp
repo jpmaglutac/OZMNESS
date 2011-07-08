@@ -87,7 +87,7 @@
                                     <label for="mentor"><g:message code="employee.mentor.label" default="Mentor" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'mentor', 'errors')}">
-                                    <g:select name="mentor.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${employeeInstance?.mentor?.id}"  />
+                                    <g:select name="mentor.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${employeeInstance?.mentor?.id}"  noSelection="['null': '']"/>
                                 </td>
                             </tr>
                         
