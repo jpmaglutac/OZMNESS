@@ -4,7 +4,7 @@ class Project {
 	
 	String name
 	Employee lead
-	static hasMany = [technologies:Technology]
+	static hasMany = [technologies:Technology, collaborator: Employee]
 
     static constraints = {
 		name nullable:false, blank:false
