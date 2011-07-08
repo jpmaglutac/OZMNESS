@@ -4,7 +4,7 @@ class EmployeeController {
 	
 	def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST", showEmployeeRatings: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -25,6 +25,7 @@ class EmployeeController {
         def employeeInstance = new Employee(params)
 		params.password = springSecurityService.encodePassword(params.password)
         if (employeeInstance.save(flush: true)) {
+			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
             redirect(action: "show", id: employeeInstance.id)
         }
@@ -100,4 +101,12 @@ class EmployeeController {
             redirect(action: "list")
         }
     }
+	
+	def showEmployeeRatings ={
+		def employeeInstance = Employee.get(params.id)
+		if(employeeInstance){
+			def ratings = Rating.findAllByEmployeeRated(employeeInstance)
+			return [ratings: ratings]
+		}
+	}
 }

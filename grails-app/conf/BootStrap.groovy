@@ -10,6 +10,9 @@ class BootStrap {
         
         roles.admin = Role.findByAuthority("ROLE_ADMIN") ?: \
             new Role(authority: "ROLE_ADMIN").save()
+		
+		roles.admin = Role.findByAuthority("ROLE_DEV") ?: \
+			new Role(authority: "ROLE_DEV").save()
             
         users.admin = User.findByUsername('admin') ?: \
             new User(username: 'admin', \
