@@ -63,7 +63,7 @@
                                   <label for="creator"><g:message code="rating.creator.label" default="Creator" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'creator', 'errors')}">
-                                    <g:select name="creator.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${ratingInstance?.creator?.id}"  />
+                                    ${ratingInstance?.creator?.username}
                                 </td>
                             </tr>
                         
