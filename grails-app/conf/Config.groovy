@@ -101,11 +101,18 @@ import grails.plugins.springsecurity.SecurityConfigType
 grails.plugins.springsecurity.rejectIfNoRule = false
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [
-    '/':            ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/image:**':    ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/js/**':       ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/css/**':      ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/images/**':   ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/login/**':    ['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/logout/**':   ['IS_AUTHENTICATED_ANONYMOUSLY']
+	
+    '/':            			['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/image:**':    			['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/js/**':       			['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/css/**':      			['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/images/**':  	 			['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/login/**':    			['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/logout/**':   			['IS_AUTHENTICATED_ANONYMOUSLY'],
+	
+	'/employee/create*':   		['ROLE_ADMIN'],
+	'/employee/edit*':			['ROLE_ADMIN'],
+	'/employee/list':			['ROLE_ADMIN', 'ROLE_DEV'],
+	'/employee/show*':			['ROLE_ADMIN', 'ROLE_DEV']
+	
 ]

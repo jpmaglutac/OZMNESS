@@ -1,8 +1,10 @@
 package com.orangeandbronze.ozmness
 
 class EmployeeController {
+	
+	def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST", showEmployeeRatings: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -99,4 +101,12 @@ class EmployeeController {
             redirect(action: "list")
         }
     }
+	
+	def showEmployeeRatings ={
+		def employeeInstance = Employee.get(params.id)
+		if(employeeInstance){
+			def ratings = Rating.findAllByEmployeeRated(employeeInstance)
+			return [ratings: ratings]
+		}
+	}
 }
