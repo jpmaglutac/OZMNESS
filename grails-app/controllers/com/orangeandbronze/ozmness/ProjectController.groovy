@@ -2,6 +2,8 @@ package com.orangeandbronze.ozmness
 
 class ProjectController {
 
+	def springSecurityService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -31,13 +33,14 @@ class ProjectController {
     }
 
     def show = {
+    	def loggedInUser = Employee.get(springSecurityService.principal.id)
         def projectInstance = Project.get(params.id)
         if (!projectInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
             redirect(action: "list")
         }
         else {
-            [projectInstance: projectInstance]
+            [loggedInUser: loggedInUser, projectInstance: projectInstance]
         }
     }
 
@@ -108,14 +111,18 @@ class ProjectController {
 	}
 	
 	def addCollaborator ={
-		def employeeInstance = Employee.get(params.collaboratorID)
 		def projectInstance = Project.get(params.id)
-		if(employeeInstance && projectInstance){
+		if(projectInstance){
 			try{
-				projectInstance.addToCollaborators(employeeInstance)
-				projectInstance.save(flush: true)
-				employeeInstance.addToProjects(projectInstance)
-				employeeInstance.save(flush: true)
+				params.collaboratorID.each{
+					def employee = Employee.get(it)
+					if(employee){
+						projectInstance.addToCollaborators(employee)
+						projectInstance.save(flush: true)
+						employee.addToProjects(projectInstance)
+						employee.save(flush: true)
+					}
+				}
 				redirect(action: "show", id: params.id)
 			}catch (e) {
                 flash.message = "${message(code: 'default.not.added.message', args: [message(code: 'project.collaborators', default: 'Project'), params.collaboratorID])}"
