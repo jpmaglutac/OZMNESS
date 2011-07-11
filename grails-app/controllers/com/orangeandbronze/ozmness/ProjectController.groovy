@@ -1,7 +1,5 @@
 package com.orangeandbronze.ozmness
 
-import java.awt.List;
-
 class ProjectController {
 
 	def springSecurityService
@@ -125,8 +123,6 @@ class ProjectController {
 					if(employee){
 						projectInstance.addToCollaborators(employee)
 						projectInstance.save(flush: true)
-						employee.addToProjects(projectInstance)
-						employee.save(flush: true)
 					}
 				}
 				redirect(action: "show", id: params.id)
@@ -138,7 +134,16 @@ class ProjectController {
 			flash.message = "${message(code: 'default.not.added.message', args: [message(code: 'project.collaborators', default: 'Project'), params.collaboratorID])}"
 			redirect(action: "show", id: params.id)
 		}
-		
-		
+    }
+    
+    def removeCollaborator = {
+    	def collaborator = Employee.get(params.id)
+    	def project = Project.get(params.projectId)
+    	if(collaborator){
+    		project.removeFromCollaborators(collaborator)
+    		flash.message = "Removed ${collaborator} from the project"
+    	}else
+    		flash.message = "Could not find employee"
+    	redirect(action: show, id: params.projectId)
     }
 }

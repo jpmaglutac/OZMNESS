@@ -33,7 +33,7 @@
                             
                             <g:sortableColumn property="mentor" title="${message(code: 'employee.username.mentor', default: 'Mentor')}" />
                             
-                            <th style="text-align: center;">Employee Status</th>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><th style="text-align: center;">Employee Status</th></sec:access>
                             
                             <th>&nbsp;</th>
                         
@@ -53,21 +53,23 @@
                             
                             <td>${employeeInstance.mentor}</td>
                             
-                            <td style="text-align: center;">
-                            	<g:if test="${employeeInstance.enabled}">enabled</g:if><g:else>disabled</g:else>
-                            	<g:if test="${employeeInstance.accountExpired}">
-                            		<br />
-                            		account expired
-                            	</g:if>
-                        	    <g:if test="${employeeInstance.accountLocked}">
-                            		<br />
-                            		account locked
-                            	</g:if>
-                            	<g:if test="${employeeInstance.passwordExpired}">
-                            		<br />
-                            		password expired
-                            	</g:if>
-                           	</td>
+                            <sec:access expression="hasRole('ROLE_ADMIN')">
+	                            <td style="text-align: center;">
+	                            	<g:if test="${employeeInstance.enabled}">enabled</g:if><g:else>disabled</g:else>
+	                            	<g:if test="${employeeInstance.accountExpired}">
+	                            		<br />
+	                            		account expired
+	                            	</g:if>
+	                        	    <g:if test="${employeeInstance.accountLocked}">
+	                            		<br />
+	                            		account locked
+	                            	</g:if>
+	                            	<g:if test="${employeeInstance.passwordExpired}">
+	                            		<br />
+	                            		password expired
+	                            	</g:if>
+	                           	</td>
+                           	</sec:access>
                             
                             <td>
                             	<g:link action="show" id="${employeeInstance.id}">view more</g:link>

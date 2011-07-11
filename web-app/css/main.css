@@ -59,14 +59,14 @@ textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-    border: 1px solid #b2d1ff;
+    border: 1px solid #f69322;
 }
 
 .body {
-    float: left;
-    margin: 0 0 10px 15px;
+    margin-left: 45px;
     padding-top: 5px;
-    padding-left: 30px;
+    padding-right: 30px;
+    width: 1250px;
 }
 
 /* NAVIGATION MENU */
@@ -218,7 +218,7 @@ th.desc a {
     border-left: 1px solid #ddd;
 }
 .list th:hover, .list tr:hover {
-    background: #b2d1ff;
+    background: #fcbb76;
 }
 
 /* PAGINATION */
@@ -291,6 +291,10 @@ th.desc a {
 .buttons input.edit {
     background: transparent url(../images/skin/database_edit.png) 5px 50% no-repeat;
     padding-left: 28px;
+}
+.buttons input.list {
+	background: url(../images/skin/database_table.png) 5px 50% no-repeat;
+	padding-left: 28px;
 }
 .buttons input.save {
     background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;

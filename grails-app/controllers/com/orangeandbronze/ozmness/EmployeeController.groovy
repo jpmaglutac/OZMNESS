@@ -127,7 +127,7 @@ class EmployeeController {
 		def ratingInstance = new Rating(params)
 		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
         if (ratingInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])}"
+            flash.message = "Your rating for " + ratingInstance.employeeRated + " has been saved."
             redirect(action: "showEmployeeRatings", id: ratingInstance.employeeRated.id)
         }
         else {
