@@ -170,17 +170,16 @@ tr {
 td, th {
     font: 11px verdana, arial, helvetica, sans-serif;
     line-height: 12px;
-    padding: 5px 6px;
+    padding: 5px 10px;
     text-align: left;
     vertical-align: top;
 }
 th {
-    background: #fff url(../images/skin/shadow.jpg);
     color: #666;
     font-size: 11px;
     font-weight: bold;
     line-height: 17px;
-    padding: 2px 6px;
+    padding: 5px 10px;
 }
 th a:link, th a:visited, th a:hover {
     color: #333;
@@ -188,9 +187,10 @@ th a:link, th a:visited, th a:hover {
     font-size: 10px;
     text-decoration: none;
     width: 100%;
+    padding-right: 5px;
 }
 th.asc a, th.desc a {
-    background-position: right;
+    background-position: right center;
     background-repeat: no-repeat;
 }
 th.asc a {
