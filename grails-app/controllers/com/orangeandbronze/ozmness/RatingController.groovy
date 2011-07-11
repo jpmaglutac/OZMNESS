@@ -33,7 +33,7 @@ class RatingController {
         def ratingInstance = new Rating(params)
 		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
         if (ratingInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
             redirect(action: "show", id: ratingInstance.id)
         }
         else {
@@ -83,7 +83,7 @@ class RatingController {
             }
             ratingInstance.properties = params
             if (!ratingInstance.hasErrors() && ratingInstance.save(flush: true)) {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])
+                flash.message = "Rating for " + ratingInstance.employeeRated + " has been updated."
                 redirect(action: "show", id: ratingInstance.id)
             }
             else {
