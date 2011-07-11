@@ -17,8 +17,7 @@ class RatingController {
     }
 
     def create = {
-        def ratingInstance = new Rating()
-        ratingInstance.properties = params
+        def ratingInstance = new Rating(params)
         def canBeRated = ratingService.getEmployeesThatCanBeRated(Employee.get(springSecurityService.principal.id))
         return [canBeRated: canBeRated, ratingInstance: ratingInstance]
     }
@@ -77,7 +76,7 @@ class RatingController {
             }
             ratingInstance.properties = params
             if (!ratingInstance.hasErrors() && ratingInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])}"
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])
                 redirect(action: "show", id: ratingInstance.id)
             }
             else {
