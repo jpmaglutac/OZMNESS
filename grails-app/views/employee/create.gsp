@@ -65,10 +65,28 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                    <label for="enabled"><g:message code="employee.enabled.label" default="Enabled" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'enabled', 'errors')}">
+                                    <g:checkBox name="enabled" value="${employeeInstance?.enabled}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                     <label for="accountExpired"><g:message code="employee.accountExpired.label" default="Account Expired" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'accountExpired', 'errors')}">
                                     <g:checkBox name="accountExpired" value="${employeeInstance?.accountExpired}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="passwordExpired"><g:message code="employee.passwordExpired.label" default="Password Expired" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'passwordExpired', 'errors')}">
+                                    <g:checkBox name="passwordExpired" value="${employeeInstance?.passwordExpired}" />
                                 </td>
                             </tr>
                         
@@ -83,28 +101,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="enabled"><g:message code="employee.enabled.label" default="Enabled" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'enabled', 'errors')}">
-                                    <g:checkBox name="enabled" value="${employeeInstance?.enabled}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="mentor"><g:message code="employee.mentor.label" default="Mentor" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'mentor', 'errors')}">
                                     <g:select name="mentor.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${employeeInstance?.mentor?.id}"  noSelection="['null': '']"/>
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="passwordExpired"><g:message code="employee.passwordExpired.label" default="Password Expired" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'passwordExpired', 'errors')}">
-                                    <g:checkBox name="passwordExpired" value="${employeeInstance?.passwordExpired}" />
                                 </td>
                             </tr>
                         
