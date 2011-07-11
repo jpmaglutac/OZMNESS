@@ -122,11 +122,6 @@
 	<td>jun</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>enabled</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>username</td>
 	<td>Sen</td>
@@ -177,11 +172,6 @@
 	<td>label=Mid Dev</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>enabled</td>
-	<td></td>
-</tr>
-<tr>
 	<td>select</td>
 	<td>mentor.id</td>
 	<td>label=senior</td>
@@ -205,11 +195,6 @@
 	<td>type</td>
 	<td>password</td>
 	<td>junior</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>enabled</td>
-	<td></td>
 </tr>
 <tr>
 	<td>select</td>
@@ -240,6 +225,11 @@
 	<td>type</td>
 	<td>name</td>
 	<td>Project</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>lead.id</td>
+	<td>label=senior</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -339,7 +329,7 @@
 <tr>
 	<td>removeSelection</td>
 	<td>collaboratorID</td>
-	<td>label=mid</td>
+	<td>label=senior</td>
 </tr>
 <tr>
 	<td>removeSelection</td>
@@ -359,17 +349,7 @@
 <tr>
 	<td>removeSelection</td>
 	<td>collaboratorID</td>
-	<td>label=junior</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>create</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>_action_showPossibleCollaborators</td>
-	<td></td>
+	<td>label=senior</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -386,7 +366,6 @@
 	<td>link=LogoutController</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
