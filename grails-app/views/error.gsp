@@ -25,7 +25,7 @@
   </head>
 
   <body>
-   	
+   	<div class="nav">&nbsp;</div>
    	<div class="body">
    	
     <h1>Grails Runtime Exception</h1>

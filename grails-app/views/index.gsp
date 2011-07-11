@@ -51,6 +51,7 @@
         </style>
     </head>
     <body>
+    	<div class="nav">&nbsp;</div>
         <div class="body">
             <h1>Welcome to Grails</h1>
             <p>Congratulations, you have successfully started your first Grails application! At the moment
