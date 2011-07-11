@@ -100,7 +100,8 @@
                     <g:hiddenField name="id" value="${employeeInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                     <span class="button"><g:actionSubmit class="list" action="showEmployeeRatings" value="${message(code: 'default.button.showEmployeeRatings.label', default: 'Show Ratings')}" /></span>
+                    <span class="button"><g:actionSubmit class="list" action="rateEmployee" value="${message(code: 'default.button.rateEmployee.label', default: 'Rate Employee')}" /></span>
+                    <span class="button"><g:actionSubmit class="list" action="showEmployeeRatings" value="${message(code: 'default.button.showEmployeeRatings.label', default: 'Show Ratings')}" /></span>
                 </g:form>
             </div>
         </div>

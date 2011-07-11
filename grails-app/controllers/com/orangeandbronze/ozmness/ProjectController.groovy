@@ -113,8 +113,11 @@ class ProjectController {
 		if(employeeInstance && projectInstance){
 			try{
 				projectInstance.addToCollaborators(employeeInstance)
+				projectInstance.save(flush: true)
+				employeeInstance.addToProjects(projectInstance)
+				employeeInstance.save(flush: true)
 				redirect(action: "show", id: params.id)
-			}catch (org.springframework.dao.DataIntegrityViolationException e) {
+			}catch (e) {
                 flash.message = "${message(code: 'default.not.added.message', args: [message(code: 'project.collaborators', default: 'Project'), params.collaboratorID])}"
                 redirect(action: "show", collaboratorID: params.collaboratorID)
             }

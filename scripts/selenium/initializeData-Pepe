@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>initializeData-Pepe</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">initializeData-Pepe</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/OZMNESS/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=com.orangeandbronze.ozmness.EmployeePositionController</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=submit]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New EmployeePosition</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Junior Dev</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>recommendedRating</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New EmployeePosition</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Mid Dev</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>recommendedRating</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New EmployeePosition</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Senior Dev</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>recommendedRating</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=com.orangeandbronze.ozmness.EmployeeController</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New Employee</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>Jun</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>jun</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>enabled</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>Sen</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>sen</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>senior</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>senior</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>position.id</td>
+	<td>label=Senior Dev</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New Employee</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>mid</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>mid</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>position.id</td>
+	<td>label=Mid Dev</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>enabled</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>mentor.id</td>
+	<td>label=senior</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New Employee</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>username</td>
+	<td>junior</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>junior</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>enabled</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>mentor.id</td>
+	<td>label=mid</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=com.orangeandbronze.ozmness.ProjectController</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New Project</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Project</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=com.orangeandbronze.ozmness.TechnologyController</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New Technology</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Java</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=New Technology</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Spring</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>parent.id</td>
+	<td>label=Java</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=com.orangeandbronze.ozmness.ProjectController</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_action_edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>technologies</td>
+	<td>label=Java</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>technologies</td>
+	<td>label=Java</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>technologies</td>
+	<td>label=Spring</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_action_update</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_action_showPossibleCollaborators</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>collaboratorID</td>
+	<td>label=mid</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>collaboratorID</td>
+	<td>label=junior</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_action_showPossibleCollaborators</td>
+	<td></td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>collaboratorID</td>
+	<td>label=junior</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>_action_showPossibleCollaborators</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=LogoutController</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
