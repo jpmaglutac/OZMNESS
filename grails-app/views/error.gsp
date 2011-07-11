@@ -21,9 +21,13 @@
 	  			font-family:courier;
 	  		}
 	  </style>
+      <meta name="layout" content="main" />
   </head>
 
   <body>
+   	
+   	<div class="body">
+   	
     <h1>Grails Runtime Exception</h1>
     <h2>Error Details</h2>
 
@@ -50,5 +54,9 @@
 	      <pre><g:each in="${exception.stackTraceLines}">${it.encodeAsHTML()}<br/></g:each></pre>
 	    </div>
 	</g:if>
+	
+	<br />
+	<br />
+	</div>
   </body>
 </html>
