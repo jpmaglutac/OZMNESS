@@ -63,10 +63,10 @@ input:focus, select:focus, textarea:focus {
 }
 
 .body {
-    float: left;
-    margin: 0 0 10px 15px;
+    margin: auto;
     padding-top: 5px;
     padding-left: 30px;
+    padding-right: 30px;
 }
 
 /* NAVIGATION MENU */
