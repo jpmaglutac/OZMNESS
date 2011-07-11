@@ -31,10 +31,11 @@ a:link, a:visited, a:hover {
 }
 
 h1 {
-    color: #48802c;
+    color: #ea7a02;
     font-weight: normal;
     font-size: 16px;
-    margin: .8em 0 .3em 0;
+    margin: .4em 0 .3em 0;
+    padding-bottom: .4em;
 }
 
 ul {
@@ -223,7 +224,6 @@ th.desc a {
 /* PAGINATION */
 
 .paginateButtons {
-    background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
     border-top: 0;
     color: #666;
@@ -265,7 +265,6 @@ th.desc a {
 /* ACTION BUTTONS */
 
 .buttons {
-    background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
     color: #666;
     font-size: 10px;

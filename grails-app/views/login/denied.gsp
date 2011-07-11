@@ -5,6 +5,7 @@
         <title>Access Denied</title>
     </head>
     <body>
+    	<div class="nav">&nbsp;</div>
     	<div class='body'>
 			<div class='errors'>Sorry, you're not authorized to view this page.</div>
 		</div>

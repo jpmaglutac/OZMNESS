@@ -1,7 +1,5 @@
 package com.orangeandbronze.ozmness
 
-import java.awt.List;
-
 class ProjectController {
 
 	def springSecurityService
@@ -106,17 +104,18 @@ class ProjectController {
 	def showPossibleCollaborators =  {
 		def projectInstance = Project.get(params.id)
 		if(projectInstance){
-			//had a bug with javassist domain wrapper
-			//can't do Employee.list() - [projectInstance.lead]
-			
-			def possibleCollaboratorIds = Employee.list().id- projectInstance.collaborators.id - [ projectInstance.lead.id ]
-			def possibleCollaborators = possibleCollaboratorIds.collect{ Employee.get(it) }
-			
+			def projectLead = Employee.get(projectInstance.lead.id)
+			def possibleCollaborators = Employee.list() - projectInstance.collaborators - projectLead
 			return  [projectInstance: projectInstance, possibleCollaborators: possibleCollaborators]
 		}
 	}
 	
 	def addCollaborator ={
+<<<<<<< HEAD
+		int collaboratorID = params.collaborator.id
+		def employeeInstance = Employee.get(collaboratorID)
+=======
+>>>>>>> 8cc9e7d0dbf6c6397e1f4b71efdff94cc496ba9d
 		def projectInstance = Project.get(params.id)
 		if(projectInstance){
 			try{
