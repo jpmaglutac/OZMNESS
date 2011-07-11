@@ -27,9 +27,9 @@
                         
                             <g:sortableColumn property="username" title="${message(code: 'employee.username.label', default: 'Username')}" />
                         
-                            <th><g:message code="employee.position.label" default="Position" /></th>
+                            <g:sortableColumn property="position" title="${message(code: 'employee.username.position', default: 'Position')}" />
                             
-                            <th><g:message code="employee.mentor.label" default="Mentor" /></th>
+                            <g:sortableColumn property="mentor" title="${message(code: 'employee.username.mentor', default: 'Mentor')}" />
                             
                             <th>Employee Status</th>
                             
