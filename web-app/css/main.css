@@ -292,6 +292,10 @@ th.desc a {
     background: transparent url(../images/skin/database_edit.png) 5px 50% no-repeat;
     padding-left: 28px;
 }
+.buttons input.list {
+	background: url(../images/skin/database_table.png) 5px 50% no-repeat;
+	padding-left: 28px;
+}
 .buttons input.save {
     background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
     padding-left: 28px;
