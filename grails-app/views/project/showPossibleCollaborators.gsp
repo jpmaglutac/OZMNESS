@@ -36,15 +36,23 @@
                                     ${fieldValue(bean: projectInstance, field: "name")}
                                 </td>
                             </tr>
+                            
+                            <tr class="prop">
+                            
+	                            <td valign="top" class="name"><g:message code="project.lead.label" default="Lead" /></td>
+	                            
+	                            <td valign="top" class="value"><g:link controller="employee" action="show" id="${projectInstance?.lead?.id}">${projectInstance?.lead?.encodeAsHTML()}</g:link></td>
+	                            
+	                        </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="collaboratorID">Collaborator: </label>
+                                    <label for="collaboratorID">Collaborator/s: </label>
                                 </td>
                                 
                                 <td valign="top">
                                 	<g:if test="${possibleCollaborators.size() >0}"> 
-                                    	<g:select name="collaboratorID" from="${possibleCollaborators}" optionKey="id" value="${possibleCollaborators?.id}"  noSelection="['null': '']"/>
+                                    	<g:select name="collaboratorID" from="${possibleCollaborators}" optionKey="id" value="${possibleCollaborators?.id}"/>
                                 	</g:if>
                                 		
                                 	<g:else>

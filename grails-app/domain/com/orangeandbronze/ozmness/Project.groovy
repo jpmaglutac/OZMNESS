@@ -9,7 +9,6 @@ class Project {
     static constraints = {
 		name nullable:false, blank:false
 		lead nullable:false
-		
     }
 	
 	String toString(){
