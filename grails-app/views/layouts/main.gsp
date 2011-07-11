@@ -25,11 +25,13 @@
      	</div>
     	<div class="mainNav">
     		<span class="menuButton"><a class="main" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-			<span class="menuButton"><a class="main" href="${createLink(uri: '/employee')}">Employees</a></span>
-			<span class="menuButton"><a class="main" href="${createLink(uri: '/project')}">Projects</a></span>
-			<span class="menuButton"><a class="main" href="${createLink(uri: '/rating')}">Ratings</a></span>
-			<span class="menuButton"><a class="main" href="${createLink(uri: '/employeePosition')}">Employee Positions</a></span>
-			<span class="menuButton"><a class="main" href="${createLink(uri: '/technology')}">Technologies</a></span>
+    		<sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_DEV">
+				<span class="menuButton"><a class="main" href="${createLink(uri: '/employee')}">Employees</a></span>
+				<span class="menuButton"><a class="main" href="${createLink(uri: '/project')}">Projects</a></span>
+				<sec:access expression="hasRole('ROLE_ADMIN')"><span class="menuButton"><a class="main" href="${createLink(uri: '/rating')}">Ratings</a></span></sec:access>
+				<span class="menuButton"><a class="main" href="${createLink(uri: '/employeePosition')}">Employee Positions</a></span>
+				<span class="menuButton"><a class="main" href="${createLink(uri: '/technology')}">Technologies</a></span>
+    		</sec:ifAnyGranted>
     	</div>
         <g:layoutBody />
     </body>

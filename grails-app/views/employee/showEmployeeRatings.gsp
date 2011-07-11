@@ -1,5 +1,6 @@
 
 <%@ page import="com.orangeandbronze.ozmness.Rating" %>
+<%@ page import="com.orangeandbronze.ozmness.Employee" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,12 +10,9 @@
     </head>
     <body>
         <div class="nav">
-        	<sec:access expression="hasRole('ROLE_ADMIN')">
-            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-			</sec:access>
-        </div>
+            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span></div>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1><g:message code="default.list.label" args="[entityName]" /> for ${Employee.get(params.id)} (<g:link action="show" id="${params.id}" style="font-weight: normal;">back</g:link>)</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>

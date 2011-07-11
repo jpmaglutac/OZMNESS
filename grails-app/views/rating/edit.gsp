@@ -10,10 +10,9 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-			<sec:access expression="hasRole('ROLE_DEV')">
-            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-			</sec:access>
+        	<sec:access expression="hasRole('ROLE_ADMIN')">
+            	<span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+        	</sec:access>
         </div>
         <div class="body">
             <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
@@ -73,7 +72,7 @@
                                   <label for="employeeRated"><g:message code="rating.employeeRated.label" default="Employee Rated" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'employeeRated', 'errors')}">
-                                    <g:select name="employeeRated.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${ratingInstance?.employeeRated?.id}"  />
+                                    ${ratingInstance?.employeeRated?.id}
                                 </td>
                             </tr>
                         

@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'employee.id.label', default: 'Id')}" />
+                            <g:sortableColumn property="id" style="text-align: center;" title="${message(code: 'employee.id.label', default: 'ID')}" />
                         
                             <g:sortableColumn property="username" title="${message(code: 'employee.username.label', default: 'Username')}" />
                             
@@ -33,7 +33,7 @@
                             
                             <g:sortableColumn property="mentor" title="${message(code: 'employee.username.mentor', default: 'Mentor')}" />
                             
-                            <th>Employee Status</th>
+                            <th style="text-align: center;">Employee Status</th>
                             
                             <th>&nbsp;</th>
                         
@@ -43,7 +43,7 @@
                     <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td>${fieldValue(bean: employeeInstance, field: "id")}</td>
+                            <td style="text-align: center;">${fieldValue(bean: employeeInstance, field: "id")}</td>
                         
                             <td>${fieldValue(bean: employeeInstance, field: "username")}</td>
                             
@@ -53,7 +53,7 @@
                             
                             <td>${employeeInstance.mentor}</td>
                             
-                            <td>
+                            <td style="text-align: center;">
                             	<g:if test="${employeeInstance.enabled}">enabled</g:if><g:else>disabled</g:else>
                             	<g:if test="${employeeInstance.accountExpired}">
                             		<br />

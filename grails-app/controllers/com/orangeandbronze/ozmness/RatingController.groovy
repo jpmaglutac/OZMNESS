@@ -1,5 +1,7 @@
 package com.orangeandbronze.ozmness
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+
 class RatingController {
 	
 	def springSecurityService
@@ -12,11 +14,16 @@ class RatingController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [ratingInstanceList: Rating.list(params), ratingInstanceTotal: Rating.count()]
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN") || params.id == null) {
+			params.max = Math.min(params.max ? params.int('max') : 10, 100)
+			[ratingInstanceList: Rating.list(params), ratingInstanceTotal: Rating.count()]
+		} else {
+			redirect(controller: "employee", action: "list")
+		}
     }
 
     def create = {
+		if(params.id == null) redirect(controller: "employee", action: "list")
         def ratingInstance = new Rating(params)
         def canBeRated = ratingService.getEmployeesThatCanBeRated(Employee.get(springSecurityService.principal.id))
         return [canBeRated: canBeRated, ratingInstance: ratingInstance]
@@ -47,7 +54,7 @@ class RatingController {
 
     def edit = {
         def ratingInstance = Rating.get(params.id)
-		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || Role.get(springSecurityService.principal.id)) {
+		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 		    if (!ratingInstance) {
 		        flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
 		        redirect(action: "list")
@@ -91,7 +98,7 @@ class RatingController {
 
     def delete = {
         def ratingInstance = Rating.get(params.id)
-		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || Role.get(springSecurityService.principal.id)) {
+		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 	        if (ratingInstance) {
 	            try {
 	                ratingInstance.delete(flush: true)
