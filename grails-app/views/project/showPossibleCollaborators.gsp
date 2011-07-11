@@ -41,16 +41,24 @@
                                 <td valign="top" class="name">
                                     <label for="collaboratorID">Collaborator: </label>
                                 </td>
+                                
                                 <td valign="top">
-                                    <g:select name="collaboratorID" from="${possibleCollaborators}" optionKey="id" value="${possibleCollaborators.id}"  />
+                                	<g:if test="${possibleCollaborators.size() >0}"> 
+                                    	<g:select name="collaboratorID" from="${possibleCollaborators}" optionKey="id" value="${possibleCollaborators?.id}"  noSelection="['null': '']"/>
+                                	</g:if>
+                                		
+                                	<g:else>
+                                		No available employees
+                                	</g:else>
                                 </td>
+                                
                             </tr>
                         
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                    <span class="button"><g:submitButton name="Add Collaborator" class="save" value="${message(code: 'default.button.addCollaborator.label', default: 'Add Collaborator')}" /></span>
                 </div>
             </g:form>
         </div>
