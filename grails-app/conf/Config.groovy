@@ -102,37 +102,39 @@ grails.plugins.springsecurity.rejectIfNoRule = false
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [
 	
-    '/':            					['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/image:**':    					['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/js/**':       					['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/css/**':      					['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/images/**':  	 					['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/login/**':    					['IS_AUTHENTICATED_ANONYMOUSLY'],
-    '/logout/**':   					['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/':            						['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/image:**':    						['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/js/**':       						['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/css/**':      						['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/images/**':  	 						['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/login/**':    						['IS_AUTHENTICATED_ANONYMOUSLY'],
+    '/logout/**':   						['IS_AUTHENTICATED_ANONYMOUSLY'],
 	
-	'/employee/create*':   				['ROLE_ADMIN'],
-	'/employee/edit*':					['ROLE_ADMIN'],
-	'/employee/list*':					['ROLE_ADMIN', 'ROLE_DEV'],
-	'/employee/show*':					['ROLE_ADMIN', 'ROLE_DEV'],
+	'/employee/create*':   					['ROLE_ADMIN'],
+	'/employee/edit*':						['ROLE_ADMIN'],
+	'/employee/list*':						['ROLE_ADMIN', 'ROLE_DEV'],
+	'/employee/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
+	'/employee/showEmployeeRatings*':		['ROLE_ADMIN', 'ROLE_DEV'],
 	
-	'/employeePosition/create*':   		['ROLE_ADMIN'],
-	'/employeePosition/edit*':			['ROLE_ADMIN'],
-	'/employeePosition/list*':			['ROLE_ADMIN', 'ROLE_DEV'],
-	'/employeePosition/show*':			['ROLE_ADMIN', 'ROLE_DEV'],
+	'/employeePosition/create*':   			['ROLE_ADMIN'],
+	'/employeePosition/edit*':				['ROLE_ADMIN'],
+	'/employeePosition/list*':				['ROLE_ADMIN', 'ROLE_DEV'],
+	'/employeePosition/show*':				['ROLE_ADMIN', 'ROLE_DEV'],
 	
-	'/project/create*':   				['ROLE_ADMIN'],
-	'/project/edit*':					['ROLE_ADMIN'],
-	'/project/list*':					['ROLE_ADMIN', 'ROLE_DEV'],
-	'/project/show*':					['ROLE_ADMIN', 'ROLE_DEV'],
+	'/project/create*':   					['ROLE_ADMIN'],
+	'/project/edit*':						['ROLE_ADMIN'],
+	'/project/list*':						['ROLE_ADMIN', 'ROLE_DEV'],
+	'/project/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
+	'/project/showPossibleCollaborators*':	['ROLE_ADMIN', 'ROLE_DEV'],
 	
-	'/rating/create*':   				['ROLE_DEV'],
-	'/rating/edit*':					['ROLE_ADMIN', 'ROLE_DEV'],
-	'/rating/list*':					['ROLE_ADMIN', 'ROLE_DEV'],
-	'/rating/show*':					['ROLE_ADMIN', 'ROLE_DEV'],
+	'/rating/create*':   					['ROLE_DEV'],
+	'/rating/edit*':						['ROLE_ADMIN', 'ROLE_DEV'],
+	'/rating/list*':						['ROLE_ADMIN', 'ROLE_DEV'],
+	'/rating/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	
-	'/technology/create*':   			['ROLE_ADMIN'],
-	'/technology/edit*':				['ROLE_ADMIN'],
-	'/technology/list*':				['ROLE_ADMIN', 'ROLE_DEV'],
-	'/technology/show*':				['ROLE_ADMIN', 'ROLE_DEV']
+	'/technology/create*':   				['ROLE_ADMIN'],
+	'/technology/edit*':					['ROLE_ADMIN'],
+	'/technology/list*':					['ROLE_ADMIN', 'ROLE_DEV'],
+	'/technology/show*':					['ROLE_ADMIN', 'ROLE_DEV']
 	
 ]

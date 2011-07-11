@@ -23,14 +23,6 @@ class RatingServiceTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
-    void testSameEmployeeOnIsSameEmployeeReturnsTrue() {
-		assertTrue(ratingService.isSameEmployee(lower, lower))
-    }
-	
-	void testDifferentEmployeeOnIsSameEmployeeReturnsFalse() {
-		assertFalse(ratingService.isSameEmployee(higher, lower))
-	}
-	
 	void testMentorOnIsMentorReturnsTrue() {
 		assertTrue(ratingService.isMentor(higher, lower))
 	}

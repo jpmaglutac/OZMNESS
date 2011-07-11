@@ -43,9 +43,6 @@
 </head>
 
 <body>
-    <div class="nav">
-        <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-    </div>
 	<div id='login'>
 		<div class='inner'>
 			<g:if test='${flash.message}'>

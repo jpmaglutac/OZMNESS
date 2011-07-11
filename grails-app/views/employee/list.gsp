@@ -9,8 +9,9 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+        	<sec:access expression="hasRole('ROLE_ADMIN')">
+            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+			</sec:access>
         </div>
         <div class="body">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
@@ -28,13 +29,13 @@
                             
                             <g:sortableColumn property="name" title="${message(code: 'employee.name.label', default: 'Name')}" />
                         
-                            <g:sortableColumn property="password" title="${message(code: 'employee.password.label', default: 'Password')}" />
-                        
                             <th><g:message code="employee.position.label" default="Position" /></th>
-                        
-                            <g:sortableColumn property="accountExpired" title="${message(code: 'employee.accountExpired.label', default: 'Account Expired')}" />
-                        
-                            <g:sortableColumn property="accountLocked" title="${message(code: 'employee.accountLocked.label', default: 'Account Locked')}" />
+                            
+                            <th><g:message code="employee.mentor.label" default="Mentor" /></th>
+                            
+                            <th>Employee Status</th>
+                            
+                            <th>&nbsp;</th>
                         
                         </tr>
                     </thead>
@@ -42,19 +43,33 @@
                     <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${employeeInstance.id}">${fieldValue(bean: employeeInstance, field: "id")}</g:link></td>
+                            <td>${fieldValue(bean: employeeInstance, field: "id")}</td>
                         
                             <td>${fieldValue(bean: employeeInstance, field: "username")}</td>
                             
                             <td>${fieldValue(bean: employeeInstance, field: "name")}</td>
                         
-                            <td>${fieldValue(bean: employeeInstance, field: "password")}</td>
-                        
                             <td>${fieldValue(bean: employeeInstance, field: "position")}</td>
-                        
-                            <td><g:formatBoolean boolean="${employeeInstance.accountExpired}" /></td>
-                        
-                            <td><g:formatBoolean boolean="${employeeInstance.accountLocked}" /></td>
+                            
+                            <td>${employeeInstance.mentor}</td>
+                            
+                            <td>
+                            	<g:if test="${employeeInstance.enabled}">enabled</g:if><g:else>disabled</g:else>
+                            	<g:if test="${employeeInstance.accountExpired}">
+                            		<br />
+                            		account expired
+                            	</g:if>
+                        	    <g:if test="${employeeInstance.accountLocked}">
+                            		<br />
+                            		account locked
+                            	</g:if>
+                            	<g:if test="${employeeInstance.passwordExpired}">
+                            		<br />
+                            		password expired
+                            	</g:if>
+                           	</td>
+                            
+                            <td><g:link action="show" id="${employeeInstance.id}">view more</g:link></td>
                         
                         </tr>
                     </g:each>
