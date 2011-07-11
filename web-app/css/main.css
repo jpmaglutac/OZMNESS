@@ -169,7 +169,6 @@ tr {
 }
 td, th {
     font: 11px verdana, arial, helvetica, sans-serif;
-    border-bottom: 1px #ccc solid;
     line-height: 12px;
     padding: 5px 10px;
     text-align: left;
@@ -177,6 +176,7 @@ td, th {
 }
 th {
     color: #666;
+    border-bottom: 1px #ccc solid;
     font-size: 11px;
     font-weight: bold;
     line-height: 17px;
