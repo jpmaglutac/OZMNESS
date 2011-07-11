@@ -36,6 +36,13 @@
                             
                         </tr>
                     
+                    	<tr class="prop">
+                            <td valign="top" class="name"><g:message code="employee.name.label" default="Name" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: employeeInstance, field: "name")}</td>
+                            
+                        </tr>
+                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="employee.position.label" default="Position" /></td>
                             
