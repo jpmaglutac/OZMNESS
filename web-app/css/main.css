@@ -16,8 +16,12 @@ body {
     color: #333;
     font: 11px verdana, arial, helvetica, sans-serif;
 }
-#grailsLogo {
-	padding:20px;
+
+#mainLogo {
+	padding-top: 10px;
+	padding-left: 40px;
+	margin-bottom: -10px;
+	margin-top: -10px;
 }
 
 a:link, a:visited, a:hover {
@@ -59,41 +63,62 @@ input:focus, select:focus, textarea:focus {
 
 .body {
     float: left;
-    margin: 0 15px 10px 15px;
+    margin: 0 0 10px 15px;
+    padding-top: 5px;
+    padding-left: 30px;
 }
 
 /* NAVIGATION MENU */
 
+.loginNav {
+	padding:25px;
+	padding-right:10px;]
+	display:inline;
+	float:right;
+	line-height: 3em;
+	font-size: 15px;
+}
+
+.mainNav {
+    background-color: #f69322;
+    padding: 20px 40px 10px;
+}
+
 .nav {
-    background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
-    border: 1px solid #ccc;
-    border-style: solid none solid none;
-    margin-top: 5px;
-    padding: 7px 12px;
+	margin-top: 5px;
+	margin-left: 40px;
+	padding: 5px;
+	padding-left: 0px;
+	height: 15px;
 }
 
 .menuButton {
-    font-size: 10px;
     padding: 0 5px;
 }
 .menuButton a {
-    color: #333;
+	font-size: 1.1em;
+	font-weight: normal;
+    color: #000;
     padding: 4px 6px;
 }
-.menuButton a.home {
-    background: url(../images/skin/house.png) center left no-repeat;
-    color: #333;
-    padding-left: 25px;
+.menuButton a.main {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #fff;
+    padding: 4px 6px;
 }
 .menuButton a.list {
     background: url(../images/skin/database_table.png) center left no-repeat;
-    color: #333;
+    color: #000;
     padding-left: 25px;
 }
 .menuButton a.create {
     background: url(../images/skin/database_add.png) center left no-repeat;
-    color: #333;
+    color: #000;
     padding-left: 25px;
+}
+a.log {
+	color: #000;
 }
 
 /* MESSAGES AND ERRORS */
