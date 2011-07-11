@@ -104,7 +104,7 @@ class ProjectController {
 	def showPossibleCollaborators =  {
 		def projectInstance = Project.get(params.id)
 		if(projectInstance){
-			def possibleCollaborators = Employee.list() - projectInstance.collaborators 
+			def possibleCollaborators = Employee.list() - projectInstance.collaborators
 			
 			return  [projectInstance: projectInstance, possibleCollaborators: possibleCollaborators]
 		}
@@ -119,8 +119,6 @@ class ProjectController {
 					if(employee){
 						projectInstance.addToCollaborators(employee)
 						projectInstance.save(flush: true)
-						employee.addToProjects(projectInstance)
-						employee.save(flush: true)
 					}
 				}
 				redirect(action: "show", id: params.id)
@@ -129,7 +127,16 @@ class ProjectController {
                 redirect(action: "show", collaboratorID: params.collaboratorID)
             }
 		}
-		
-		
+    }
+    
+    def removeCollaborator = {
+    	def collaborator = Employee.get(params.id)
+    	def project = Project.get(params.projectId)
+    	if(collaborator){
+    		project.removeFromCollaborators(collaborator)
+    		flash.message = "Removed ${collaborator} from the project"
+    	}else
+    		flash.message = "Could not find employee"
+    	redirect(action: show, id: params.projectId)
     }
 }

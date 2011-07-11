@@ -63,7 +63,15 @@
                             <td valign="top" style="text-align: left;" class="value">
                                 <ul>
                                 <g:each in="${projectInstance.collaborators}" var="c">
-                                    <li><g:link controller="employee" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+                                    <li>
+                                    	<g:link controller="employee" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link>
+                                    	<g:if test="${loggedInUser == projectInstance.lead}">
+                                    		[<g:link action="removeCollaborator" id="${c.id}" params="[projectId: projectInstance.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">x</g:link>]
+                                    	</g:if>
+                                    	<sec:access expression="hasRole('ROLE_ADMIN')">
+                                    		[<g:link action="removeCollaborator" id="${c.id}" params="[projectId: projectInstance.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">x</g:link>]
+                                    	</sec:access>
+                                    </li>
                                 </g:each>
                                 </ul>
                             </td>
