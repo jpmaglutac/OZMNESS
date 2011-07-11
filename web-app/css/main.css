@@ -59,7 +59,7 @@ textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-    border: 1px solid #b2d1ff;
+    border: 1px solid #f69322;
 }
 
 .body {
@@ -218,7 +218,7 @@ th.desc a {
     border-left: 1px solid #ddd;
 }
 .list th:hover, .list tr:hover {
-    background: #b2d1ff;
+    background: #fcbb76;
 }
 
 /* PAGINATION */
