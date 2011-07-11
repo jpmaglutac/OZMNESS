@@ -3,8 +3,9 @@ package com.orangeandbronze.ozmness
 class EmployeeController {
 	
 	def springSecurityService
+	def ratingService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST", showEmployeeRatings: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -111,5 +112,26 @@ class EmployeeController {
 			def ratings = Rating.findAllByEmployeeRated(employeeInstance)
 			return [ratings: ratings]
 		}
+	}
+	
+	def rateEmployee = {
+		if(!ratingService.canRateEmployee(Employee.get(springSecurityService.principal.id), Employee.get(params.id))){
+			flash.message = "You are not allowed to rate this employee!"
+			redirect(action: "show", id: params.id)
+			return
+		}
+		[employeeId: params.id]
+	}
+	
+	def saveEmployeeRating = {
+		def ratingInstance = new Rating(params)
+		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
+        if (ratingInstance.save(flush: true)) {
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'rating.label', default: 'Rating'), ratingInstance.id])}"
+            redirect(action: "showEmployeeRatings", id: ratingInstance.employeeRated.id)
+        }
+        else {
+            render(view: "rateEmployee", model: [employeeId: params.employeeRated.id, canBeRated: ratingService.getEmployeesThatCanBeRated(Employee.get(springSecurityService.principal.id)), ratingInstance: ratingInstance])
+        }
 	}
 }
