@@ -119,9 +119,8 @@ class ProjectController {
 			//had a bug with javassist domain wrapper
 			//can't do Employee.list() - [projectInstance.lead]
 			
-			def possibleCollaboratorIds = Employee.list().id- projectInstance.collaborators.id - [ projectInstance.lead.id ]
+			def possibleCollaboratorIds = Employee.list().id- projectInstance.collaborators?.id - [ projectInstance.lead.id ]
 			def possibleCollaborators = possibleCollaboratorIds.collect{ Employee.get(it) }
-			
 			return  [projectInstance: projectInstance, possibleCollaborators: possibleCollaborators]
 		}
 	}
