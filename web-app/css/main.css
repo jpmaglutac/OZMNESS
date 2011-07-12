@@ -196,7 +196,6 @@ tr {
     border: 0;
 }
 td, th {
-	border-right: 1px solid #ccc;
     font: 11px verdana, arial, helvetica, sans-serif;
     line-height: 12px;
     padding: 5px 10px;
@@ -205,6 +204,7 @@ td, th {
 }
 th {
     color: #666;
+    border-right: 1px solid #ccc;
     border-bottom: 1px #ccc solid;
     font-size: 11px;
     font-weight: bold;
@@ -244,6 +244,7 @@ th.desc a {
 }
 .list th, .list td {
     border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 .list th:hover, .list tr:hover {
     background: #fcbb76;
