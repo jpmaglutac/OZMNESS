@@ -1,5 +1,7 @@
 package com.orangeandbronze.ozmness
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+
 class ProjectController {
 
 	def springSecurityService
@@ -46,12 +48,17 @@ class ProjectController {
 
 	def edit = {
 		def projectInstance = Project.get(params.id)
-		if (!projectInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
-			redirect(action: "list")
-		}
-		else {
-			return [projectInstance: projectInstance]
+		if(Employee.get(springSecurityService.principal.id) == projectInstance.lead || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+			if (!projectInstance) {
+				flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
+				redirect(action: "list")
+			}
+			else {
+				return [projectInstance: projectInstance]
+			}
+		} else {
+			flash.message = "You are not allowed to edit this entry."
+			redirect(controller: "project", action: "show", id: params.id)
 		}
 	}
 

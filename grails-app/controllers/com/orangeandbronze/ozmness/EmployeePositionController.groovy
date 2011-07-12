@@ -1,6 +1,9 @@
 package com.orangeandbronze.ozmness
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 class EmployeePositionController {
+	
+	def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -43,13 +46,18 @@ class EmployeePositionController {
 
     def edit = {
         def employeePositionInstance = EmployeePosition.get(params.id)
-        if (!employeePositionInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [employeePositionInstance: employeePositionInstance]
-        }
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	        if (!employeePositionInstance) {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
+	            redirect(action: "list")
+	        }
+	        else {
+	            return [employeePositionInstance: employeePositionInstance]
+	        }
+		} else {
+			flash.message = "You are not authorized to edit employee positions!"
+			redirect(action: "list")
+		}
     }
 
     def update = {
@@ -81,20 +89,25 @@ class EmployeePositionController {
 
     def delete = {
         def employeePositionInstance = EmployeePosition.get(params.id)
-        if (employeePositionInstance) {
-            try {
-                employeePositionInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
-            redirect(action: "list")
-        }
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	        if (employeePositionInstance) {
+	            try {
+	                employeePositionInstance.delete(flush: true)
+	                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
+	                redirect(action: "list")
+	            }
+	            catch (org.springframework.dao.DataIntegrityViolationException e) {
+	                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
+	                redirect(action: "show", id: params.id)
+	            }
+	        }
+	        else {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
+	            redirect(action: "list")
+	        }
+		} else {
+			flash.message = "You are not authorized to delete employee positions!"
+			redirect(action: "list")
+		}
     }
 }
