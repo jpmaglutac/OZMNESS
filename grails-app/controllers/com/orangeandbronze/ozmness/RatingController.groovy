@@ -31,13 +31,14 @@ class RatingController {
 
     def save = {
         def ratingInstance = new Rating(params)
-		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
+        def loggedInEmployee = Employee.get(springSecurityService.principal.id)
+		ratingInstance.creator = loggedInEmployee
         if (ratingInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
             redirect(action: "show", id: ratingInstance.id)
         }
         else {
-            render(view: "create", model: [canBeRated: ratingService.getEmployeesThatCanBeRated(Employee.get(springSecurityService.principal.id)), ratingInstance: ratingInstance])
+            render(view: "create", model: [canBeRated: ratingService.getEmployeesThatCanBeRated(loggedInEmployee), ratingInstance: ratingInstance])
         }
     }
 
