@@ -19,18 +19,20 @@ class EmployeeController {
     def create = {
         def employeeInstance = new Employee()
         employeeInstance.properties = params
+		println("HELLO")
         return [employeeInstance: employeeInstance]
     }
 
     def save = {
 		params.password = springSecurityService.encodePassword(params.password)
-        def employeeInstance = new Employee(params)
+        def employeeInstance = new Employee(params)			
         if (employeeInstance.save(flush: true)) {
 			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
             redirect(action: "show", id: employeeInstance.id)
         }
         else {
+			println("HELLO3")
             render(view: "create", model: [employeeInstance: employeeInstance])
         }
     }
