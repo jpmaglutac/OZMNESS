@@ -124,6 +124,16 @@ input:focus, select:focus, textarea:focus {
     color: #000;
     padding-left: 25px;
 }
+.menuButton a.show {
+    background: url(../images/skin/information.png) center left no-repeat;
+    color: #000;
+    padding-left: 25px;
+}
+.menuButton a.edit {
+    background: url(../images/skin/database_edit.png) center left no-repeat;
+    color: #000;
+    padding-left: 25px;
+}
 .menuButton a.create {
     background: url(../images/skin/database_add.png) center left no-repeat;
     color: #000;
