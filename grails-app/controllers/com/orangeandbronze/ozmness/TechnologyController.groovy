@@ -64,6 +64,11 @@ class TechnologyController {
                     return
                 }
             }
+			if(params.id == params.parent.id) {
+				flash.message = "You cannot declare \"" + technologyInstance.name + "\" as its own parent!"
+				render(view: "edit", model: [technologyInstance: technologyInstance])
+				return
+			}
             technologyInstance.properties = params
             if (!technologyInstance.hasErrors() && technologyInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'technology.label', default: 'Technology'), '\"' + technologyInstance.name + '\"'])}"
