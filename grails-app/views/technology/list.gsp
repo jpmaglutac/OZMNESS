@@ -27,7 +27,7 @@
                         
                             <g:sortableColumn property="name" title="${message(code: 'technology.name.label', default: 'Name')}" />
                         
-                            <th><g:message code="technology.parent.label" default="Parent" /></th>
+                            <g:sortableColumn property="parent" title="${message(code: 'technology.parent.label', default: 'Parent')}" />
                             
                             <th>&nbsp;</th>
                         
@@ -37,7 +37,7 @@
                     <g:each in="${technologyInstanceList}" status="i" var="technologyInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;"><g:link action="show" id="${technologyInstance.id}">${fieldValue(bean: technologyInstance, field: "id")}</g:link></td></sec:access>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;">${fieldValue(bean: technologyInstance, field: "id")}</td></sec:access>
                         
                             <td>${fieldValue(bean: technologyInstance, field: "name")}</td>
                         

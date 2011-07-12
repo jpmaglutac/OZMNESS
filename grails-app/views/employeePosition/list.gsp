@@ -37,7 +37,7 @@
                     <g:each in="${employeePositionInstanceList}" status="i" var="employeePositionInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;"><g:link action="show" id="${employeePositionInstance.id}">${fieldValue(bean: employeePositionInstance, field: "id")}</g:link></td></sec:access>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;">${fieldValue(bean: employeePositionInstance, field: "id")}</td></sec:access>
                         
                             <td>${fieldValue(bean: employeePositionInstance, field: "name")}</td>
                         

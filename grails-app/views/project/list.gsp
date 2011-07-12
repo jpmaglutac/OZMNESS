@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="${message(code: 'project.id.label', default: 'ID')}" /></sec:access>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'project.id.label', default: 'ID')}" /></sec:access>
                         
                             <g:sortableColumn property="name" title="${message(code: 'project.name.label', default: 'Name')}" />
                         
@@ -37,7 +37,7 @@
                     <g:each in="${projectInstanceList}" status="i" var="projectInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><td><g:link action="show" id="${projectInstance.id}">${fieldValue(bean: projectInstance, field: "id")}</g:link></td></sec:access>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;">${fieldValue(bean: projectInstance, field: "id")}</td></sec:access>
                         
                             <td>${fieldValue(bean: projectInstance, field: "name")}</td>
                         
