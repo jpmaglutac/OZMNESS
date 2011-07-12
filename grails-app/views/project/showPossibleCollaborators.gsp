@@ -13,7 +13,7 @@
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <h1>Add Collaborator/s</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -62,11 +62,15 @@
                                 
                             </tr>
                         
+                        	<tr>
+                        		<td colspan="10" class="bottomWrapperNoBorders">
+                     		        <div class="buttons">
+					                    <span class="button"><g:submitButton name="Add Collaborator" class="save" value="${message(code: 'default.button.addCollaborator.label', default: 'Add Collaborator')}" /></span>
+					                </div>
+                				</td>
+               				</tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="Add Collaborator" class="save" value="${message(code: 'default.button.addCollaborator.label', default: 'Add Collaborator')}" /></span>
                 </div>
             </g:form>
         </div>

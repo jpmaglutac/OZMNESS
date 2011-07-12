@@ -102,22 +102,26 @@
                             </td>
                             
                         </tr>
-                    
+                        
+                        <tr>
+                        	<td colspan="10" class="bottomWrapperNoBorders">
+                               	<div class="buttons">
+					                <g:form>
+					                    <g:hiddenField name="id" value="${employeeInstance?.id}" />
+					                    <sec:access expression="hasRole('ROLE_ADMIN')">
+					                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+					                    	<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+					                    </sec:access>
+					                    <sec:access expression="hasRole('ROLE_DEV')">
+					                    	<span class="button"><g:actionSubmit class="edit" action="rateEmployee" value="${message(code: 'default.button.rateEmployee.label', default: 'Rate Employee')}" /></span>
+					                    </sec:access>
+					                    <span class="button"><g:actionSubmit class="list" action="showEmployeeRatings" value="${message(code: 'default.button.showEmployeeRatings.label', default: 'Show Ratings')}" /></span>
+					                </g:form>
+					            </div>
+            				</td>
+            			</tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="buttons">
-                <g:form>
-                    <g:hiddenField name="id" value="${employeeInstance?.id}" />
-                    <sec:access expression="hasRole('ROLE_ADMIN')">
-                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    	<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                    </sec:access>
-                    <sec:access expression="hasRole('ROLE_DEV')">
-                    	<span class="button"><g:actionSubmit class="edit" action="rateEmployee" value="${message(code: 'default.button.rateEmployee.label', default: 'Rate Employee')}" /></span>
-                    </sec:access>
-                    <span class="button"><g:actionSubmit class="list" action="showEmployeeRatings" value="${message(code: 'default.button.showEmployeeRatings.label', default: 'Show Ratings')}" /></span>
-                </g:form>
             </div>
         </div>
     </body>

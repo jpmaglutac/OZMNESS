@@ -69,6 +69,17 @@ input:focus, select:focus, textarea:focus {
     width: 1250px;
 }
 
+.bottomWrapper{
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #ddd;
+}
+
+.bottomWrapperNoBorders{
+	margin: 0px;
+	padding: 10px 0 0 0;
+}
+
 /* NAVIGATION MENU */
 
 .loginNav {
@@ -163,7 +174,7 @@ td.errors textarea {
 
 table {
     border: 1px solid #ccc;
-    width: 100%
+    width: auto;
 }
 tr {
     border: 0;
@@ -224,8 +235,6 @@ th.desc a {
 /* PAGINATION */
 
 .paginateButtons {
-    border: 1px solid #ccc;
-    border-top: 0;
     color: #666;
     font-size: 10px;
     overflow: hidden;
@@ -247,6 +256,7 @@ th.desc a {
 
 .dialog table {
     padding: 5px 0;
+    padding-bottom: 0px;
 }
 
 .prop {
@@ -265,7 +275,6 @@ th.desc a {
 /* ACTION BUTTONS */
 
 .buttons {
-    border: 1px solid #ccc;
     color: #666;
     font-size: 10px;
     margin-top: 5px;

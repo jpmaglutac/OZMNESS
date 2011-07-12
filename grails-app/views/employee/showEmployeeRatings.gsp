@@ -53,10 +53,14 @@
                         
                         </tr>
                     </g:each>
+                        <tr>
+                        	<td colspan="10" class="bottomWrapper">
+                        		<div class="paginateButtons"></div>
+                      		</td>
+                   		</tr>
                     </tbody>
                 </table>
             </div>
-            <div class="paginateButtons"></div>
         </div>
     </body>
 </html>

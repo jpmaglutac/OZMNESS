@@ -77,11 +77,15 @@
                         	</td>
                         </tr>
                     </g:each>
+                        <tr>
+                        	<td colspan="10" class="bottomWrapper">
+	                            <div class="paginateButtons">
+					                <g:paginate total="${employeeInstanceTotal}" />
+					            </div>
+				            </td>
+			            </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${employeeInstanceTotal}" />
             </div>
         </div>
     </body>

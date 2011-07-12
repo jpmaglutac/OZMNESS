@@ -55,13 +55,16 @@
                                 </td>
                             </tr>
                             
-                            <g:hiddenField name="employeeRated.id" value="${employeeId}" />
-                        
+                            <tr>
+		                      	<td colspan="10" class="bottomWrapperNoBorders">
+							        <div class="buttons">
+							        	<g:hiddenField name="employeeRated.id" value="${employeeId}" />
+					                    <span class="button"><g:submitButton name="create" class="save" value="Rate" /></span>
+					                </div>
+                            	</td>
+                           	</tr>                                                    
                         </tbody>
                     </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="Rate" /></span>
                 </div>
             </g:form>
         </div>
