@@ -123,6 +123,8 @@ class ProjectController {
 			def possibleCollaborators = possibleCollaboratorIds.collect{ Employee.get(it) }
 			
 			return  [projectInstance: projectInstance, possibleCollaborators: possibleCollaborators]
+		} else {
+			redirect(action: "list")
 		}
 	}
 	
