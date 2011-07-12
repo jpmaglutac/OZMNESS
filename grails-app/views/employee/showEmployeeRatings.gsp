@@ -10,9 +10,12 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span></div>
+            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span>
+            <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id)}'s Profile</g:link></span>
+            <sec:access expression="hasRole('ROLE_DEV')"><span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span></sec:access>
+        </div>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /> for ${Employee.get(params.id)} (<g:link action="show" id="${params.id}" style="font-weight: normal;">back</g:link>)</h1>
+            <h1><g:message code="default.list.label" args="[entityName]" /> for ${Employee.get(params.id)}</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -21,15 +24,15 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'Id')}" />
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'Id')}" /></sec:access>
                         
-                            <g:sortableColumn property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
+                            <g:sortableColumn style="text-align: center;" property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
                         
+                            <g:sortableColumn property="technology" title="${message(code: 'rating.technology.label', default: 'Technology')}" />
+                        
+							<g:sortableColumn property="creator" title="${message(code: 'rating.creator.label', default: 'Creator')}" />
+                                                      
                             <g:sortableColumn property="comment" title="${message(code: 'rating.comment.label', default: 'Comment')}" />
-                        
-                            <th><g:message code="rating.technology.label" default="Technology" /></th>
-                        
-                            <th><g:message code="rating.creator.label" default="Creator" /></th>
                         
                             <g:sortableColumn property="dateCreated" title="${message(code: 'rating.dateCreated.label', default: 'Date Created')}" />
                         
@@ -39,9 +42,9 @@
                     <g:each in="${ratings}" status="i" var="ratingInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link controller="rating" action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td><g:link controller="rating" action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td></sec:access>
                         
-                            <td>${fieldValue(bean: ratingInstance, field: "value")}</td>
+                            <td style="text-align: center;"><b>${fieldValue(bean: ratingInstance, field: "value")}</b></td>
                         
                             <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         

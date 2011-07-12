@@ -11,10 +11,12 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span></div>
+            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span>
+            <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id)}'s Profile</g:link></span>
+        	<span class="menuButton"><g:link class="list" controller="employee" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id)}'s Ratings</g:link></span>
         </div>
         <div class="body">
-            <h1>Rate ${Employee.get(params.id)} (<g:link action="show" id="${params.id}" style="font-weight: normal;">back</g:link>)</h1>
+            <h1>Rate ${Employee.get(params.id)}</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
