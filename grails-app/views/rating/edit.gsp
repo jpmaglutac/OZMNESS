@@ -33,6 +33,24 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                  <label for="employeeRated"><g:message code="rating.employeeRated.label" default="Employee Rated" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'employeeRated', 'errors')}">
+                                    <b>${ratingInstance?.employeeRated?.username}</b>
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="creator"><g:message code="rating.creator.label" default="Creator" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'creator', 'errors')}">
+                                    <b>${ratingInstance?.creator?.username}</b>
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                   <label for="value"><g:message code="rating.value.label" default="Value" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'value', 'errors')}">
@@ -55,24 +73,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'technology', 'errors')}">
                                     <g:select name="technology.id" from="${com.orangeandbronze.ozmness.Technology.list()}" optionKey="id" value="${ratingInstance?.technology?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="creator"><g:message code="rating.creator.label" default="Creator" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'creator', 'errors')}">
-                                    ${ratingInstance?.creator?.username}
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="employeeRated"><g:message code="rating.employeeRated.label" default="Employee Rated" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'employeeRated', 'errors')}">
-                                    ${ratingInstance?.employeeRated?.id}
                                 </td>
                             </tr>
                         

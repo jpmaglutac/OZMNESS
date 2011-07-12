@@ -19,15 +19,15 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'Id')}" />
+                            <g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'ID')}" />
                         
                             <g:sortableColumn property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
+                                                    
+                            <g:sortableColumn property="technology" title="${message(code: 'rating.technology.label', default: 'Technology')}" />
+                        
+                            <g:sortableColumn property="creator" title="${message(code: 'rating.creator.label', default: 'Creator')}" />
                         
                             <g:sortableColumn property="comment" title="${message(code: 'rating.comment.label', default: 'Comment')}" />
-                        
-                            <th><g:message code="rating.technology.label" default="Technology" /></th>
-                        
-                            <th><g:message code="rating.creator.label" default="Creator" /></th>
                         
                             <g:sortableColumn property="dateCreated" title="${message(code: 'rating.dateCreated.label', default: 'Date Created')}" />
                         
@@ -37,15 +37,15 @@
                     <g:each in="${ratingInstanceList}" status="i" var="ratingInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td>
-                        
+                            <td><g:link action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td>                                              
+                            
                             <td>${fieldValue(bean: ratingInstance, field: "value")}</td>
-                        
-                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
-                        
+                            
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         
                             <td>${fieldValue(bean: ratingInstance, field: "creator")}</td>
+                        
+                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         
                             <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
                         

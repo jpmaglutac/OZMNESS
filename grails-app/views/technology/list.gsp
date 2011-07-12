@@ -23,11 +23,13 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'technology.id.label', default: 'Id')}" />
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'technology.id.label', default: 'ID')}" /></sec:access>
                         
                             <g:sortableColumn property="name" title="${message(code: 'technology.name.label', default: 'Name')}" />
                         
                             <th><g:message code="technology.parent.label" default="Parent" /></th>
+                            
+                            <th>&nbsp;</th>
                         
                         </tr>
                     </thead>
@@ -35,11 +37,16 @@
                     <g:each in="${technologyInstanceList}" status="i" var="technologyInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${technologyInstance.id}">${fieldValue(bean: technologyInstance, field: "id")}</g:link></td>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;"><g:link action="show" id="${technologyInstance.id}">${fieldValue(bean: technologyInstance, field: "id")}</g:link></td></sec:access>
                         
                             <td>${fieldValue(bean: technologyInstance, field: "name")}</td>
                         
                             <td>${fieldValue(bean: technologyInstance, field: "parent")}</td>
+                            
+                            <td>
+                            	<g:link action="show" id="${technologyInstance.id}">view more</g:link>
+                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${technologyInstance.id}">edit</g:link></sec:access>
+                           	</td>
                         
                         </tr>
                     </g:each>
