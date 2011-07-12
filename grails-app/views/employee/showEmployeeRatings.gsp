@@ -45,12 +45,12 @@
                             <sec:access expression="hasRole('ROLE_ADMIN')"><td><g:link controller="rating" action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td></sec:access>
                         
                             <td style="text-align: center;"><b>${fieldValue(bean: ratingInstance, field: "value")}</b></td>
-                        
-                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
-                        
+                                               
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         
                             <td>${fieldValue(bean: ratingInstance, field: "creator")}</td>
+                            
+                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         
                             <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
                         
