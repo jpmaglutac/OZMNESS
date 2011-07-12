@@ -196,6 +196,7 @@ tr {
     border: 0;
 }
 td, th {
+	border-right: 1px solid #ccc;
     font: 11px verdana, arial, helvetica, sans-serif;
     line-height: 12px;
     padding: 5px 10px;
