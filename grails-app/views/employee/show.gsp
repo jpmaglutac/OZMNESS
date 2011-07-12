@@ -14,7 +14,9 @@
 	            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 			</sec:access>
 			<span class="menuButton"><g:link class="list" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id)}'s Ratings</g:link></span>
-			<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span>
+			<sec:access expression="hasRole('ROLE_DEV')">
+				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span>
+        	</sec:access>
         </div>
         <div class="body">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
