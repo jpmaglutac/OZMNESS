@@ -21,7 +21,7 @@
 			</sec:ifLoggedIn>
 		</div>
         <div id="mainLogo">
-       		<img src="${resource(dir:'images',file:'mainlogo.png')}" alt="logo" />
+       		<img src="${resource(dir:'images',file:'mainlogo.png')}" alt="logo" style="position:relative; z-index:-100;" />
      	</div>
     	<div class="mainNav">
     		<span class="menuButton"><a class="main" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
