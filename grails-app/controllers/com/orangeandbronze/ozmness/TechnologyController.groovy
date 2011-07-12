@@ -22,7 +22,7 @@ class TechnologyController {
     def save = {
         def technologyInstance = new Technology(params)
         if (technologyInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'technology.label', default: 'Technology'), technologyInstance.id])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'technology.label', default: 'Technology'), '\"' + technologyInstance.name + '\"'])}"
             redirect(action: "show", id: technologyInstance.id)
         }
         else {
@@ -59,14 +59,14 @@ class TechnologyController {
                 def version = params.version.toLong()
                 if (technologyInstance.version > version) {
                     
-                    technologyInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'technology.label', default: 'Technology')] as Object[], "Another user has updated this Technology while you were editing")
+                    technologyInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'technology.label', default: 'Technology')] as Object[], "Another user has updated Technology \"" + technologyInstance.name + "\" while you were editing")
                     render(view: "edit", model: [technologyInstance: technologyInstance])
                     return
                 }
             }
             technologyInstance.properties = params
             if (!technologyInstance.hasErrors() && technologyInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'technology.label', default: 'Technology'), technologyInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'technology.label', default: 'Technology'), '\"' + technologyInstance.name + '\"'])}"
                 redirect(action: "show", id: technologyInstance.id)
             }
             else {
@@ -84,7 +84,7 @@ class TechnologyController {
         if (technologyInstance) {
             try {
                 technologyInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
+                flash.message = "Technology has been deleted"
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {

@@ -27,7 +27,7 @@ class EmployeeController {
         def employeeInstance = new Employee(params)
         if (employeeInstance.save(flush: true)) {
 			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.username])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
             redirect(action: "show", id: employeeInstance.id)
         }
         else {
@@ -92,7 +92,7 @@ class EmployeeController {
         if (employeeInstance) {
             try {
                 employeeInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+                flash.message = "Employee has been deleted."
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {

@@ -22,7 +22,7 @@ class EmployeePositionController {
     def save = {
         def employeePositionInstance = new EmployeePosition(params)
         if (employeePositionInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), employeePositionInstance.id])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), '\"' + employeePositionInstance.name + '\" (id: ' + employeePositionInstance.id + ')'])}"
             redirect(action: "show", id: employeePositionInstance.id)
         }
         else {
@@ -33,7 +33,7 @@ class EmployeePositionController {
     def show = {
         def employeePositionInstance = EmployeePosition.get(params.id)
         if (!employeePositionInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
             redirect(action: "list")
         }
         else {
@@ -44,7 +44,7 @@ class EmployeePositionController {
     def edit = {
         def employeePositionInstance = EmployeePosition.get(params.id)
         if (!employeePositionInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
             redirect(action: "list")
         }
         else {
@@ -59,14 +59,14 @@ class EmployeePositionController {
                 def version = params.version.toLong()
                 if (employeePositionInstance.version > version) {
                     
-                    employeePositionInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'employeePosition.label', default: 'EmployeePosition')] as Object[], "Another user has updated this EmployeePosition while you were editing")
+                    employeePositionInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'employeePosition.label', default: 'Employee Position')] as Object[], "Another user has updated Employee Position \"" + employeePositionInstance.name + '\" (id: ' + employeePositionInstance.id + ") while you were editing")
                     render(view: "edit", model: [employeePositionInstance: employeePositionInstance])
                     return
                 }
             }
             employeePositionInstance.properties = params
             if (!employeePositionInstance.hasErrors() && employeePositionInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), employeePositionInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), '\"' + employeePositionInstance.name + '\" (id: ' + employeePositionInstance.id + ')'])}"
                 redirect(action: "show", id: employeePositionInstance.id)
             }
             else {
@@ -74,7 +74,7 @@ class EmployeePositionController {
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
             redirect(action: "list")
         }
     }
@@ -84,16 +84,16 @@ class EmployeePositionController {
         if (employeePositionInstance) {
             try {
                 employeePositionInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), params.id])}"
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), params.id])}"
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
                 redirect(action: "show", id: params.id)
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'EmployeePosition'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), params.id])}"
             redirect(action: "list")
         }
     }
