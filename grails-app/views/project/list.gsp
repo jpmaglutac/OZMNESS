@@ -23,11 +23,13 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'project.id.label', default: 'Id')}" />
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="${message(code: 'project.id.label', default: 'ID')}" /></sec:access>
                         
                             <g:sortableColumn property="name" title="${message(code: 'project.name.label', default: 'Name')}" />
                         
                             <th><g:message code="project.lead.label" default="Lead" /></th>
+                            
+                            <th>&nbsp;</th>
                         
                         </tr>
                     </thead>
@@ -35,11 +37,15 @@
                     <g:each in="${projectInstanceList}" status="i" var="projectInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${projectInstance.id}">${fieldValue(bean: projectInstance, field: "id")}</g:link></td>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td><g:link action="show" id="${projectInstance.id}">${fieldValue(bean: projectInstance, field: "id")}</g:link></td></sec:access>
                         
                             <td>${fieldValue(bean: projectInstance, field: "name")}</td>
                         
                             <td>${fieldValue(bean: projectInstance, field: "lead")}</td>
+                            
+                            <td>
+                            	<g:link action="show" id="${projectInstance.id}">view more</g:link>
+                           	</td>
                         
                         </tr>
                     </g:each>
