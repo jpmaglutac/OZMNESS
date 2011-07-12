@@ -57,15 +57,19 @@ class RatingController {
 		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 		    if (!ratingInstance) {
 		        flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-		        redirect(action: "list")
+		        if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+					redirect(action: "list")
+		        } else {
+					redirect(controller: "employee", action: "list")
+				}
 		    }
 		    else {
 		        return [ratingInstance: ratingInstance]
 		    }
 		}
 		else {
-			flash.message = "You are not allowed to edit this entry."
-			redirect(action: "list")
+			flash.message = "You are not allowed to edit this rating!"
+			redirect(controller: "rating", action: "show", id: params.id)
 		}
     }
 
@@ -116,8 +120,8 @@ class RatingController {
 	        }
 		}
 		else {
-			flash.message = "You are not allowed to delete this entry."
-			redirect(action: "list")
+			flash.message = "You are not allowed to delete this rating!"
+			redirect(controller: "rating", action: "show", id: params.id)
 		}
     }
 }

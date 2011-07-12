@@ -78,22 +78,26 @@
                             
                         </tr>
                     
+                    	<tr>
+                    		<td colspan="10" class="bottomWrapperNoBorders">
+					            <div class="buttons">
+					                <g:form>
+					                    <g:hiddenField name="id" value="${projectInstance?.id}" />
+					                    <g:if test="${loggedInUser == projectInstance.lead}">
+					                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+					                    	<span class="button"><g:actionSubmit class="save" action="showPossibleCollaborators" value="${message(code: 'default.button.showPossibleCollaborators.label', default: 'Add Collaborator')}" /></span>
+										</g:if>
+										<sec:access expression="hasRole('ROLE_ADMIN')">
+											<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+					                    	<span class="button"><g:actionSubmit class="save" action="showPossibleCollaborators" value="${message(code: 'default.button.showPossibleCollaborators.label', default: 'Add Collaborator')}" /></span>
+											<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+										</sec:access>
+					                </g:form>
+					            </div>
+            				</td>
+           				</tr>                  		
                     </tbody>
                 </table>
-            </div>
-            <div class="buttons">
-                <g:form>
-                    <g:hiddenField name="id" value="${projectInstance?.id}" />
-                    <g:if test="${loggedInUser == projectInstance.lead}">
-                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    	<span class="button"><g:actionSubmit action="showPossibleCollaborators" value="${message(code: 'default.button.showPossibleCollaborators.label', default: 'Add Collaborator')}" /></span>
-					</g:if>
-					<sec:access expression="hasRole('ROLE_ADMIN')">
-						<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    	<span class="button"><g:actionSubmit action="showPossibleCollaborators" value="${message(code: 'default.button.showPossibleCollaborators.label', default: 'Add Collaborator')}" /></span>
-						<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-					</sec:access>
-                </g:form>
             </div>
         </div>
     </body>

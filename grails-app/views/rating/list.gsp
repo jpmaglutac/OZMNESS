@@ -19,17 +19,19 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'Id')}" />
+                            <g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'rating.id.label', default: 'ID')}" />
                         
                             <g:sortableColumn property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
+                                                    
+                            <g:sortableColumn property="technology" title="${message(code: 'rating.technology.label', default: 'Technology')}" />
+                        
+                            <g:sortableColumn property="creator" title="${message(code: 'rating.creator.label', default: 'Creator')}" />
                         
                             <g:sortableColumn property="comment" title="${message(code: 'rating.comment.label', default: 'Comment')}" />
                         
-                            <th><g:message code="rating.technology.label" default="Technology" /></th>
-                        
-                            <th><g:message code="rating.creator.label" default="Creator" /></th>
-                        
                             <g:sortableColumn property="dateCreated" title="${message(code: 'rating.dateCreated.label', default: 'Date Created')}" />
+                        
+                        	<th>&nbsp;</th>
                         
                         </tr>
                     </thead>
@@ -37,25 +39,31 @@
                     <g:each in="${ratingInstanceList}" status="i" var="ratingInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td>
-                        
+                            <td style="text-align:center;">${fieldValue(bean: ratingInstance, field: "id")}</td>                                              
+                            
                             <td>${fieldValue(bean: ratingInstance, field: "value")}</td>
-                        
-                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
-                        
+                            
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         
                             <td>${fieldValue(bean: ratingInstance, field: "creator")}</td>
                         
+                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
+                        
                             <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
+                            
+                            <td><g:link action="show" id="${ratingInstance.id}">view</g:link> | <g:link action="edit" id="${ratingInstance.id}">edit</g:link> | <g:link action="delete" id="${ratingInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">delete</g:link></td>
                         
                         </tr>
                     </g:each>
+                    	<tr>
+                    		<td colspan="10" class="bottomWrapper">
+					            <div class="paginateButtons">
+					                <g:paginate total="${ratingInstanceTotal}" />
+					            </div>
+				            </td>
+			            </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${ratingInstanceTotal}" />
             </div>
         </div>
     </body>

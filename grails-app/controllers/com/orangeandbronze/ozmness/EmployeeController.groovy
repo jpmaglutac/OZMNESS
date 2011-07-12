@@ -1,5 +1,6 @@
 package com.orangeandbronze.ozmness
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 class EmployeeController {
 	
 	def springSecurityService
@@ -28,7 +29,7 @@ class EmployeeController {
         def employeeInstance = new Employee(params)			
         if (employeeInstance.save(flush: true)) {
 			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
             redirect(action: "show", id: employeeInstance.id)
         }
         else {
@@ -50,15 +51,20 @@ class EmployeeController {
 
     def edit = {
         def employeeInstance = Employee.get(params.id)
-        if (!employeeInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-			def possibleMentors = Employee.list() - employeeInstance
-		
-            return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
-        }
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	        if (!employeeInstance) {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+	            redirect(action: "list")
+	        }
+	        else {
+				def possibleMentors = Employee.list() - employeeInstance
+			
+	            return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
+	        }
+		} else {
+			flash.message = "You are not authorized to edit employees!"
+			redirect(action: "list")
+		}
     }
 
     def update = {
@@ -76,7 +82,7 @@ class EmployeeController {
 			params.password = springSecurityService.encodePassword(params.password)
             employeeInstance.properties = params
             if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.username])}"
                 redirect(action: "show", id: employeeInstance.id)
             }
             else {
@@ -91,21 +97,26 @@ class EmployeeController {
 
     def delete = {
         def employeeInstance = Employee.get(params.id)
-        if (employeeInstance) {
-            try {
-                employeeInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	        if (employeeInstance) {
+	            try {
+	                employeeInstance.delete(flush: true)
+	                flash.message = "Employee has been deleted."
+	                redirect(action: "list")
+	            }
+	            catch (org.springframework.dao.DataIntegrityViolationException e) {
+	                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+	                redirect(action: "show", id: params.id)
+	            }
+	        }
+	        else {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+	            redirect(action: "list")
+	        }
+		} else {
+			flash.message = "You are not authorized to delete employees!"
+			redirect(action: "list")
+		}
     }
 	
 	def showEmployeeRatings ={

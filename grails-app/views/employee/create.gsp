@@ -107,12 +107,16 @@
                                     <g:select name="mentor.id" from="${com.orangeandbronze.ozmness.Employee.list()}" optionKey="id" value="${employeeInstance?.mentor?.id}"  noSelection="['null': '']"/>
                                 </td>
                             </tr>
-                        
+                                       
+	                      	<tr>
+		                      	<td colspan="10" class="bottomWrapperNoBorders">
+                   	                <div class="buttons">
+					                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+					                </div>
+				                </td>
+                        	</tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
         </div>

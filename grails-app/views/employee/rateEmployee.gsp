@@ -11,10 +11,12 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span></div>
+            <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span>
+            <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id)}'s Profile</g:link></span>
+        	<span class="menuButton"><g:link class="list" controller="employee" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id)}'s Ratings</g:link></span>
         </div>
         <div class="body">
-            <h1>Rate ${Employee.get(params.id)} (<g:link action="show" id="${params.id}" style="font-weight: normal;">back</g:link>)</h1>
+            <h1>Rate ${Employee.get(params.id)}</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -55,13 +57,16 @@
                                 </td>
                             </tr>
                             
-                            <g:hiddenField name="employeeRated.id" value="${employeeId}" />
-                        
+                            <tr>
+		                      	<td colspan="10" class="bottomWrapperNoBorders">
+							        <div class="buttons">
+							        	<g:hiddenField name="employeeRated.id" value="${employeeId}" />
+					                    <span class="button"><g:submitButton name="create" class="save" value="Rate" /></span>
+					                </div>
+                            	</td>
+                           	</tr>                                                    
                         </tbody>
                     </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="Rate" /></span>
                 </div>
             </g:form>
         </div>

@@ -65,11 +65,15 @@
                                 </td>
                             </tr>
                         
+                        	<tr>
+                        		<td class="bottomWrapperNoBorders">
+					                <div class="buttons">
+					                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+					                </div>
+				                </td>
+			                </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
         </div>

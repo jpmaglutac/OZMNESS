@@ -1,6 +1,9 @@
 package com.orangeandbronze.ozmness
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 class TechnologyController {
+	
+	def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -22,7 +25,7 @@ class TechnologyController {
     def save = {
         def technologyInstance = new Technology(params)
         if (technologyInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'technology.label', default: 'Technology'), technologyInstance.id])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'technology.label', default: 'Technology'), '\"' + technologyInstance.name + '\"'])}"
             redirect(action: "show", id: technologyInstance.id)
         }
         else {
@@ -43,13 +46,18 @@ class TechnologyController {
 
     def edit = {
         def technologyInstance = Technology.get(params.id)
-        if (!technologyInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [technologyInstance: technologyInstance]
-        }
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	        if (!technologyInstance) {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
+	            redirect(action: "list")
+	        }
+	        else {
+	            return [technologyInstance: technologyInstance]
+	        }
+		} else {
+			flash.message = "You are not authorized to edit technologies!"
+			redirect(action: "list")
+		}
     }
 
     def update = {
@@ -59,14 +67,19 @@ class TechnologyController {
                 def version = params.version.toLong()
                 if (technologyInstance.version > version) {
                     
-                    technologyInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'technology.label', default: 'Technology')] as Object[], "Another user has updated this Technology while you were editing")
+                    technologyInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'technology.label', default: 'Technology')] as Object[], "Another user has updated Technology \"" + technologyInstance.name + "\" while you were editing")
                     render(view: "edit", model: [technologyInstance: technologyInstance])
                     return
                 }
             }
+			if(params.id == params.parent.id) {
+				flash.message = "You cannot declare \"" + technologyInstance.name + "\" as its own parent!"
+				render(view: "edit", model: [technologyInstance: technologyInstance])
+				return
+			}
             technologyInstance.properties = params
             if (!technologyInstance.hasErrors() && technologyInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'technology.label', default: 'Technology'), technologyInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'technology.label', default: 'Technology'), '\"' + technologyInstance.name + '\"'])}"
                 redirect(action: "show", id: technologyInstance.id)
             }
             else {
@@ -81,20 +94,25 @@ class TechnologyController {
 
     def delete = {
         def technologyInstance = Technology.get(params.id)
-        if (technologyInstance) {
-            try {
-                technologyInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
-            redirect(action: "list")
-        }
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	        if (technologyInstance) {
+	            try {
+	                technologyInstance.delete(flush: true)
+	                flash.message = "Technology has been deleted"
+	                redirect(action: "list")
+	            }
+	            catch (org.springframework.dao.DataIntegrityViolationException e) {
+	                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
+	                redirect(action: "show", id: params.id)
+	            }
+	        }
+	        else {
+	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'technology.label', default: 'Technology'), params.id])}"
+	            redirect(action: "list")
+	        }
+		} else {
+			flash.message = "You are not authorized to delete technologies!"
+			redirect(action: "list")
+		}
     }
 }

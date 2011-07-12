@@ -23,11 +23,13 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'employeePosition.id.label', default: 'Id')}" />
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" style="text-align:center; vertical-align:middle;" title="${message(code: 'employeePosition.id.label', default: 'ID')}" /></sec:access>
                         
-                            <g:sortableColumn property="name" title="${message(code: 'employeePosition.name.label', default: 'Name')}" />
+                            <g:sortableColumn style="text-align:center; vertical-align:middle;" property="name" title="${message(code: 'employeePosition.name.label', default: 'Name')}" />
                         
-                            <g:sortableColumn property="recommendedRating" title="${message(code: 'employeePosition.recommendedRating.label', default: 'Recommended Rating')}" />
+                            <g:sortableColumn style="text-align:center;" property="recommendedRating" title="${message(code: 'employeePosition.recommendedRating.label', default: 'Recommended<br />Rating')}" />
+                        
+                        	<th>&nbsp;</th>
                         
                         </tr>
                     </thead>
@@ -35,19 +37,28 @@
                     <g:each in="${employeePositionInstanceList}" status="i" var="employeePositionInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${employeePositionInstance.id}">${fieldValue(bean: employeePositionInstance, field: "id")}</g:link></td>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;">${fieldValue(bean: employeePositionInstance, field: "id")}</td></sec:access>
                         
                             <td>${fieldValue(bean: employeePositionInstance, field: "name")}</td>
                         
-                            <td>${fieldValue(bean: employeePositionInstance, field: "recommendedRating")}</td>
+                            <td style="text-align:center;">${fieldValue(bean: employeePositionInstance, field: "recommendedRating")}</td>
+                            
+                            <td>
+                            	<g:link action="show" id="${employeePositionInstance.id}">view more</g:link>
+                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${employeePositionInstance.id}">edit</g:link></sec:access>
+                           	</td>
                         
                         </tr>
                     </g:each>
+                        <tr>
+                        	<td colspan="10" class="bottomWrapper">
+                  	            <div class="paginateButtons">
+					                <g:paginate total="${employeePositionInstanceTotal}" />
+					            </div>
+				            </td>
+			            </tr>  
                     </tbody>
                 </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${employeePositionInstanceTotal}" />
             </div>
         </div>
     </body>

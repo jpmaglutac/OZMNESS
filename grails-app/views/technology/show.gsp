@@ -23,12 +23,14 @@
                 <table>
                     <tbody>
                     
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="technology.id.label" default="Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: technologyInstance, field: "id")}</td>
-                            
-                        </tr>
+                    	<sec:access expression="hasRole('ROLE_ADMIN')">
+	                        <tr class="prop">
+	                            <td valign="top" class="name"><g:message code="technology.id.label" default="Id" /></td>
+	                            
+	                            <td valign="top" class="value">${fieldValue(bean: technologyInstance, field: "id")}</td>
+	                            
+	                        </tr>
+                        </sec:access>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="technology.name.label" default="Name" /></td>
@@ -44,15 +46,21 @@
                             
                         </tr>
                     
+                       	<tr>
+                       		<td colspan="10" class="bottomWrapperNoBorders">
+					            <div class="buttons">
+					                <g:form>
+					                	<sec:access expression="hasRole('ROLE_ADMIN')">
+						                    <g:hiddenField name="id" value="${technologyInstance?.id}" />
+						                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+						                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+					                	</sec:access>
+					                </g:form>
+					            </div>
+				            </td>
+			            </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="buttons">
-                <g:form>
-                    <g:hiddenField name="id" value="${technologyInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                </g:form>
             </div>
         </div>
     </body>

@@ -33,6 +33,24 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                  <label for="employeeRated"><g:message code="rating.employeeRated.label" default="Employee Rated" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'employeeRated', 'errors')}">
+                                    <b>${ratingInstance?.employeeRated?.username}</b>
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="creator"><g:message code="rating.creator.label" default="Creator" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'creator', 'errors')}">
+                                    <b>${ratingInstance?.creator?.username}</b>
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                   <label for="value"><g:message code="rating.value.label" default="Value" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'value', 'errors')}">
@@ -58,30 +76,16 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="creator"><g:message code="rating.creator.label" default="Creator" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'creator', 'errors')}">
-                                    ${ratingInstance?.creator?.username}
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="employeeRated"><g:message code="rating.employeeRated.label" default="Employee Rated" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'employeeRated', 'errors')}">
-                                    ${ratingInstance?.employeeRated?.id}
-                                </td>
-                            </tr>
-                        
+                       		<tr>
+                       			<td colspan="10" class="bottomWrapperNoBorders">
+					                <div class="buttons">
+					                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
+					                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+					                </div>
+				                </td>
+			                </tr>                       			
                         </tbody>
                     </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </div>
             </g:form>
         </div>

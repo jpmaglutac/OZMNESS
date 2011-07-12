@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" style="text-align: center;" title="${message(code: 'employee.id.label', default: 'ID')}" />
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" style="text-align: center;" title="${message(code: 'employee.id.label', default: 'ID')}" /></sec:access>
                         
                             <g:sortableColumn property="username" title="${message(code: 'employee.username.label', default: 'Username')}" />
                             
@@ -43,7 +43,7 @@
                     <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td style="text-align: center;">${fieldValue(bean: employeeInstance, field: "id")}</td>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align: center;">${fieldValue(bean: employeeInstance, field: "id")}</td></sec:access>
                         
                             <td>${fieldValue(bean: employeeInstance, field: "username")}</td>
                             
@@ -77,11 +77,15 @@
                         	</td>
                         </tr>
                     </g:each>
+                        <tr>
+                        	<td colspan="10" class="bottomWrapper">
+	                            <div class="paginateButtons">
+					                <g:paginate total="${employeeInstanceTotal}" />
+					            </div>
+				            </td>
+			            </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${employeeInstanceTotal}" />
             </div>
         </div>
     </body>

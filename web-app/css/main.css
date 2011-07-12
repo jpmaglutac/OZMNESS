@@ -69,6 +69,17 @@ input:focus, select:focus, textarea:focus {
     width: 1250px;
 }
 
+.bottomWrapper{
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #ddd;
+}
+
+.bottomWrapperNoBorders{
+	margin: 0px;
+	padding: 10px 0 0 0;
+}
+
 /* NAVIGATION MENU */
 
 .loginNav {
@@ -113,6 +124,16 @@ input:focus, select:focus, textarea:focus {
     color: #000;
     padding-left: 25px;
 }
+.menuButton a.show {
+    background: url(../images/skin/information.png) center left no-repeat;
+    color: #000;
+    padding-left: 25px;
+}
+.menuButton a.edit {
+    background: url(../images/skin/database_edit.png) center left no-repeat;
+    color: #000;
+    padding-left: 25px;
+}
 .menuButton a.create {
     background: url(../images/skin/database_add.png) center left no-repeat;
     color: #000;
@@ -128,16 +149,22 @@ a.log {
     background: #f3f8fc url(../images/skin/information.png) 8px 50% no-repeat;
     border: 1px solid #b2d1ff;
     color: #006dba;
-    margin: 10px 0 5px 0;
-    padding: 5px 5px 5px 30px
+    margin: 10px 0 20px 0;
+    display:-moz-inline-stack;
+	display:inline-block;
+	zoom:1;
+	*display:inline;
+    text-align: center;
+    padding: 5px 15px 5px 30px;
 }
 
 div.errors {
     background: #fff3f3;
     border: 1px solid red;
     color: #cc0000;
+    display: inline-block;
     margin: 10px 0 5px 0;
-    padding: 5px 0 5px 0;
+    padding: 5px 15px 5px 5px;
 }
 div.errors ul {
     list-style: none;
@@ -163,7 +190,7 @@ td.errors textarea {
 
 table {
     border: 1px solid #ccc;
-    width: 100%
+    width: auto;
 }
 tr {
     border: 0;
@@ -224,8 +251,6 @@ th.desc a {
 /* PAGINATION */
 
 .paginateButtons {
-    border: 1px solid #ccc;
-    border-top: 0;
     color: #666;
     font-size: 10px;
     overflow: hidden;
@@ -247,6 +272,7 @@ th.desc a {
 
 .dialog table {
     padding: 5px 0;
+    padding-bottom: 0px;
 }
 
 .prop {
@@ -265,7 +291,6 @@ th.desc a {
 /* ACTION BUTTONS */
 
 .buttons {
-    border: 1px solid #ccc;
     color: #666;
     font-size: 10px;
     margin-top: 5px;
