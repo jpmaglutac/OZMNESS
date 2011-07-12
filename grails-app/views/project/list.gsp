@@ -55,7 +55,7 @@
                             	</ul>
                             </td>
                             
-                            <td style="text-align:center;">${projectInstance.collaborators.count() + 1}</td>
+                            <td style="text-align:center;">${projectInstance.collaborators.size() + 1}</td>
                             
                             <td>
                             	<g:link action="show" id="${projectInstance.id}">view more</g:link>
