@@ -57,7 +57,7 @@ class ProjectController {
 				return [projectInstance: projectInstance]
 			}
 		} else {
-			flash.message = "You are not allowed to edit this entry."
+			flash.message = "You are not allowed to edit this project!"
 			redirect(controller: "project", action: "show", id: params.id)
 		}
 	}
@@ -91,19 +91,24 @@ class ProjectController {
 
 	def delete = {
 		def projectInstance = Project.get(params.id)
-		if (projectInstance) {
-			try {
-				projectInstance.delete(flush: true)
-				flash.message = "Project has been deleted."
+		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+			if (projectInstance) {
+				try {
+					projectInstance.delete(flush: true)
+					flash.message = "Project has been deleted."
+					redirect(action: "list")
+				}
+				catch (org.springframework.dao.DataIntegrityViolationException e) {
+					flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
+					redirect(action: "show", id: params.id)
+				}
+			}
+			else {
+				flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
 				redirect(action: "list")
 			}
-			catch (org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
-				redirect(action: "show", id: params.id)
-			}
-		}
-		else {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'Project'), params.id])}"
+		} else {
+			flash.message = "You are not allowed to delete projects!"
 			redirect(action: "list")
 		}
 	}

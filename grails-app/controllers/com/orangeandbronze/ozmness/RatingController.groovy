@@ -68,7 +68,7 @@ class RatingController {
 		    }
 		}
 		else {
-			flash.message = "You are not allowed to edit this entry."
+			flash.message = "You are not allowed to edit this rating!"
 			redirect(controller: "rating", action: "show", id: params.id)
 		}
     }
@@ -120,7 +120,7 @@ class RatingController {
 	        }
 		}
 		else {
-			flash.message = "You are not allowed to delete this entry."
+			flash.message = "You are not allowed to delete this rating!"
 			redirect(controller: "rating", action: "show", id: params.id)
 		}
     }
