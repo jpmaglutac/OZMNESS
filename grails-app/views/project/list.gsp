@@ -26,9 +26,13 @@
                             <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'project.id.label', default: 'ID')}" /></sec:access>
                         
                             <g:sortableColumn property="name" title="${message(code: 'project.name.label', default: 'Name')}" />
-                        
+                                                
                             <th><g:message code="project.lead.label" default="Lead" /></th>
                             
+                        	<th>Technologies</th>
+                        	
+                        	<th>Team Size</th>
+                        	
                             <th>&nbsp;</th>
                         
                         </tr>
@@ -42,6 +46,16 @@
                             <td>${fieldValue(bean: projectInstance, field: "name")}</td>
                         
                             <td>${fieldValue(bean: projectInstance, field: "lead")}</td>
+                            
+                            <td>
+                            	<ul style="list-style:none; padding: 0">
+	                            	<g:each in="${projectInstance.technologies}" status="j" var="technology">
+	                            		<li>${technology}</li>
+	                            	</g:each>
+                            	</ul>
+                            </td>
+                            
+                            <td style="text-align:center;">${projectInstance.collaborators.size() + 1}</td>
                             
                             <td>
                             	<g:link action="show" id="${projectInstance.id}">view more</g:link>
