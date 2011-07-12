@@ -27,7 +27,7 @@ class EmployeeController {
         def employeeInstance = new Employee(params)
         if (employeeInstance.save(flush: true)) {
 			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.username])}"
             redirect(action: "show", id: employeeInstance.id)
         }
         else {
@@ -74,7 +74,7 @@ class EmployeeController {
 			params.password = springSecurityService.encodePassword(params.password)
             employeeInstance.properties = params
             if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.username])}"
                 redirect(action: "show", id: employeeInstance.id)
             }
             else {
