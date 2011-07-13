@@ -56,9 +56,9 @@ class EmployeeController {
         else {
 			if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 				def possibleMentors = Employee.list()
-				if(!possibleMentors.isEmpty())
+				if(!possibleMentors.isEmpty()){
 					possibleMentors.minus(employeeInstance)
-		
+				}
             	return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
 			
 			} else {

@@ -12,14 +12,15 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 	Employee employee1
 	EmployeePosition mentorPosition
 	EmployeePosition employeePosition
+	def mockSpringSecurityService
 	
     protected void setUp() {
         super.setUp()
-		def mockSpringSecurityService = mockFor(SpringSecurityService, true)
+		mockSpringSecurityService = mockFor(SpringSecurityService, true)
 		mockSpringSecurityService.demand.encodePassword() {String p-> "encrypted"}
-		mockSpringSecurityService.demand.reauthenticate() {String u, String p -> }
+	/*	mockSpringSecurityService.demand.reauthenticate() {String u, String p -> }
 		mockSpringSecurityService.demand.getLoggedIn() {-> true}
-		mockSpringSecurityService.demand.getPrincipal() {-> ["username": "Bob"]}
+		mockSpringSecurityService.demand.getPrincipal() {-> ["username": "Bob"]}*/
 		controller.springSecurityService = mockSpringSecurityService.createMock() 
 		
 		mentorPosition = new EmployeePosition(name :"Senior", recommendedRating:3.0 )
@@ -71,7 +72,6 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 		controller.params.passwordExpired = false
 		controller.params."mentor.id" = ""
 		
-		
 		def parameters = controller.create()
 		
 		def employee = parameters.employeeInstance
@@ -93,7 +93,14 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 		controller.params."mentor.id" = ""
 		
 		controller.metaClass.message = {args -> println "foo: ${args}"}
-		def parameters = controller.save()
+		controller.save()
+		
+		controller.params.id = 4
+		def parameters = controller.show()
+		
+		def employee = parameters.employeeInstance
+		
+		assertTrue employee.validate()
 		
 		assertEquals 4, controller.redirectArgs["id"]
 		assertEquals "show", controller.redirectArgs["action"]
@@ -146,15 +153,13 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 	
 	void testUpdate() {
 		
-		mockForConstraintsTests(Employee)
+		mockForConstraintsTests(Employee)	
 		
 		controller.springSecurityService = [principal:[id: 1l]]
 		
 		for( i in 1..3){
 		
 			controller.params.id = i
-			def employeeOriginal = controller.show()
-
 			controller.params.password = "12345"
 			controller.params.username = "person" + i
 			
@@ -162,16 +167,30 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 				return true
 			}
 			
-			def parameters = controller.edit()
-			def employeeInstance = parameters.employeeInstance
+			controller.metaClass.message = {args -> println "foo: ${args}"}
 			
-			def possibleMentors = parameters.possibleMentors
+			mockSpringSecurityService.demand.encodePassword() {String p-> "encrypted"}
+			controller.springSecurityService = mockSpringSecurityService.createMock()
+			controller.update()
 			
-			assertTrue employeeInstance.validate()
-			
-			assertNotSame(employeeInstance, employeeOriginal)
+			assertEquals i, controller.redirectArgs["id"]
+			assertEquals "show", controller.redirectArgs["action"]
+		
 			
 		}
 	}
-	
+	/*
+	void testDelete() {
+		
+		mockForConstraintsTests(Employee)
+		
+		controller.springSecurityService = [principal:[id: 1l]]
+		
+		
+			controller.params.id = 2
+			def employeeOriginal = controller.show()
+
+			
+		}
+	*/
 }
