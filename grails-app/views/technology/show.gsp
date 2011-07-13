@@ -11,6 +11,8 @@
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <sec:access expression="hasRole('ROLE_ADMIN')">
+            	<span class="menuButton"><g:link class="edit" action="edit" id="${technologyInstance.id}"><g:message code="default.edit.label" args="[entityName]" /></g:link></span>
+            	<span class="menuButton"><g:link class="delete" action="delete" id="${technologyInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete Technology</g:link></span>
             	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         	</sec:access>
         </div>
@@ -25,9 +27,9 @@
                     
                     	<sec:access expression="hasRole('ROLE_ADMIN')">
 	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="technology.id.label" default="Id" /></td>
+	                            <td valign="top" class="name"><g:message code="technology.id.label" default="ID" /></td>
 	                            
-	                            <td valign="top" class="value">${fieldValue(bean: technologyInstance, field: "id")}</td>
+	                            <td valign="top" class="value"><b>${fieldValue(bean: technologyInstance, field: "id")}</b></td>
 	                            
 	                        </tr>
                         </sec:access>
@@ -35,7 +37,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="technology.name.label" default="Name" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: technologyInstance, field: "name")}</td>
+                            <td valign="top" class="value"><b>${fieldValue(bean: technologyInstance, field: "name")}</b></td>
                             
                         </tr>
                     
@@ -49,13 +51,7 @@
                        	<tr>
                        		<td colspan="10" class="bottomWrapperNoBorders">
 					            <div class="buttons">
-					                <g:form>
-					                	<sec:access expression="hasRole('ROLE_ADMIN')">
-						                    <g:hiddenField name="id" value="${technologyInstance?.id}" />
-						                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-						                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-					                	</sec:access>
-					                </g:form>
+					                &nbsp;
 					            </div>
 				            </td>
 			            </tr>
