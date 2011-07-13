@@ -7,7 +7,7 @@ class RatingController {
 	def springSecurityService
 	def ratingService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -43,34 +43,34 @@ class RatingController {
     }
 
     def show = {
+		def loggedInUser = Employee.get(springSecurityService.principal.id)
         def ratingInstance = Rating.get(params.id)
         if (!ratingInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
             redirect(action: "list")
         }
         else {
-            [ratingInstance: ratingInstance]
+            [loggedInUser: loggedInUser, ratingInstance: ratingInstance]
         }
     }
 
     def edit = {
         def ratingInstance = Rating.get(params.id)
-		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-		    if (!ratingInstance) {
-		        flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-		        if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-					redirect(action: "list")
-		        } else {
-					redirect(controller: "employee", action: "list")
-				}
-		    }
-		    else {
-		        return [ratingInstance: ratingInstance]
-		    }
-		}
-		else {
-			flash.message = "You are not allowed to edit this rating!"
-			redirect(controller: "rating", action: "show", id: params.id)
+	    if (!ratingInstance) {
+	        flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+	        if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+				redirect(action: "list")
+	        } else {
+				redirect(controller: "employee", action: "list")
+			}
+	    }
+	    else {
+			if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+				return [ratingInstance: ratingInstance]
+			} else {
+				flash.message = "You are not allowed to edit this rating!"
+				redirect(controller: "employee", action: "list")
+			}
 		}
     }
 
@@ -103,26 +103,25 @@ class RatingController {
 
     def delete = {
         def ratingInstance = Rating.get(params.id)
-		if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-	        if (ratingInstance) {
-	            try {
-	                ratingInstance.delete(flush: true)
+        if (ratingInstance) {
+            try {
+				if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+					ratingInstance.delete(flush: true)
 	                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
 	                redirect(action: "list")
-	            }
-	            catch (org.springframework.dao.DataIntegrityViolationException e) {
-	                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-	                redirect(action: "show", id: params.id)
-	            }
-	        }
-	        else {
-	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-	            redirect(action: "list")
-	        }
-		}
-		else {
-			flash.message = "You are not allowed to delete this rating!"
-			redirect(controller: "rating", action: "show", id: params.id)
-		}
+				} else {
+					flash.message = "You are not allowed to delete this rating!"
+					redirect(controller: "rating", action: "show", id: params.id)
+				}
+            }
+            catch (org.springframework.dao.DataIntegrityViolationException e) {
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+                redirect(action: "show", id: params.id)
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
+            redirect(action: "list")
+        }
     }
 }
