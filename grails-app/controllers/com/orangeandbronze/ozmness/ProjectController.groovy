@@ -14,7 +14,8 @@ class ProjectController {
 
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		[projectInstanceList: Project.list(params), projectInstanceTotal: Project.count()]
+		def loggedInUser = Employee.get(springSecurityService.principal.id)
+		[loggedInUser: loggedInUser, projectInstanceList: Project.list(params), projectInstanceTotal: Project.count()]
 	}
 
 	def create = {

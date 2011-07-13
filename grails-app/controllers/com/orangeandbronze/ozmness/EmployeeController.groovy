@@ -6,7 +6,7 @@ class EmployeeController {
 	def springSecurityService
 	def ratingService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -119,9 +119,10 @@ class EmployeeController {
 	
 	def showEmployeeRatings ={
 		def employeeInstance = Employee.get(params.id)
+		def loggedInUser = Employee.get(springSecurityService.principal.id)
 		if(employeeInstance){
 			def ratings = Rating.findAllByEmployeeRated(employeeInstance)
-			return [ratings: ratings]
+			return [loggedInUser: loggedInUser, ratings: ratings]
 		}
 	}
 	
