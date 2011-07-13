@@ -73,7 +73,7 @@
                             
                             <td>
                             	<g:link action="show" id="${employeeInstance.id}">view more</g:link>
-                        		<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${employeeInstance.id}">edit</g:link></sec:access>
+                        		<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${employeeInstance.id}">edit/delete</g:link></sec:access>
                         	</td>
                         </tr>
                     </g:each>
