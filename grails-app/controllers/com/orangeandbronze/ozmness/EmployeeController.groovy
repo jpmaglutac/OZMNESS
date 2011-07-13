@@ -28,7 +28,7 @@ class EmployeeController {
         def employeeInstance = new Employee(params)		
 		if (employeeInstance.save(flush: true)) {
 			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-			//flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
+			flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
             redirect(action: "show", id: employeeInstance.id)
         }
         else {
@@ -55,10 +55,12 @@ class EmployeeController {
         }
         else {
 			if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-				def possibleMentors = Employee.list() - employeeInstance
+				def possibleMentors = Employee.list()
+				if(!possibleMentors.isEmpty())
+					possibleMentors.minus(employeeInstance)
+		
+            	return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
 			
-	            return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
-				
 			} else {
 				flash.message = "You are not authorized to edit employees!"
 				redirect(action: "list")
