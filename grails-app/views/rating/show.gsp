@@ -11,16 +11,17 @@
         <div class="nav">
         	<sec:access expression="hasRole('ROLE_ADMIN')">
             	<span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+            	<span class="menuButton"><g:link class="list" controller="employee" action="showEmployeeRatings" id="${ratingInstance.employeeRated.id}" >${ratingInstance.employeeRated}'s Ratings</g:link></span>
         		<span class="menuButton"><g:link class="edit" id="${ratingInstance.id}" action="edit">Edit Rating</g:link></span>
         		<span class="menuButton"><g:link class="delete" action="delete" id="${ratingInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete Rating</g:link></span>
         	</sec:access>
         	<sec:access expression="hasRole('ROLE_DEV')">
             	<span class="menuButton"><g:link class="list" controller="employee" action="list">Employee List</g:link></span>
-            	<span class="menuButton"><g:link class="show" controller="employee" action="show" id="${ratingInstance.employeeRated.id}" >${ratingInstance.employeeRated}'s Profile</g:link></span>
+            	<span class="menuButton"><g:link class="show" controller="employee" action="show" id="${ratingInstance.employeeRated.id}">${ratingInstance.employeeRated}'s Profile</g:link></span>
             	<span class="menuButton"><g:link class="list" controller="employee" action="showEmployeeRatings" id="${ratingInstance.employeeRated.id}" >${ratingInstance.employeeRated}'s Ratings</g:link></span>
         	</sec:access>
         	<g:if test="${loggedInUser == ratingInstance.creator}">
-        		<span class="menuButton"><g:link class="edit" action="edit">Edit Rating</g:link></span>
+        		<span class="menuButton"><g:link class="edit" id="${ratingInstance.id}" action="edit">Edit Rating</g:link></span>
        		</g:if>
         </div>
         <div class="body">
