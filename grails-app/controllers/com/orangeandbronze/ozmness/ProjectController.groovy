@@ -76,6 +76,8 @@ class ProjectController {
 			}
 			projectInstance.properties = params
 			if (!projectInstance.hasErrors() && projectInstance.save(flush: true)) {
+				if(projectInstance.collaborators.contains(projectInstance.lead))
+					projectInstance.removeFromCollaborators(projectInstance.lead)
 				flash.message = "${message(code: 'default.updated.message', args: [message(code: 'project.label', default: 'Project'), '"' + projectInstance.name + '"'])}"
 				redirect(action: "show", id: projectInstance.id)
 			}
