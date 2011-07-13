@@ -134,6 +134,11 @@ input:focus, select:focus, textarea:focus {
     color: #000;
     padding-left: 25px;
 }
+.menuButton a.delete {
+    background: url(../images/skin/database_delete.png) center left no-repeat;
+    color: #000;
+    padding-left: 25px;
+}
 .menuButton a.create {
     background: url(../images/skin/database_add.png) center left no-repeat;
     color: #000;
