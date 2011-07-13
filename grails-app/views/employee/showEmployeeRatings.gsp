@@ -36,6 +36,8 @@
                         
                             <g:sortableColumn property="dateCreated" title="${message(code: 'rating.dateCreated.label', default: 'Date Created')}" />
                         
+                        	<th>&nbsp;</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +55,9 @@
                             <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         
                             <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
+                            
+                            <td><g:link controller="rating" action="show" id="${ratingInstance.id}">view</g:link>
+                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link controller="rating" action="delete" id="${ratingInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">delete</g:link></sec:access></td>
                         
                         </tr>
                     </g:each>
