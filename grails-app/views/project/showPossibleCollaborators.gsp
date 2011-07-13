@@ -11,6 +11,12 @@
     <body>
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+        	<span class="menuButton"><g:link class="show" action="show" id="${params.id}">Project "${projectInstance.name}"</g:link></span>
+        	<span class="menuButton"><g:link class="edit" action="edit" id="${projectInstance.id}">Edit Project</g:link></span>
+        	<sec:access expression="hasRole('ROLE_ADMIN')">
+        		<span class="menuButton"><g:link class="delete" action="delete" id="${projectInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete Project</g:link></span>
+        		<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+        	</sec:access>
         </div>
         <div class="body">
             <h1>Add Collaborator/s</h1>
@@ -65,7 +71,7 @@
                         	<tr>
                         		<td colspan="10" class="bottomWrapperNoBorders">
                      		        <div class="buttons">
-					                    <span class="button"><g:submitButton name="Add Collaborator" class="save" value="${message(code: 'default.button.addCollaborator.label', default: 'Add Collaborator')}" /></span>
+					                    <span class="button"><g:submitButton name="Add Collaborator" class="save" value="Add Collaborator/s" /></span>
 					                </div>
                 				</td>
                				</tr>

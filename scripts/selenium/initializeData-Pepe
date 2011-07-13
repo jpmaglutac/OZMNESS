@@ -18,7 +18,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=com.orangeandbronze.ozmness.EmployeePositionController</td>
+	<td>link=login</td>
 	<td></td>
 </tr>
 <tr>
@@ -38,18 +38,23 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
+	<td>link=Employee Positions</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
 	<td>link=New Employee Position</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name</td>
-	<td>Junior Dev</td>
+	<td>Senior Dev</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>recommendedRating</td>
-	<td>1</td>
+	<td>3</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -84,12 +89,12 @@
 <tr>
 	<td>type</td>
 	<td>name</td>
-	<td>Senior Dev</td>
+	<td>Junior Dev</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>recommendedRating</td>
-	<td>3</td>
+	<td>1</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -98,12 +103,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Home</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=com.orangeandbronze.ozmness.EmployeeController</td>
+	<td>link=Employees</td>
 	<td></td>
 </tr>
 <tr>
@@ -114,37 +114,17 @@
 <tr>
 	<td>type</td>
 	<td>username</td>
-	<td>Jun</td>
+	<td>senior</td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>password</td>
-	<td>jun</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>username</td>
-	<td>Sen</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>password</td>
-	<td>sen</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>username</td>
+	<td>name</td>
 	<td>senior</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>password</td>
 	<td>senior</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>position.id</td>
-	<td>label=Senior Dev</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -159,6 +139,11 @@
 <tr>
 	<td>type</td>
 	<td>username</td>
+	<td>mid</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
 	<td>mid</td>
 </tr>
 <tr>
@@ -193,8 +178,18 @@
 </tr>
 <tr>
 	<td>type</td>
+	<td>name</td>
+	<td>junior</td>
+</tr>
+<tr>
+	<td>type</td>
 	<td>password</td>
 	<td>junior</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>position.id</td>
+	<td>label=Junior Dev</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -208,42 +203,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Home</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=com.orangeandbronze.ozmness.ProjectController</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=New Project</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name</td>
-	<td>Project</td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>lead.id</td>
-	<td>label=senior</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>create</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Home</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=com.orangeandbronze.ozmness.TechnologyController</td>
+	<td>link=Technologies</td>
 	<td></td>
 </tr>
 <tr>
@@ -283,33 +243,28 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Home</td>
+	<td>link=Projects</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=com.orangeandbronze.ozmness.ProjectController</td>
+	<td>link=New Project</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name</td>
+	<td>Project</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>create</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=view more</td>
+	<td>link=Edit Project</td>
 	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>_action_edit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>technologies</td>
-	<td>label=Java</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>technologies</td>
-	<td>label=Java</td>
 </tr>
 <tr>
 	<td>addSelection</td>
@@ -323,7 +278,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>_action_showPossibleCollaborators</td>
+	<td>link=Add Collaborator/s</td>
 	<td></td>
 </tr>
 <tr>
@@ -333,14 +288,10 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Home</td>
+	<td>link=logout</td>
 	<td></td>
 </tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=LogoutController</td>
-	<td></td>
-</tr>
+
 </tbody></table>
 </body>
 </html>

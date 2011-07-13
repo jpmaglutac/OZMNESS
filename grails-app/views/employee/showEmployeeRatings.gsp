@@ -13,6 +13,9 @@
             <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span>
             <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id)}'s Profile</g:link></span>
             <sec:access expression="hasRole('ROLE_DEV')"><span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span></sec:access>
+     		<sec:access expression="hasRole('ROLE_ADMIN')">
+	            <span class="menuButton"><g:link class="create" controller="employee" action="create">New Employee</g:link></span>
+			</sec:access>
         </div>
         <div class="body">
             <h1><g:message code="default.list.label" args="[entityName]" /> for ${Employee.get(params.id)}</h1>
@@ -36,6 +39,8 @@
                         
                             <g:sortableColumn property="dateCreated" title="${message(code: 'rating.dateCreated.label', default: 'Date Created')}" />
                         
+                        	<th>&nbsp;</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +58,11 @@
                             <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         
                             <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
+                            
+                            <td style="text-align:center;"><g:link controller="rating" action="show" id="${ratingInstance.id}">view</g:link>
+                            	<g:if test="${loggedInUser == ratingInstance.creator}"> | <g:link controller="rating" action="edit" id="${ratingInstance.id}">edit</g:link></g:if>
+                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link controller="rating" action="edit" id="${ratingInstance.id}">edit</g:link> | <g:link controller="rating" action="delete" id="${ratingInstance.id}" params="[employee: params.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">delete</g:link></sec:access>
+                           	</td>
                         
                         </tr>
                     </g:each>

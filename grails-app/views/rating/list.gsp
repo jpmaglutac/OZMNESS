@@ -51,7 +51,7 @@
                         
                             <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
                             
-                            <td><g:link action="show" id="${ratingInstance.id}">view</g:link> | <g:link action="edit" id="${ratingInstance.id}">edit</g:link></td>
+                            <td><g:link action="show" id="${ratingInstance.id}">view</g:link> | <g:link action="edit" id="${ratingInstance.id}">edit</g:link> | <g:link action="delete" id="${ratingInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">delete</g:link></td>
                         
                         </tr>
                     </g:each>

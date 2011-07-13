@@ -10,8 +10,13 @@
     <body>
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-            <sec:access expression="hasRole('ROLE_ADMIN')">
-            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+        	<g:if test="${loggedInUser == projectInstance.lead} || hasRole('ADMIN')">
+        		<span class="menuButton"><g:link class="create" action="showPossibleCollaborators" id="${projectInstance.id}">Add Collaborator/s</g:link></span>
+        		<span class="menuButton"><g:link class="edit" action="edit" id="${projectInstance.id}">Edit Project</g:link></span>
+        	</g:if>
+        	<sec:access expression="hasRole('ROLE_ADMIN')">
+        		<span class="menuButton"><g:link class="delete" action="delete" id="${projectInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete Project</g:link></span>
+        		<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         	</sec:access>
         </div>
         <div class="body">
@@ -65,12 +70,9 @@
                                 <g:each in="${projectInstance.collaborators}" var="c">
                                     <li>
                                     	<g:link controller="employee" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link>
-                                    	<g:if test="${loggedInUser == projectInstance.lead}">
-                                    		[<g:link action="removeCollaborator" id="${c.id}" params="[projectId: projectInstance.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">x</g:link>]
+                                    	<g:if test="${loggedInUser == projectInstance.lead} || hasRole('ROLE_ADMIN')">
+                                    		[<g:link action="removeCollaborator" id="${c.id}" params="[projectId: projectInstance.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">delete</g:link>]
                                     	</g:if>
-                                    	<sec:access expression="hasRole('ROLE_ADMIN')">
-                                    		[<g:link action="removeCollaborator" id="${c.id}" params="[projectId: projectInstance.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">x</g:link>]
-                                    	</sec:access>
                                     </li>
                                 </g:each>
                                 </ul>
@@ -81,18 +83,7 @@
                     	<tr>
                     		<td colspan="10" class="bottomWrapperNoBorders">
 					            <div class="buttons">
-					                <g:form>
-					                    <g:hiddenField name="id" value="${projectInstance?.id}" />
-					                    <g:if test="${loggedInUser == projectInstance.lead}">
-					                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-					                    	<span class="button"><g:actionSubmit class="save" action="showPossibleCollaborators" value="${message(code: 'default.button.showPossibleCollaborators.label', default: 'Add Collaborator')}" /></span>
-										</g:if>
-										<sec:access expression="hasRole('ROLE_ADMIN')">
-											<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-					                    	<span class="button"><g:actionSubmit class="save" action="showPossibleCollaborators" value="${message(code: 'default.button.showPossibleCollaborators.label', default: 'Add Collaborator')}" /></span>
-											<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-										</sec:access>
-					                </g:form>
+					                &nbsp;
 					            </div>
             				</td>
            				</tr>                  		

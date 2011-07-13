@@ -10,16 +10,18 @@
     <body>
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-			<sec:access expression="hasRole('ROLE_ADMIN')">
-	            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-			</sec:access>
 			<span class="menuButton"><g:link class="list" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id)}'s Ratings</g:link></span>
 			<sec:access expression="hasRole('ROLE_DEV')">
 				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span>
         	</sec:access>
+     		<sec:access expression="hasRole('ROLE_ADMIN')">
+	            <span class="menuButton"><g:link class="edit" action="edit">Edit Employee</g:link></span>
+	            <span class="menuButton"><g:link class="delete" action="delete">Delete Employee</g:link></span>
+	            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+			</sec:access>
         </div>
         <div class="body">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+            <h1>${employeeInstance.username}'s Profile</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -114,13 +116,7 @@
                         <tr>
                         	<td colspan="10" class="bottomWrapperNoBorders">
                                	<div class="buttons">
-					                <g:form>
-					                    <g:hiddenField name="id" value="${employeeInstance?.id}" />
-					                    <sec:access expression="hasRole('ROLE_ADMIN')">
-					                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-					                    	<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-					                    </sec:access>
-					                </g:form>
+									&nbsp;
 					            </div>
             				</td>
             			</tr>
