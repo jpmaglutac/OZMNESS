@@ -105,6 +105,12 @@ class EmployeeController {
 	            		it.mentor = null
 	            		it.save(flush: true)
 	            	}
+	            	Project.list().each {
+	            		it.removeFromCollaborators(employeeInstance)
+	            	}
+	            	Rating.findAllByEmployeeRated(employeeInstance).each {
+	            		it.delete(flush: true)
+	            	}
 	            	UserRole.removeAll(employeeInstance)
 	                employeeInstance.delete(flush: true)
 	                flash.message = "Employee has been deleted."
