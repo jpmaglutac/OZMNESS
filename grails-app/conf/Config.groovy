@@ -123,7 +123,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
 	'/employeePosition/show*':				['ROLE_ADMIN', 'ROLE_DEV'],
 	
 	'/project/create*':   					['ROLE_ADMIN'],
-	'/project/edit/**':						['ROLE_ADMIN'],
+	'/project/edit/**':						['ROLE_ADMIN', 'ROLE_DEV'],
 	'/project/list*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	'/project/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	'/project/showPossibleCollaborators*':	['ROLE_ADMIN', 'ROLE_DEV'],
