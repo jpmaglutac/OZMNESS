@@ -66,7 +66,8 @@ class RatingController {
 	    }
 	    else {
 			if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-				return [ratingInstance: ratingInstance]
+				if(params.employee != null) return [ratingInstance: ratingInstance]
+				else return [employeeID: params.employee, ratingInstance: ratingInstance]
 			} else {
 				flash.message = "You are not allowed to edit this rating!"
 				redirect(controller: "employee", action: "list")
@@ -89,7 +90,7 @@ class RatingController {
             ratingInstance.properties = params
             if (!ratingInstance.hasErrors() && ratingInstance.save(flush: true)) {
                 flash.message = "Rating for " + ratingInstance.employeeRated + " has been updated."
-                redirect(action: "show", id: ratingInstance.id)
+				redirect(action: "show", id: ratingInstance.id)
             }
             else {
                 render(view: "edit", model: [ratingInstance: ratingInstance])
@@ -108,7 +109,8 @@ class RatingController {
 				if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 					ratingInstance.delete(flush: true)
 	                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
-	                redirect(action: "list")
+					if(params.employee != null) redirect(controller: "employee", action: "showEmployeeRatings", id: params.employee)
+					else redirect(action: "list")
 				} else {
 					flash.message = "You are not allowed to delete this rating!"
 					redirect(controller: "rating", action: "show", id: params.id)
