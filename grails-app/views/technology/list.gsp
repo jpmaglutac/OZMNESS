@@ -45,7 +45,7 @@
                             
                             <td>
                             	<g:link action="show" id="${technologyInstance.id}">view more</g:link>
-                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${technologyInstance.id}">edit</g:link></sec:access>
+                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${technologyInstance.id}">edit</g:link> | <g:link action="delete" id="${technologyInstance.id}">delete</g:link></sec:access>
                            	</td>
                         
                         </tr>
