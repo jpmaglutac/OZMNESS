@@ -98,6 +98,11 @@ class EmployeeController {
 		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 	        if (employeeInstance) {
 	            try {
+	            	Employee.findAllByMentor(employeeInstance).each {
+	            		it.mentor = null
+	            		it.save(flush: true)
+	            	}
+	            	UserRole.removeAll(employeeInstance)
 	                employeeInstance.delete(flush: true)
 	                flash.message = "Employee has been deleted."
 	                redirect(action: "list")
