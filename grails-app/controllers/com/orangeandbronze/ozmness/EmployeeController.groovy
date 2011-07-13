@@ -49,20 +49,21 @@ class EmployeeController {
 
     def edit = {
         def employeeInstance = Employee.get(params.id)
-		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-	        if (!employeeInstance) {
-	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-	            redirect(action: "list")
-	        }
-	        else {
+        if (!employeeInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+			if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 				def possibleMentors = Employee.list() - employeeInstance
 			
 	            return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
-	        }
-		} else {
-			flash.message = "You are not authorized to edit employees!"
-			redirect(action: "list")
-		}
+				
+			} else {
+				flash.message = "You are not authorized to edit employees!"
+				redirect(action: "list")
+			}
+        }
     }
 
     def update = {
@@ -95,9 +96,9 @@ class EmployeeController {
 
     def delete = {
         def employeeInstance = Employee.get(params.id)
-		if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-	        if (employeeInstance) {
-	            try {
+        if (employeeInstance) {
+            try {
+				if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 	            	Employee.findAllByMentor(employeeInstance).each {
 	            		it.mentor = null
 	            		it.save(flush: true)
@@ -106,20 +107,19 @@ class EmployeeController {
 	                employeeInstance.delete(flush: true)
 	                flash.message = "Employee has been deleted."
 	                redirect(action: "list")
-	            }
-	            catch (org.springframework.dao.DataIntegrityViolationException e) {
-	                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-	                redirect(action: "show", id: params.id)
-	            }
-	        }
-	        else {
-	            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-	            redirect(action: "list")
-	        }
-		} else {
-			flash.message = "You are not authorized to delete employees!"
-			redirect(action: "list")
-		}
+				} else {
+					flash.message = "You are not authorized to delete employees!"
+					redirect(action: "list")
+				}
+            }
+            catch (org.springframework.dao.DataIntegrityViolationException e) {
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+                redirect(action: "show", id: params.id)
+            }
+        } else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+            redirect(action: "list")
+        }
     }
 	
 	def showEmployeeRatings ={
