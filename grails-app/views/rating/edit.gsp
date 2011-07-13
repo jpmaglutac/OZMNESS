@@ -12,6 +12,15 @@
         <div class="nav">
         	<sec:access expression="hasRole('ROLE_ADMIN')">
             	<span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+         	</sec:access>
+         	<sec:access expression="hasRole('ROLE_DEV')">
+         		<span class="menuButton"><g:link class="list" controller="employee" action="list">Employee List</g:link></span>
+         		<span class="menuButton"><g:link class="show" controller="employee" action="show" id="${ratingInstance.employeeRated.id}" >${ratingInstance.employeeRated}'s Profile</g:link></span>
+        	</sec:access>
+          		<span class="menuButton"><g:link class="list" controller="employee" action="showEmployeeRatings" id="${ratingInstance.employeeRated.id}" >${ratingInstance.employeeRated}'s Ratings</g:link></span>
+        		<span class="menuButton"><g:link class="show" id="${ratingInstance.id}" action="show">Show Rating</g:link></span>
+          	<sec:access expression="hasRole('ROLE_ADMIN')">
+        		<span class="menuButton"><g:link class="delete" action="delete" id="${ratingInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Delete Rating</g:link></span>
         	</sec:access>
         </div>
         <div class="body">
@@ -79,8 +88,7 @@
                        		<tr>
                        			<td colspan="10" class="bottomWrapperNoBorders">
 					                <div class="buttons">
-					                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-					                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+					                    <span class="button"><g:actionSubmit class="save" action="update" value="Save Rating" /></span>
 					                </div>
 				                </td>
 			                </tr>                       			
