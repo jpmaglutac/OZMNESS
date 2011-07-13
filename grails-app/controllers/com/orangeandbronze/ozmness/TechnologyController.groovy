@@ -97,6 +97,13 @@ class TechnologyController {
 		if (technologyInstance) {
             try {
 				if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+	            	Technology.findAllByParent(technologyInstance).each {
+	            		it.parent = null
+	            		it.save(flush: true)
+	            	}
+	            	Project.list().each() {
+	            		it.removeFromTechnologies(technologyInstance)
+	            	}
 	                technologyInstance.delete(flush: true)
 	                flash.message = "Technology has been deleted"
 	                redirect(action: "list")
