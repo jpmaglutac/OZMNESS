@@ -121,7 +121,7 @@ class EmployeeController {
 				}
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}" + ". Please make sure that the employee is not in a project. If so, please remove the employee from the project first."
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
                 redirect(action: "show", id: params.id)
             }
         } else {
