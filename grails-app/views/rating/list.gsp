@@ -20,6 +20,8 @@
                         <tr>
                         
                             <g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'rating.id.label', default: 'ID')}" />
+                            
+                            <g:sortableColumn property="employeeRated" title="Employee Rated" />
                         
                             <g:sortableColumn property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
                                                     
@@ -39,7 +41,9 @@
                     <g:each in="${ratingInstanceList}" status="i" var="ratingInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td style="text-align:center;">${fieldValue(bean: ratingInstance, field: "id")}</td>                                              
+                            <td style="text-align:center;">${fieldValue(bean: ratingInstance, field: "id")}</td>  
+                            
+                            <td>${ratingInstance.employeeRated}</td>                                            
                             
                             <td>${fieldValue(bean: ratingInstance, field: "value")}</td>
                             
