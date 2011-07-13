@@ -15,8 +15,8 @@
 				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span>
         	</sec:access>
      		<sec:access expression="hasRole('ROLE_ADMIN')">
-	            <span class="menuButton"><g:link class="edit" action="edit">Edit Employee</g:link></span>
-	            <span class="menuButton"><g:link class="delete" action="delete">Delete Employee</g:link></span>
+	            <span class="menuButton"><g:link class="edit" action="edit" id="${employeeInstance.id}">Edit Employee</g:link></span>
+	            <span class="menuButton"><g:link class="delete" action="delete" id="${employeeInstance.id}">Delete Employee</g:link></span>
 	            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 			</sec:access>
         </div>
