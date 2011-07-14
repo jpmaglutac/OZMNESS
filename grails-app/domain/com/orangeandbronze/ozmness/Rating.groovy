@@ -16,7 +16,7 @@ class Rating {
     }
     
     static mapping = {
-    	comment sqlType: "TEXT"
+    	comment type: 'text'
     }
 	
 	String toString(){
