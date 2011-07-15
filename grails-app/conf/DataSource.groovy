@@ -26,7 +26,12 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+            pooled = true
+			driverClassName = "com.mysql.jdbc.Driver"
+			dialect='org.hibernate.dialect.MySQL5InnoDBDialect'
+			username = "root"
+			password = "root" 
+			url = "jdbc:mysql://localhost:3306/rpm"
         }
     }
 }

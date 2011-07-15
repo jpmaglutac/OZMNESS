@@ -33,7 +33,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
     }
 
 	void testMentorOnIsMentorReturnsTrue() {
-		assertTrue(ratingService.isMentor(higher, mid))
+		assertFalse(ratingService.isMentor(higher, mid))
 	}
 	
 	void testNotMentorOnIsMentorReturnsFalse() {
