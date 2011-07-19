@@ -332,3 +332,49 @@ th.desc a {
     background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
     padding-left: 28px;
 }
+
+/* LOGIN */
+
+#login {
+	margin: 0px; padding:0px;
+	text-align:center;
+}
+#login .inner {
+	width:300px;
+	margin: auto;
+	text-align:left;
+	padding:10px;
+	border-top:0px dashed #499ede;
+	border-bottom:0px dashed #499ede;
+	background-color:#f69322;
+}
+#login .inner .fheader {
+	padding:4px;margin:3px 0px 25px 0;color:#2e3741;font-size:2em;font-weight:bold;text-align:center;color:#fff;
+}
+#login .inner .cssform p {
+	clear: left;
+	margin: 0;
+	padding: 5px 0 8px 0;
+	padding-left: 105px;
+	border-top: 0px dashed gray;
+	margin-bottom: 10px;
+	height: 1%;
+}
+#login .inner .cssform input[type='text'] {
+	width: 120px;
+}
+#login input[type='submit'] {
+	font-size:1.5em;
+	margin-left: 30px;
+}
+#login .inner .cssform label {
+	font-weight: bold;
+	float: left;
+	margin-left: -100px;
+	width: 125px;
+	color:#fff;
+	font-size:1.25em;
+	margin-right: 10px;
+}
+#login .inner .text_ {width:120px;}
+#login .inner .chk {height:12px;}
