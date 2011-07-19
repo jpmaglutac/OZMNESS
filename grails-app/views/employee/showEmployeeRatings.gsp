@@ -29,7 +29,7 @@
                         
                             <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'Id')}" /></sec:access>
                         
-                            <g:sortableColumn style="text-align: center;" property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
+                            <g:sortableColumn style="text-align: center;" property="value" title="${message(code: 'rating.rating.label', default: 'Rating')}" />
                         
                             <g:sortableColumn property="technology" title="${message(code: 'rating.technology.label', default: 'Technology')}" />
                         
@@ -49,7 +49,7 @@
                         
                             <sec:access expression="hasRole('ROLE_ADMIN')"><td><g:link controller="rating" action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td></sec:access>
                         
-                            <td style="text-align: center;"><b>${fieldValue(bean: ratingInstance, field: "value")}</b></td>
+                            <td style="text-align: center;"><b>${ratingInstance.rating.name}</b></td>
                                                
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         

@@ -59,9 +59,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="rating.value.label" default="Value" /></td>
+                            <td valign="top" class="name"><g:message code="rating.rating.label" default="Rating" /></td>
                             
-                            <td valign="top" class="value"><b>${fieldValue(bean: ratingInstance, field: "value")}</b></td>
+                            <td valign="top" class="value"><b>${ratingInstance.rating.name()}</b></td>
                             
                         </tr>
                     

@@ -48,7 +48,7 @@ class RatingControllerTests extends ControllerUnitTestCase {
     	def ratings = []
 		controller.springSecurityService = [principal:[id: 1l]]
     	mockDomain(Rating, ratings)
-		controller.params.value = 2.5
+		controller.params.rating = "TWO"
 		controller.params.comment = "New Comment"
 		controller.params."technology.id" = tech.id
 		controller.params."employeeRated.id" = lower.id
@@ -62,7 +62,6 @@ class RatingControllerTests extends ControllerUnitTestCase {
 		def ratings = []
 		controller.springSecurityService = [principal:[id: 1l]]
 		mockDomain(Rating, ratings)
-		controller.params.value = 3.7
 		controller.params.comment = "New Comment"
 		controller.params."technology.id" = tech.id
 		controller.params."employeeRated.id" = lower.id
