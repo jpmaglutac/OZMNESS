@@ -89,7 +89,7 @@ class RatingController {
             }
             ratingInstance.properties = params
             if (!ratingInstance.hasErrors() && ratingInstance.save(flush: true)) {
-                flash.message = "Rating for " + ratingInstance.employeeRated + " has been updated."
+                flash.message = "Rating for " + ratingInstance.employeeRated.name + " has been updated."
 				redirect(action: "show", id: ratingInstance.id)
             }
             else {
