@@ -25,7 +25,7 @@ class EmployeePositionController {
     def save = {
         def employeePositionInstance = new EmployeePosition(params)
         if (employeePositionInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), '\"' + employeePositionInstance.name + '\" (id: ' + employeePositionInstance.id + ')'])}"
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), '\"' + employeePositionInstance.name + '\"'])}"
             redirect(action: "show", id: employeePositionInstance.id)
         }
         else {
@@ -74,7 +74,7 @@ class EmployeePositionController {
             }
             employeePositionInstance.properties = params
             if (!employeePositionInstance.hasErrors() && employeePositionInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), '\"' + employeePositionInstance.name + '\" (id: ' + employeePositionInstance.id + ')'])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employeePosition.label', default: 'Employee Position'), '\"' + employeePositionInstance.name + '\"'])}"
                 redirect(action: "show", id: employeePositionInstance.id)
             }
             else {
