@@ -61,7 +61,7 @@ class RatingService {
 		}
 	}
 	
-	List listAllRateableEmployees(int raterID){
+	List listAllRateableEmployees(long raterID){
 		def employeeInstance = Employee.get(raterID)
 		
 		def rateableEmployees = Employee.findAllByMentor(employeeInstance)
