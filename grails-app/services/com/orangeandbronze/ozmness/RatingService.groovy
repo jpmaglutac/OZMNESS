@@ -34,4 +34,22 @@ class RatingService {
 		}
 		return retval
 	}
+	
+	List listAllRateableEmployees(int raterID){
+		def employeeInstance = Employee.get(raterID)
+		
+		def rateableEmployees = Employee.findAllByMentor(employeeInstance)
+		rateableEmployees.add(employeeInstance)
+		
+		def projects = Project.findAllByLead(employeeInstance)
+		
+		projects.each {
+			def collaborators = it.collaborators
+			rateableEmployees.addAll(collaborators)
+		}
+		
+		rateableEmployees.unique()
+		
+		return rateableEmployees
+	}
 }

@@ -29,6 +29,7 @@
 				<span class="menuButton"><a class="main" href="${createLink(uri: '/employee')}">Employees</a></span>
 				<span class="menuButton"><a class="main" href="${createLink(uri: '/project')}">Projects</a></span>
 				<sec:access expression="hasRole('ROLE_ADMIN')"><span class="menuButton"><a class="main" href="${createLink(uri: '/rating')}">Ratings</a></span></sec:access>
+				<sec:access expression="hasRole('ROLE_DEV')"><span class="menuButton"><a class="main" href="${createLink(uri: '/rating/showAvailableEmployeesToBeRated')}">Rate Employee</a></span></sec:access>
 				<span class="menuButton"><a class="main" href="${createLink(uri: '/employeePosition')}">Employee Positions</a></span>
 				<span class="menuButton"><a class="main" href="${createLink(uri: '/technology')}">Technologies</a></span>
     		</sec:ifAnyGranted>

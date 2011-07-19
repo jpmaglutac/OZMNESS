@@ -10,19 +10,6 @@ class ProjectController {
 	
 	def scaffold = true
 	
-	def save = {
-		params.password = springSecurityService.encodePassword(params.password)
-        def employeeInstance = new Employee(params)
-		if (employeeInstance.save(flush: true)) {
-			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
-            redirect(action: "show", id: employeeInstance.id)
-        }
-        else {
-            render(view: "create", model: [employeeInstance: employeeInstance])
-        }
-    }
-	
 	def showPossibleCollaborators =  {
 		def projectInstance = Project.get(params.id)
 		if(projectInstance){

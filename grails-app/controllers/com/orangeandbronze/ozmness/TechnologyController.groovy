@@ -9,6 +9,17 @@ class TechnologyController {
 	
 	def scaffold = true
 
+	def save = {
+		def technologyInstance = new Technology(params)
+		if (technologyInstance.save(flush: true)) {
+		flash.message = "Technology created"
+		redirect(action: "show", id: technologyInstance.id)
+		}
+		else {
+			render(view: "create", model: [technologyInstance: technologyInstance])
+		}
+	}
+	
     def edit = {
         def technologyInstance = Technology.get(params.id)
         if (!technologyInstance) {

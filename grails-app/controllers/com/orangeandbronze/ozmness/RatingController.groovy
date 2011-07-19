@@ -126,4 +126,10 @@ class RatingController {
             redirect(action: "list")
         }
     }
+	
+	def showAvailableEmployeesToBeRated = {
+		def rateableEmployees = ratingService.listAllRateableEmployees(springSecurityService.principal.id)
+		
+		return [rateableEmployees: rateableEmployees, employeeInstanceTotal : rateableEmployees.size()]
+	}
 }
