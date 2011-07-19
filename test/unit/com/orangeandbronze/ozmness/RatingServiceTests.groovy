@@ -27,6 +27,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
         mockDomain(Technology, [tech])
         mockDomain(Employee, [higher, mid, lower])
         mockDomain(Project, [project])
+        mockDomain(Rating)
         project.addToCollaborators(mid)
         project.addToCollaborators(lower)
     }
@@ -92,4 +93,58 @@ class RatingServiceTests extends GrailsUnitTestCase {
         assertTrue(ratees.contains(mid))
 	}
 	
+	void testSaveRatingFormOnOneTechnology() {
+		def params = [:]
+		params.put("id", 2)
+		params.put("1_rating", "TWO")
+		params.put("1_comment", "Comment")
+		ratingService.saveRatingForm(higher, params)
+		
+		assertEquals(1, Rating.count())
+		def rating = Rating.get(1)
+		assertNotNull(rating)
+		assertEquals(2, rating.rating.value)
+		assertEquals(tech, rating.technology)
+		assertEquals(higher, rating.creator)
+		assertEquals(mid, rating.employeeRated)
+		assertEquals("Comment", rating.comment)
+	}
+	
+	void testSaveRatingFormOnTwoTechnologies() {
+		def newTech = new Technology(name: "new").save(flush: true)
+		mockDomain(Technology, [tech, newTech])
+	
+		def params = [:]
+		params.put("id", 2)
+		params.put("1_rating", "TWO")
+		params.put("1_comment", "Comment")
+		params.put("2_rating", "NA")
+		
+		ratingService.saveRatingForm(higher, params)
+		
+		assertEquals(2, Rating.count())
+		
+		assertEquals(2, Rating.get(1).rating.value)
+		assertEquals(" ", Rating.get(2).comment)
+	}
+	
+	void testEvaluateRatingParamsReturnsCorrectly() {
+		def params = [:]
+		params.put("id", 2)
+		params.put("1_rating", "TWO")
+		params.put("1_comment", "Comment")
+		
+		def ratingInfo = ratingService.evaluateRatingParams(1, params)
+		assertNotNull(ratingInfo)
+		assertEquals(ratingInfo.rating, params."1_rating")
+	}
+	
+	void testEvaluateRatingParamsReturnsNull() {
+		def params = [:]
+		params.put("id", 2)
+		params.put("2_rating", "TWO")
+		params.put("2_comment", "Comment")
+		
+		assertNull(ratingService.evaluateRatingParams(1, params))
+	}
 }
