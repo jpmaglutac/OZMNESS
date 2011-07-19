@@ -36,7 +36,7 @@
                    		<sec:access expression="hasRole('ROLE_ADMIN')">
                     
 	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="rating.id.label" default="Id" /></td>
+	                            <td valign="top" class="name"><g:message code="rating.id.label" default="ID" /></td>
 	                            
 	                            <td valign="top" class="value">${fieldValue(bean: ratingInstance, field: "id")}</td>
 	                            
@@ -47,14 +47,14 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="rating.employeeRated.label" default="Employee Rated" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="employee" action="show" id="${ratingInstance?.employeeRated?.id}"><b>${ratingInstance?.employeeRated?.encodeAsHTML()}</b></g:link></td>
+                            <td valign="top" class="value"><g:link controller="employee" action="show" id="${ratingInstance?.employeeRated?.id}"><b>${ratingInstance?.employeeRated?.name}</b></g:link></td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="rating.creator.label" default="Creator" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="employee" action="show" id="${ratingInstance?.creator?.id}"><b>${ratingInstance?.creator?.encodeAsHTML()}</b></g:link></td>
+                            <td valign="top" class="value"><g:link controller="employee" action="show" id="${ratingInstance?.creator?.id}"><b>${ratingInstance?.creator?.name}</b></g:link></td>
                             
                         </tr>
                     
