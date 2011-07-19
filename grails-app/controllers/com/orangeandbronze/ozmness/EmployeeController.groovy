@@ -29,7 +29,7 @@ class EmployeeController {
 	        def employeeInstance = new Employee(params)		
 			if (employeeInstance.save(flush: true)) {
 				UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-				flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
+				flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.name + '\"'])}"
 	            redirect(action: "show", id: employeeInstance.id)
 	        }
 	        else {
@@ -89,7 +89,7 @@ class EmployeeController {
 			params.password = employeeInstance.password
             employeeInstance.properties = params
             if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.username])}"
+                flash.message = employeeInstance.name + " updated"
                 redirect(action: "show", id: employeeInstance.id)
             }
             else {
@@ -161,7 +161,7 @@ class EmployeeController {
 				params.password = springSecurityService.encodePassword(params.password)
 				employeeInstance.properties = params
 				if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-					flash.message = "Password for " + employeeInstance.username + " has been updated"
+					flash.message = "Password for " + employeeInstance.name + " has been updated"
 					redirect(action: "show", id: employeeInstance.id)
 				}
 				else {
@@ -200,7 +200,7 @@ class EmployeeController {
 		def ratingInstance = new Rating(params)
 		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
         if (ratingInstance.save(flush: true)) {
-            flash.message = "Your rating for " + ratingInstance.employeeRated + " has been saved."
+            flash.message = "Your rating for " + Employee.get(ratingInstance.employeeRated.id).name + " has been saved."
             redirect(action: "showEmployeeRatings", id: ratingInstance.employeeRated.id)
         }
         else {
