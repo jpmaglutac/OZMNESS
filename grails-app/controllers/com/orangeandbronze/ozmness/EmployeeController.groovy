@@ -8,36 +8,7 @@ class EmployeeController {
 
     static allowedMethods = [save: "POST", update: "POST"]
 
-<<<<<<< HEAD
 	def scaffold = true
-		
-	def save = {
-		params.password = springSecurityService.encodePassword(params.password)
-		def employeeInstance = new Employee(params)
-		if (employeeInstance.save(flush: true)) {
-			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
-			redirect(action: "show", id: employeeInstance.id)
-		}
-		else {
-			render(view: "create", model: [employeeInstance: employeeInstance])
-		}
-	}
-=======
-    def index = {
-        redirect(action: "list", params: params)
-    }
-
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [employeeInstanceList: Employee.list(params), employeeInstanceTotal: Employee.count()]
-    }
-
-    def create = {
-        def employeeInstance = new Employee()
-        employeeInstance.properties = params
-			return [employeeInstance: employeeInstance]
-    }
 
     def save = {
 		if(params.password == params.retypePassword) {
@@ -58,17 +29,6 @@ class EmployeeController {
 		}
     }
 
-    def show = {
-        def employeeInstance = Employee.get(params.id)
-        if (!employeeInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            [employeeInstance: employeeInstance]
-        }
-    }
->>>>>>> 2883bd8704f01a448d93edeb1505b99d67600930
 
 	def edit = {
 		def employeeInstance = Employee.get(params.id)
@@ -88,10 +48,6 @@ class EmployeeController {
 				flash.message = "You are not authorized to edit employees!"
 				redirect(action: "list")
 			}
-<<<<<<< HEAD
-		}
-	}
-=======
         }
     }
 
@@ -122,7 +78,6 @@ class EmployeeController {
             redirect(action: "list")
         }
     }
->>>>>>> 2883bd8704f01a448d93edeb1505b99d67600930
 
 	def delete = {
 		def employeeInstance = Employee.get(params.id)
