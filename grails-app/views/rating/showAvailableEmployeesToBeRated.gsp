@@ -10,13 +10,13 @@
     <body>
         <div class="nav">&nbsp;</div>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>Rate An Employee</h1>
             <div class="list">
                 <table>
                     <thead>
                         <tr>
                             
-                            <g:sortableColumn property="Name" title="Employee Rated" />
+                            <g:sortableColumn property="Name" title="Employee" />
                         
                         	<th>&nbsp;</th>
                         
@@ -28,7 +28,7 @@
                         
                             <td style="text-align:center;">${fieldValue(bean: rateableemployeeInstance, field: "name")}</td> 
                             
-                            <td><g:link action="rateEmployee" controller="Employee" id="${rateableemployeeInstance.id}">Rate</g:link></td>
+                            <td><g:link action="rateEmployee" controller="employee" id="${rateableemployeeInstance.id}">Rate</g:link></td>
                         
                         </tr>
                     </g:each>
