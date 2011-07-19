@@ -12,7 +12,7 @@
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
 			<span class="menuButton"><g:link class="list" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id).name}'s Ratings</g:link></span>
 			<sec:access expression="hasRole('ROLE_DEV')">
-				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id.name)}</g:link></span>
+				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id).name}</g:link></span>
         	</sec:access>
      		<sec:access expression="hasRole('ROLE_ADMIN')">
 	            <span class="menuButton"><g:link class="edit" action="edit" id="${employeeInstance.id}">Edit Employee</g:link></span>
