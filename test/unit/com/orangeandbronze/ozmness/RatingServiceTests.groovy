@@ -10,6 +10,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
 	Employee lower
 	Employee mid
 	EmployeePosition position
+	Technology tech
 	
     protected void setUp() {
         super.setUp()
@@ -22,6 +23,8 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		lower = new Employee(username: "lower", password: "pass", enabled: true, accountExpired: false, 
             accountLocked: false, passwordExpired: false, position: position, mentor: mid)
         Project project = new Project(name: "project", lead: higher)
+        tech = new Technology(name: "tech")
+        mockDomain(Technology, [tech])
         mockDomain(Employee, [higher, mid, lower])
         mockDomain(Project, [project])
         project.addToCollaborators(mid)
@@ -33,7 +36,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
     }
 
 	void testMentorOnIsMentorReturnsTrue() {
-		assertFalse(ratingService.isMentor(higher, mid))
+		assertTrue(ratingService.isMentor(higher, mid))
 	}
 	
 	void testNotMentorOnIsMentorReturnsFalse() {
@@ -88,4 +91,5 @@ class RatingServiceTests extends GrailsUnitTestCase {
         assertTrue(ratees.contains(lower))
         assertTrue(ratees.contains(mid))
 	}
+	
 }
