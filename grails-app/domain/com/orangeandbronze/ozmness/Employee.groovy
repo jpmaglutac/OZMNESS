@@ -11,7 +11,7 @@ class Employee extends User{
 	
 	
     static constraints = {
-		position nullable:false
+		position nullable:true
 		name nullable:false
 		mentor nullable:true
     }
