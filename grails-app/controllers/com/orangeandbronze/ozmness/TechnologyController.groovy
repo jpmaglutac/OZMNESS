@@ -12,7 +12,7 @@ class TechnologyController {
 	def save = {
 		def technologyInstance = new Technology(params)
 		if (technologyInstance.save(flush: true)) {
-		flash.message = "Technology created"
+		flash.message = "Technology \"" + technologyInstance.name + "\" created"
 		redirect(action: "show", id: technologyInstance.id)
 		}
 		else {
