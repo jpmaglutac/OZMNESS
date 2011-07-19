@@ -61,7 +61,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="rating.rating.label" default="Rating" /></td>
                             
-                            <td valign="top" class="value"><b>${ratingInstance.rating.name()}</b></td>
+                            <td valign="top" class="value"><b>${ratingInstance.rating.name}</b></td>
                             
                         </tr>
                     
