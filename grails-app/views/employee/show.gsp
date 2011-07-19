@@ -10,18 +10,19 @@
     <body>
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-			<span class="menuButton"><g:link class="list" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id)}'s Ratings</g:link></span>
+			<span class="menuButton"><g:link class="list" action="showEmployeeRatings" id="${params.id}" >${Employee.get(params.id).name}'s Ratings</g:link></span>
 			<sec:access expression="hasRole('ROLE_DEV')">
-				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span>
+				<span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id.name)}</g:link></span>
         	</sec:access>
      		<sec:access expression="hasRole('ROLE_ADMIN')">
 	            <span class="menuButton"><g:link class="edit" action="edit" id="${employeeInstance.id}">Edit Employee</g:link></span>
+	            <span class="menuButton"><g:link class="edit" controller="employee" action="changePassword" id="${params.id}" >Change Password</g:link></span>
 	            <span class="menuButton"><g:link class="delete" action="delete" id="${employeeInstance.id}">Delete Employee</g:link></span>
 	            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 			</sec:access>
         </div>
         <div class="body">
-            <h1>${employeeInstance.username}'s Profile</h1>
+            <h1>${employeeInstance.name}'s Profile</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
