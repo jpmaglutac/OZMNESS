@@ -65,30 +65,23 @@
                         <sec:access expression="hasRole('ROLE_ADMIN')">
 	                    
 	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="employee.enabled.label" default="Enabled" /></td>
+	                            <td valign="top" class="name">Status</td>
 	                            
-	                            <td valign="top" class="value"><g:formatBoolean boolean="${employeeInstance?.enabled}" /></td>
-	                            
-	                        </tr>
-                    
-	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="employee.accountExpired.label" default="Account Expired" /></td>
-	                            
-	                            <td valign="top" class="value"><g:formatBoolean boolean="${employeeInstance?.accountExpired}" /></td>
-	                            
-	                        </tr>
-                    
-	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="employee.passwordExpired.label" default="Password Expired" /></td>
-	                            
-	                            <td valign="top" class="value"><g:formatBoolean boolean="${employeeInstance?.passwordExpired}" /></td>
-	                            
-	                        </tr>
-	                    
-	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="employee.accountLocked.label" default="Account Locked" /></td>
-	                            
-	                            <td valign="top" class="value"><g:formatBoolean boolean="${employeeInstance?.accountLocked}" /></td>
+	                            <td valign="top" class="value">
+	                            	<g:if test="${employeeInstance.enabled}">enabled</g:if><g:else>disabled</g:else>
+	                            	<g:if test="${employeeInstance.accountExpired}">
+	                            		<br />
+	                            		account expired
+	                            	</g:if>
+	                        	    <g:if test="${employeeInstance.accountLocked}">
+	                            		<br />
+	                            		account locked
+	                            	</g:if>
+	                            	<g:if test="${employeeInstance.passwordExpired}">
+	                            		<br />
+	                            		password expired
+	                            	</g:if>
+	                            </td>
 	                            
 	                        </tr>
 	                        
