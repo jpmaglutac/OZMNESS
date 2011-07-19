@@ -50,9 +50,18 @@
                                     <label for="password"><g:message code="employee.password.label" default="Password" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'password', 'errors')}">
-                                    <g:textField name="password" value="${employeeInstance?.password}" />
+                                    <g:passwordField name="password" value="${employeeInstance?.password}" />
                                 </td>
                             </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="retypePassword">Retype Password</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'password', 'errors')}">
+                                    <g:passwordField name="retypePassword" value="" />
+                                </td>
+                            </tr>                            
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -74,33 +83,6 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="accountExpired"><g:message code="employee.accountExpired.label" default="Account Expired" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'accountExpired', 'errors')}">
-                                    <g:checkBox name="accountExpired" value="${employeeInstance?.accountExpired}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="passwordExpired"><g:message code="employee.passwordExpired.label" default="Password Expired" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'passwordExpired', 'errors')}">
-                                    <g:checkBox name="passwordExpired" value="${employeeInstance?.passwordExpired}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="accountLocked"><g:message code="employee.accountLocked.label" default="Account Locked" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'accountLocked', 'errors')}">
-                                    <g:checkBox name="accountLocked" value="${employeeInstance?.accountLocked}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="mentor"><g:message code="employee.mentor.label" default="Mentor" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'mentor', 'errors')}">
@@ -110,6 +92,9 @@
                                        
 	                      	<tr>
 		                      	<td colspan="10" class="bottomWrapperNoBorders">
+		                      		<input type="hidden" name="accountExpired" value="false" />
+		                      		<input type="hidden" name="passwordExpired" value="false" />
+		                      		<input type="hidden" name="accountLocked" value="false" />
                    	                <div class="buttons">
 					                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
 					                </div>

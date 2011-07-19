@@ -20,20 +20,26 @@ class EmployeeController {
     def create = {
         def employeeInstance = new Employee()
         employeeInstance.properties = params
-        return [employeeInstance: employeeInstance]
+			return [employeeInstance: employeeInstance]
     }
 
     def save = {
-		params.password = springSecurityService.encodePassword(params.password)
-        def employeeInstance = new Employee(params)		
-		if (employeeInstance.save(flush: true)) {
-			UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.username + '\"'])}"
-            redirect(action: "show", id: employeeInstance.id)
-        }
-        else {
-            render(view: "create", model: [employeeInstance: employeeInstance])
-        }
+		if(params.password == params.retypePassword) {
+			params.password = springSecurityService.encodePassword(params.password)
+	        def employeeInstance = new Employee(params)		
+			if (employeeInstance.save(flush: true)) {
+				UserRole.create(employeeInstance, Role.findByAuthority("ROLE_DEV"))
+				flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), '\"' + employeeInstance.name + '\"'])}"
+	            redirect(action: "show", id: employeeInstance.id)
+	        }
+	        else {
+	            render(view: "create", model: [employeeInstance: employeeInstance])
+	        }
+		}
+		else {
+			flash.message="Passwords do not match. Please try again."
+			redirect(action: "create", params: [username: params.username, name: params.name])
+		}
     }
 
     def show = {
@@ -80,15 +86,15 @@ class EmployeeController {
                     return
                 }
             }
-			params.password = springSecurityService.encodePassword(params.password)
+			params.password = employeeInstance.password
             employeeInstance.properties = params
             if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.username])}"
+                flash.message = employeeInstance.name + " updated"
                 redirect(action: "show", id: employeeInstance.id)
             }
             else {
                 render(view: "edit", model: [employeeInstance: employeeInstance])
-            }
+			}
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
@@ -130,7 +136,49 @@ class EmployeeController {
         }
     }
 	
-	def showEmployeeRatings ={
+	def changePassword = {
+		def employeeInstance = Employee.get(params.id)
+		if (!employeeInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+			redirect(action: "list")
+		}
+		else
+			return [employeeInstance: employeeInstance]		
+	}
+	
+	def updatePassword = {
+		def employeeInstance = Employee.get(params.id)
+		if (employeeInstance) {
+			if (params.version) {
+				def version = params.version.toLong()
+				if (employeeInstance.version > version) {
+					employeeInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'employee.label', default: 'Employee')] as Object[], "Another user has updated " + employeeInstance.name + "'s password while you were editing")
+					render(view: "changePassword", model: [employeeInstance: employeeInstance])
+					return
+				}
+			}
+			if(params.password == params.retypePassword) {
+				params.password = springSecurityService.encodePassword(params.password)
+				employeeInstance.properties = params
+				if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
+					flash.message = "Password for " + employeeInstance.name + " has been updated"
+					redirect(action: "show", id: employeeInstance.id)
+				}
+				else {
+					render(view: "changePassword", model: [employeeInstance: employeeInstance])
+				}
+			} else {
+				flash.message="Passwords do not match. Please try again."
+				redirect(action: "changePassword", id: employeeInstance.id)
+			}
+		}
+		else {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+			redirect(action: "list")
+		}
+	}
+	
+	def showEmployeeRatings = {
 		def employeeInstance = Employee.get(params.id)
 		def loggedInUser = Employee.get(springSecurityService.principal.id)
 		if(employeeInstance){
@@ -152,7 +200,7 @@ class EmployeeController {
 		def ratingInstance = new Rating(params)
 		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
         if (ratingInstance.save(flush: true)) {
-            flash.message = "Your rating for " + ratingInstance.employeeRated + " has been saved."
+            flash.message = "Your rating for " + Employee.get(ratingInstance.employeeRated.id).name + " has been saved."
             redirect(action: "showEmployeeRatings", id: ratingInstance.employeeRated.id)
         }
         else {

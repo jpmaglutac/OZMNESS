@@ -11,14 +11,14 @@
     <body>
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span>
-            <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id)}'s Profile</g:link></span>
-            <sec:access expression="hasRole('ROLE_DEV')"><span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id)}</g:link></span></sec:access>
+            <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id).name}'s Profile</g:link></span>
+            <sec:access expression="hasRole('ROLE_DEV')"><span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id).name}</g:link></span></sec:access>
      		<sec:access expression="hasRole('ROLE_ADMIN')">
 	            <span class="menuButton"><g:link class="create" controller="employee" action="create">New Employee</g:link></span>
 			</sec:access>
         </div>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /> for ${Employee.get(params.id)}</h1>
+            <h1><g:message code="default.list.label" args="[entityName]" /> for ${Employee.get(params.id).name}</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -53,7 +53,7 @@
                                                
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         
-                            <td>${fieldValue(bean: ratingInstance, field: "creator")}</td>
+                            <td>${ratingInstance.creator.name}</td>
                             
                             <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         
