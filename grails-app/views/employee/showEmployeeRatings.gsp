@@ -12,7 +12,7 @@
         <div class="nav">
             <span class="menuButton"><g:link class="list" action="list">Employee List</g:link></span>
             <span class="menuButton"><g:link class="show" controller="employee" action="show" id="${params.id}" >${Employee.get(params.id).name}'s Profile</g:link></span>
-            <sec:access expression="hasRole('ROLE_DEV')"><span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id).name}</g:link></span></sec:access>
+            <g:if test="${canRate}"><span class="menuButton"><g:link class="edit" action="rateEmployee" id="${params.id}">Rate ${Employee.get(params.id).name}</g:link></span></g:if>
      		<sec:access expression="hasRole('ROLE_ADMIN')">
 	            <span class="menuButton"><g:link class="create" controller="employee" action="create">New Employee</g:link></span>
 			</sec:access>
