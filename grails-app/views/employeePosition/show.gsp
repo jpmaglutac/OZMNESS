@@ -27,7 +27,7 @@
                     
                     	<sec:access expression="hasRole('ROLE_ADMIN')">
 	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="employeePosition.id.label" default="Id" /></td>
+	                            <td valign="top" class="name"><g:message code="employeePosition.id.label" default="ID" /></td>
 	                            
 	                            <td valign="top" class="value">${fieldValue(bean: employeePositionInstance, field: "id")}</td>
 	                            
