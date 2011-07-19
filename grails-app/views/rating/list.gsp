@@ -23,7 +23,7 @@
                             
                             <g:sortableColumn property="employeeRated" title="Employee Rated" />
                         
-                            <g:sortableColumn property="value" title="${message(code: 'rating.value.label', default: 'Value')}" />
+                            <g:sortableColumn property="value" title="${message(code: 'rating.rating.label', default: 'Rating')}" />
                                                     
                             <g:sortableColumn property="technology" title="${message(code: 'rating.technology.label', default: 'Technology')}" />
                         
@@ -45,7 +45,7 @@
                             
                             <td>${ratingInstance.employeeRated}</td>                                            
                             
-                            <td>${fieldValue(bean: ratingInstance, field: "value")}</td>
+                            <td>${ratingInstance.rating.name}</td>
                             
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         

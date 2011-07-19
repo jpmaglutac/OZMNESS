@@ -2,7 +2,7 @@ package com.orangeandbronze.ozmness
 
 class Rating {
 
-	double value
+	RatingValue rating
 	String comment
 	Date dateCreated
 	Employee creator
@@ -10,7 +10,7 @@ class Rating {
 	Technology technology
 	
     static constraints = {
-    	value min:1.0d, max:3.0d
+    	rating nullable: false
     	comment size:0..65534, nullable: true, blank: true
     	technology nullable: false
     }

@@ -33,8 +33,10 @@
                                 <td valign="top" class="name">
                                     <label for="value"><g:message code="rating.value.label" default="Value" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'value', 'errors')}">
-                                    <g:textField name="value" value="${fieldValue(bean: ratingInstance, field: 'value')}" />
+                                <td valign="top" class="rating ${hasErrors(bean: ratingInstance, field: 'rating', 'errors')}">
+                                    <g:radioGroup name="rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" value="${com.orangeandbronze.ozmness.RatingValue.values()[0]}">
+                                    	${it.radio} ${it.label}<br />
+                                    </g:radioGroup>
                                 </td>
                             </tr>
                         
