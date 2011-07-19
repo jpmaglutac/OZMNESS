@@ -27,7 +27,7 @@
                     <thead>
                         <tr>
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="${message(code: 'rating.id.label', default: 'Id')}" /></sec:access>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="ID" /></sec:access>
                         
                             <g:sortableColumn style="text-align: center;" property="value" title="${message(code: 'rating.rating.label', default: 'Rating')}" />
                         

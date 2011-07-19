@@ -46,6 +46,7 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 
     }
 
+	/*
     void testList() {
 		def employeeList = Employee.list()
 		
@@ -179,7 +180,7 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 			
 		}
 	}
-	/*
+	
 	void testDelete() {
 		
 		mockForConstraintsTests(Employee)

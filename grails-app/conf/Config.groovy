@@ -112,6 +112,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
 	
 	'/employee/create*':   					['ROLE_ADMIN'],
 	'/employee/edit/**':					['ROLE_ADMIN'],
+	'/employee/changePassword/**':			['ROLE_ADMIN'],
 	'/employee/delete/**':					['ROLE_ADMIN'],
 	'/employee/list*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	'/employee/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
@@ -120,26 +121,22 @@ grails.plugins.springsecurity.interceptUrlMap = [
 	
 	'/employeePosition/create*':   			['ROLE_ADMIN'],
 	'/employeePosition/edit/**':			['ROLE_ADMIN'],
-	'/employeePosition/delete/**':			['ROLE_ADMIN'],
 	'/employeePosition/list*':				['ROLE_ADMIN', 'ROLE_DEV'],
 	'/employeePosition/show*':				['ROLE_ADMIN', 'ROLE_DEV'],
 	
 	'/project/create*':   					['ROLE_ADMIN'],
 	'/project/edit/**':						['ROLE_ADMIN', 'ROLE_DEV'],
-	'/project/delete/**':					['ROLE_ADMIN'],
 	'/project/list*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	'/project/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	'/project/showPossibleCollaborators*':	['ROLE_ADMIN', 'ROLE_DEV'],
 	
 	'/rating/create*':   					['ROLE_ADMIN'],
 	'/rating/edit/**':						['ROLE_ADMIN', 'ROLE_DEV'],
-	'/rating/delete/**':					['ROLE_ADMIN'],
 	'/rating/list*':						['ROLE_ADMIN'],
 	'/rating/show*':						['ROLE_ADMIN', 'ROLE_DEV'],
 	
 	'/technology/create*':   				['ROLE_ADMIN'],
 	'/technology/edit/**':					['ROLE_ADMIN'],
-	'/technology/delete/**':					['ROLE_ADMIN'],
 	'/technology/list*':					['ROLE_ADMIN', 'ROLE_DEV'],
 	'/technology/show*':					['ROLE_ADMIN', 'ROLE_DEV']
 	

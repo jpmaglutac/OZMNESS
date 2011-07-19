@@ -8,20 +8,7 @@ class EmployeeController {
 
     static allowedMethods = [save: "POST", update: "POST"]
 
-    def index = {
-        redirect(action: "list", params: params)
-    }
-
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [employeeInstanceList: Employee.list(params), employeeInstanceTotal: Employee.count()]
-    }
-
-    def create = {
-        def employeeInstance = new Employee()
-        employeeInstance.properties = params
-			return [employeeInstance: employeeInstance]
-    }
+	def scaffold = true
 
     def save = {
 		if(params.password == params.retypePassword) {
@@ -42,30 +29,20 @@ class EmployeeController {
 		}
     }
 
-    def show = {
-        def employeeInstance = Employee.get(params.id)
-        if (!employeeInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            [employeeInstance: employeeInstance]
-        }
-    }
 
-    def edit = {
-        def employeeInstance = Employee.get(params.id)
-        if (!employeeInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
+	def edit = {
+		def employeeInstance = Employee.get(params.id)
+		if (!employeeInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
 			if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
 				def possibleMentors = Employee.list()
 				if(!possibleMentors.isEmpty()){
 					possibleMentors.minus(employeeInstance)
 				}
-            	return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
+				return [employeeInstance: employeeInstance, possibleMentors: possibleMentors]
 			
 			} else {
 				flash.message = "You are not authorized to edit employees!"
@@ -102,39 +79,29 @@ class EmployeeController {
         }
     }
 
-    def delete = {
-        def employeeInstance = Employee.get(params.id)
-        if (employeeInstance) {
-            try {
+	def delete = {
+		def employeeInstance = Employee.get(params.id)
+		if (employeeInstance) {
+			try {
 				if(SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-	            	Employee.findAllByMentor(employeeInstance).each {
-	            		it.mentor = null
-	            		it.save(flush: true)
-	            	}
-	            	Project.list().each {
-	            		it.removeFromCollaborators(employeeInstance)
-	            	}
-	            	Rating.findAllByEmployeeRated(employeeInstance).each {
-	            		it.delete(flush: true)
-	            	}
-	            	UserRole.removeAll(employeeInstance)
-	                employeeInstance.delete(flush: true)
-	                flash.message = "Employee has been deleted."
-	                redirect(action: "list")
+					employeeInstance.enabled = false
+					employeeInstance.save(flush: true)
+					flash.message = "Employee's account has been disabled."
+					redirect(action: "list")
 				} else {
 					flash.message = "You are not authorized to delete employees!"
 					redirect(action: "list")
 				}
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        } else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-    }
+			}
+			catch (org.springframework.dao.DataIntegrityViolationException e) {
+				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+				redirect(action: "show", id: params.id)
+			}
+		} else {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+			redirect(action: "list")
+		}
+	}
 	
 	def changePassword = {
 		def employeeInstance = Employee.get(params.id)
@@ -200,7 +167,7 @@ class EmployeeController {
 		def ratingInstance = new Rating(params)
 		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
         if (ratingInstance.save(flush: true)) {
-            flash.message = "Your rating for " + Employee.get(ratingInstance.employeeRated.id).name + " has been saved."
+            flash.message = "Your rating for " + ratingInstance.employeeRated.name + " has been saved."
             redirect(action: "showEmployeeRatings", id: ratingInstance.employeeRated.id)
         }
         else {

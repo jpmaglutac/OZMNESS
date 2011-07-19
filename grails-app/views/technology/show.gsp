@@ -25,15 +25,6 @@
                 <table>
                     <tbody>
                     
-                    	<sec:access expression="hasRole('ROLE_ADMIN')">
-	                        <tr class="prop">
-	                            <td valign="top" class="name"><g:message code="technology.id.label" default="ID" /></td>
-	                            
-	                            <td valign="top" class="value"><b>${fieldValue(bean: technologyInstance, field: "id")}</b></td>
-	                            
-	                        </tr>
-                        </sec:access>
-                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="technology.name.label" default="Name" /></td>
                             

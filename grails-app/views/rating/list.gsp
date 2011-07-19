@@ -49,7 +49,7 @@
                             
                             <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
                         
-                            <td>${fieldValue(bean: ratingInstance, field: "creator")}</td>
+                            <td>${ratingInstance.creator.name}</td>
                         
                             <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
                         

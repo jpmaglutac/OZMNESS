@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'project.id.label', default: 'ID')}" /></sec:access>
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="ID" /></sec:access>
                         
                             <g:sortableColumn property="name" title="${message(code: 'project.name.label', default: 'Name')}" />
                                                 
