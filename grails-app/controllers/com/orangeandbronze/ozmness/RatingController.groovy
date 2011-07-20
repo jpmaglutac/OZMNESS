@@ -65,7 +65,7 @@ class RatingController {
 			}
 	    }
 	    else {
-			if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+			if(loggedInUserCanEditOrDelete(ratingInstance)) {
 				if(params.employee != null) return [ratingInstance: ratingInstance]
 				else return [employeeID: params.employee, ratingInstance: ratingInstance]
 			} else {
@@ -106,7 +106,7 @@ class RatingController {
         def ratingInstance = Rating.get(params.id)
         if (ratingInstance) {
             try {
-				if(Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
+				if(loggedInUserCanEditOrDelete(ratingInstance)) {
 					ratingInstance.delete(flush: true)
 	                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])}"
 					if(params.employee != null) redirect(controller: "employee", action: "showEmployeeRatings", id: params.employee)
@@ -132,4 +132,9 @@ class RatingController {
 		
 		return [rateableEmployees: rateableEmployees, employeeInstanceTotal : rateableEmployees.size()]
 	}
+	
+	private boolean loggedInUserCanEditOrDelete (Rating ratingInstance) {
+		return (Employee.get(springSecurityService.principal.id) == ratingInstance.creator || SpringSecurityUtils.ifAllGranted("ROLE_ADMIN"))
+	}
+	
 }
