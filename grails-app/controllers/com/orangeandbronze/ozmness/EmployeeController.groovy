@@ -84,7 +84,6 @@ class EmployeeController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (employeeInstance.version > version) {
-                    
                     employeeInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'employee.label', default: 'Employee')] as Object[], "Another user has updated this Employee while you were editing")
                     render(view: "edit", model: [employeeInstance: employeeInstance])
                     return
