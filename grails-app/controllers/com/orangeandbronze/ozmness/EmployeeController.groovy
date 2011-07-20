@@ -195,14 +195,8 @@ class EmployeeController {
 	}
 	
 	def saveEmployeeRating = {
-		def ratingInstance = new Rating(params)
-		ratingInstance.creator = Employee.get(springSecurityService.principal.id)
-        if (ratingInstance.save(flush: true)) {
-            flash.message = "Your rating for " + ratingInstance.employeeRated.name + " has been saved."
-            redirect(action: "showEmployeeRatings", id: ratingInstance.employeeRated.id)
-        }
-        else {
-            render(view: "rateEmployee", model: [employeeId: params.employeeRated.id, canBeRated: ratingService.getEmployeesThatCanBeRated(Employee.get(springSecurityService.principal.id)), ratingInstance: ratingInstance])
-        }
+		ratingService.saveRatingForm(Employee.get(springSecurityService.principal.id), params)
+    	flash.message = "Your rating has been saved."
+        redirect(action: "showEmployeeRatings", id: params.employeeRated.id)
 	}
 }
