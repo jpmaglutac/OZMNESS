@@ -36,16 +36,18 @@ class RatingService {
 	}
 	
 	void saveRatingForm(Employee evaluator, def params){
-		def employee = Employee.get(params.id)
-		if(employee == null)
-			throw new IllegalArgumentException("No employee with this id")
-		
 		def technologies = Technology.list()
 		technologies.each { technology ->
 			def ratingInfo = evaluateRatingParams(technology.id, params)
 			if(ratingInfo){
-				def rating = new Rating(ratingInfo)
-				rating.creator = evaluator
+				def rating = getRatingUsingCriteria(evaluator, technology, Employee.get(params."employeeRated.id"))
+				if(rating.size() > 0){
+					rating = rating[0]
+					rating.properties = ratingInfo
+				}else{
+					rating = new Rating(ratingInfo)
+					rating.creator = evaluator
+				}
 				rating.save(flush: true)
 			}
 		}
@@ -55,9 +57,17 @@ class RatingService {
 		def rating = params."${techId}_rating"
 		if(rating){
 			def comment = (params."${techId}_comment")?:" "
-			return ["employeeRated.id": params.id, "technology.id": techId, "rating": rating, "comment": comment]
+			return ["employeeRated.id": params."employeeRated.id", "technology.id": techId, "rating": rating, "comment": comment]
 		} else {
 			return null
+		}
+	}
+	
+	def getRatingUsingCriteria(def evaluator, def technology, def evaluated){
+		return Rating.withCriteria {
+			eq("creator", evaluator)
+			eq("technology", technology)
+			eq("employeeRated", evaluated)
 		}
 	}
 	
