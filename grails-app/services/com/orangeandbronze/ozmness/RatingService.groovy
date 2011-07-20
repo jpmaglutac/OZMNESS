@@ -36,10 +36,6 @@ class RatingService {
 	}
 	
 	void saveRatingForm(Employee evaluator, def params){
-		def employee = Employee.get(params.id)
-		if(employee == null)
-			throw new IllegalArgumentException("No employee with this id")
-		
 		def technologies = Technology.list()
 		technologies.each { technology ->
 			def ratingInfo = evaluateRatingParams(technology.id, params)
