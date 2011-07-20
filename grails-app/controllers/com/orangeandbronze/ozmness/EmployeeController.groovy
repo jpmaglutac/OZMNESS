@@ -9,6 +9,33 @@ class EmployeeController {
     static allowedMethods = [save: "POST", update: "POST"]
 
 	def scaffold = true
+	
+    def list = {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		def canRateArray = []
+		if(SpringSecurityUtils.ifAllGranted("ROLE_DEV")) {
+			Employee.list(params).each() {
+			def int temp = it.id
+			canRateArray[temp] = ratingService.canRateEmployee(Employee.get(springSecurityService.principal.id), it)
+			}
+		}
+        [employeeInstanceList: Employee.list(params), employeeInstanceTotal: Employee.count(), canRate: canRateArray]
+    }
+	
+    def show = {
+        def employeeInstance = Employee.get(params.id)
+		def canRate = false
+        if (!employeeInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
+            redirect(action: "list")
+        }
+        else {
+			if(SpringSecurityUtils.ifAllGranted("ROLE_DEV")) {
+				canRate = ratingService.canRateEmployee(Employee.get(springSecurityService.principal.id), Employee.get(params.id))
+			}
+            [employeeInstance: employeeInstance, canRate: canRate]
+        }
+    }
 
     def save = {
 		if(params.password == params.retypePassword) {
@@ -147,10 +174,14 @@ class EmployeeController {
 	
 	def showEmployeeRatings = {
 		def employeeInstance = Employee.get(params.id)
+		def canRate = false
 		def loggedInUser = Employee.get(springSecurityService.principal.id)
 		if(employeeInstance){
 			def ratings = Rating.findAllByEmployeeRated(employeeInstance)
-			return [loggedInUser: loggedInUser, ratings: ratings]
+			if(SpringSecurityUtils.ifAllGranted("ROLE_DEV")) {
+				canRate = ratingService.canRateEmployee(Employee.get(springSecurityService.principal.id), Employee.get(params.id))
+			}
+			return [loggedInUser: loggedInUser, ratings: ratings, canRate: canRate]
 		}
 	}
 	

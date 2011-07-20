@@ -19,6 +19,7 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
+<<<<<<< HEAD
             
             	<g:if test="${employeeInstanceList.size() > 0}">
 	                <table>
@@ -94,6 +95,76 @@
                  	No available employees
                 </g:else>
                 
+=======
+                <table>
+                    <thead>
+                        <tr>
+                        
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" style="text-align: center;" title="ID" /></sec:access>
+                        
+                            <g:sortableColumn property="username" title="${message(code: 'employee.username.label', default: 'Username')}" />
+                            
+                            <g:sortableColumn property="name" title="${message(code: 'employee.name.label', default: 'Name')}" />
+                        
+                            <g:sortableColumn property="position" title="${message(code: 'employee.username.position', default: 'Position')}" />
+                            
+                            <g:sortableColumn property="mentor" title="${message(code: 'employee.username.mentor', default: 'Mentor')}" />
+                            
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><th style="text-align: center;">Employee Status</th></sec:access>
+                            
+                            <th>&nbsp;</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
+                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                        
+                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align: center;">${fieldValue(bean: employeeInstance, field: "id")}</td></sec:access>
+                        
+                            <td>${fieldValue(bean: employeeInstance, field: "username")}</td>
+                            
+                            <td>${fieldValue(bean: employeeInstance, field: "name")}</td>
+                        
+                            <td>${fieldValue(bean: employeeInstance, field: "position")}</td>
+                            
+                            <td>${employeeInstance.mentor}</td>
+                            
+                            <sec:access expression="hasRole('ROLE_ADMIN')">
+	                            <td style="text-align: center;">
+	                            	<g:if test="${employeeInstance.enabled}">enabled</g:if><g:else>disabled</g:else>
+	                            	<g:if test="${employeeInstance.accountExpired}">
+	                            		<br />
+	                            		account expired
+	                            	</g:if>
+	                        	    <g:if test="${employeeInstance.accountLocked}">
+	                            		<br />
+	                            		account locked
+	                            	</g:if>
+	                            	<g:if test="${employeeInstance.passwordExpired}">
+	                            		<br />
+	                            		password expired
+	                            	</g:if>
+	                           	</td>
+                           	</sec:access>
+                            
+                            <td>
+                            	<g:link action="show" id="${employeeInstance.id}">view more</g:link>
+                        		<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${employeeInstance.id}">edit</g:link></sec:access>
+                       			<sec:access expression="hasRole('ROLE_DEV')"><g:if test="${canRate.get((int) employeeInstance.id)}"> | <g:link action="rateEmployee" id="${employeeInstance.id}">rate</g:link></g:if></sec:access>
+                        	</td>
+                        </tr>
+                    </g:each>
+                        <tr>
+                        	<td colspan="10" class="bottomWrapper">
+	                            <div class="paginateButtons">
+					                <g:paginate total="${employeeInstanceTotal}" />
+					            </div>
+				            </td>
+			            </tr>
+                    </tbody>
+                </table>
+>>>>>>> 9be7ecbed5f3078af6bc3f665d495919eaf4b12f
             </div>
         </div>
     </body>
