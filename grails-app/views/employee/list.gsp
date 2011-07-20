@@ -74,7 +74,7 @@
                             <td>
                             	<g:link action="show" id="${employeeInstance.id}">view more</g:link>
                         		<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${employeeInstance.id}">edit</g:link></sec:access>
-                       			<g:if test="${canRate.get((int) employeeInstance.id)}"> | <g:link action="rateEmployee" id="${employeeInstance.id}">rate</g:link></g:if>
+                       			<sec:access expression="hasRole('ROLE_DEV')"><g:if test="${canRate.get((int) employeeInstance.id)}"> | <g:link action="rateEmployee" id="${employeeInstance.id}">rate</g:link></g:if></sec:access>
                         	</td>
                         </tr>
                     </g:each>
