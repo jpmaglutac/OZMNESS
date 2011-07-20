@@ -127,6 +127,11 @@
 	<td>senior</td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>retypePassword</td>
+	<td>senior</td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>create</td>
 	<td></td>
@@ -149,6 +154,11 @@
 <tr>
 	<td>type</td>
 	<td>password</td>
+	<td>mid</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>retypePassword</td>
 	<td>mid</td>
 </tr>
 <tr>
@@ -184,6 +194,11 @@
 <tr>
 	<td>type</td>
 	<td>password</td>
+	<td>junior</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>retypePassword</td>
 	<td>junior</td>
 </tr>
 <tr>
@@ -291,7 +306,6 @@
 	<td>link=logout</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
