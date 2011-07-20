@@ -19,6 +19,8 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
+            
+            	<g:if test="${employeePositionInstanceList.size() > 0 }">
                 <table>
                     <thead>
                         <tr>
@@ -59,6 +61,10 @@
 			            </tr>  
                     </tbody>
                 </table>
+                </g:if>
+                <g:else>
+                	No positions
+                </g:else>
             </div>
         </div>
     </body>
