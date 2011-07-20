@@ -60,6 +60,6 @@ class ProjectController {
 			flash.message = "Removed \"${collaborator}\" from the project"
 		}else
 			flash.message = "Could not find employee"
-		redirect(action: show, id: params.projectId)
+		redirect(action: "show", id: params.projectId)
 	}
 }
