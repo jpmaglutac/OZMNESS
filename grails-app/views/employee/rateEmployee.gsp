@@ -27,7 +27,7 @@
             </g:hasErrors>
             <g:form action="saveEmployeeRating" >
                 <div class="dialog">
-                    <table style="width: 100px">
+                    <table style="width: 100px; margin-bottom: 30px; padding-bottom: 10px;">
                         <tbody>
                         
                         	<g:each in="${com.orangeandbronze.ozmness.Technology.list()}" status="i" var="tech">
@@ -39,7 +39,7 @@
                         		<tr class="prop">
                         			<td valign="top" class="name" >
                                     	<label for="value"><g:message code="rating.rating.label" default="Rating" /></label>:<br />
-                                    	<g:radioGroup name="${tech.id}_rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" >
+                                    	<g:radioGroup name="${tech.id}_rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" value="NA" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" >
                                     		${it.label}: ${it.radio} &nbsp;&nbsp;
                                     	</g:radioGroup>
                                 	</td>
