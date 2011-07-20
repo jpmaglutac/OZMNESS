@@ -33,9 +33,14 @@ class ProjectController {
 					if(employee){
 						projectInstance.addToCollaborators(employee)
 						projectInstance.save(flush: true)
-						flash.message = "\"" + employee + "\" has been added to the project"
 					}
 				}
+				
+				if(params.collaboratorID.size() > 1)
+					flash.message = "Collaborators added to project \"" + projectInstance.name + "\""
+				else
+					flash.message = "Collaborator added to project \"" + projectInstance.name + "\""
+					
 				redirect(action: "show", id: params.id)
 			}catch (e) {
 				flash.message = "${message(code: 'default.not.added.message', args: [message(code: 'project.collaborators', default: 'Project'), params.collaboratorID])}"
