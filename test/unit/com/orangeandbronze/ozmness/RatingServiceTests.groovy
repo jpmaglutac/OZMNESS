@@ -14,6 +14,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
 	
     protected void setUp() {
         super.setUp()
+        
 		ratingService = new RatingService()
 		position = new EmployeePosition(name: "dev", recommendedRating: 2.0)
 		higher = new Employee(username: "higher", password: "pass", enabled: true, accountExpired: false,
@@ -30,6 +31,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
         mockDomain(Rating)
         project.addToCollaborators(mid)
         project.addToCollaborators(lower)
+        
     }
 
     protected void tearDown() {
@@ -95,9 +97,33 @@ class RatingServiceTests extends GrailsUnitTestCase {
 	
 	void testSaveRatingFormOnOneTechnology() {
 		def params = [:]
-		params.put("id", 2)
+		params.put("employeeRated.id", 2)
 		params.put("1_rating", "TWO")
 		params.put("1_comment", "Comment")
+		RatingService.metaClass.getRatingUsingCriteria = { evaluator, technology, evaluated -> return [] }
+		ratingService.saveRatingForm(higher, params)
+		
+		assertEquals(1, Rating.count())
+		def rating = Rating.get(1)
+		assertNotNull(rating)
+		assertEquals(2, rating.rating.value)
+		assertEquals(tech, rating.technology)
+		assertEquals(higher, rating.creator)
+		assertEquals(mid, rating.employeeRated)
+		assertEquals("Comment", rating.comment)
+	}
+	
+	void testSaveRatingFormWithExistingRating() {
+		def params = [:]
+		params.put("employeeRated.id", 2)
+		params.put("1_rating", "TWO")
+		params.put("1_comment", "Comment")
+		def newRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: mid, creator: higher, dateCreated: new Date())
+		mockDomain(Rating, [newRating])
+		RatingService.metaClass.getRatingUsingCriteria = { evaluator, technology, evaluated ->
+        	return (evaluator == newRating.creator && technology == newRating.technology && evaluated == newRating.employeeRated)?
+        		[newRating] : []
+        } 
 		ratingService.saveRatingForm(higher, params)
 		
 		assertEquals(1, Rating.count())
@@ -115,10 +141,11 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		mockDomain(Technology, [tech, newTech])
 	
 		def params = [:]
-		params.put("id", 2)
+		params.put("employeeRated.id", 2)
 		params.put("1_rating", "TWO")
 		params.put("1_comment", "Comment")
 		params.put("2_rating", "NA")
+		RatingService.metaClass.getRatingUsingCriteria = { evaluator, technology, evaluated -> return [] }
 		
 		ratingService.saveRatingForm(higher, params)
 		
@@ -130,7 +157,7 @@ class RatingServiceTests extends GrailsUnitTestCase {
 	
 	void testEvaluateRatingParamsReturnsCorrectly() {
 		def params = [:]
-		params.put("id", 2)
+		params.put("employeeRated.id", 2)
 		params.put("1_rating", "TWO")
 		params.put("1_comment", "Comment")
 		
@@ -141,10 +168,11 @@ class RatingServiceTests extends GrailsUnitTestCase {
 	
 	void testEvaluateRatingParamsReturnsNull() {
 		def params = [:]
-		params.put("id", 2)
+		params.put("employeeRated.id", 2)
 		params.put("2_rating", "TWO")
 		params.put("2_comment", "Comment")
 		
 		assertNull(ratingService.evaluateRatingParams(1, params))
 	}
+	
 }
