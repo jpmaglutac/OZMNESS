@@ -20,7 +20,7 @@
             </g:if>
             <div class="list">
             
-            	<g:if test="${employeePositionInstanceList.size() > 0 }">
+            	<g:if test="${employeePositionInstanceList.size() > 0}">
                 <table>
                     <thead>
                         <tr>
