@@ -27,38 +27,30 @@
             </g:hasErrors>
             <g:form action="saveEmployeeRating" >
                 <div class="dialog">
-                    <table>
+                    <table style="width: 100px">
                         <tbody>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="value"><g:message code="rating.value.label" default="Value" /></label>
-                                </td>
-                                <td valign="top" class="rating ${hasErrors(bean: ratingInstance, field: 'rating', 'errors')}">
-                                    <g:radioGroup name="rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" value="${com.orangeandbronze.ozmness.RatingValue.values()[0]}">
-                                    	${it.radio} ${it.label}<br />
-                                    </g:radioGroup>
-                                </td>
-                            </tr>
+                        	<g:each in="${com.orangeandbronze.ozmness.Technology.list()}" status="i" var="tech">
+                        		<tr class="prop">
+                        			<td valign="top" class="name" >
+                        				<h1>${tech}</h1>
+                        			</td>
+                        		</tr>
+                        		<tr class="prop">
+                        			<td valign="top" class="name" >
+                                    	<label for="value"><g:message code="rating.rating.label" default="Rating" /></label>:<br />
+                                    	<g:radioGroup name="${tech.id}_rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" >
+                                    		${it.label}: ${it.radio} &nbsp;&nbsp;
+                                    	</g:radioGroup>
+                                	</td>
+                                	
+                                	<td valign="top" class="name" >
+                                    	<label for="comment"><g:message code="rating.comment.label" default="Comment" /></label>:<br />
+                                    	<g:textArea name="${tech.id}_comment" cols="40" rows="5" />
+                                	</td>
+                        		</tr>
+                        	</g:each>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="comment"><g:message code="rating.comment.label" default="Comment" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'comment', 'errors')}">
-                                    <g:textArea name="comment" cols="40" rows="5" value="${ratingInstance?.comment}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="technology"><g:message code="rating.technology.label" default="Technology" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: ratingInstance, field: 'technology', 'errors')}">
-                                    <g:select name="technology.id" from="${com.orangeandbronze.ozmness.Technology.list()}" optionKey="id" value="${ratingInstance?.technology?.id}"  />
-                                </td>
-                            </tr>
-                            
                             <tr>
 		                      	<td colspan="10" class="bottomWrapperNoBorders">
 							        <div class="buttons">

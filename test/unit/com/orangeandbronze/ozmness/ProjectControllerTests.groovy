@@ -12,6 +12,7 @@ class ProjectControllerTests extends ControllerUnitTestCase {
 	
 	protected void setUp() {
 		super.setUp()
+		controller.metaClass.message = {}
 		position = new EmployeePosition(name: "dev", recommendedRating: 2.0)
 		higher = new Employee(username: "higher", password: "pass", enabled: true, accountExpired: false,
 			accountLocked: false, passwordExpired: false, position: position)
