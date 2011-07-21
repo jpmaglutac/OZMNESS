@@ -71,24 +71,6 @@ class RatingService {
 		}
 	}
 	
-	List listAllRateableEmployees(long raterID){
-		def employeeInstance = Employee.get(raterID)
-		
-		def rateableEmployees = Employee.findAllByMentor(employeeInstance)
-		rateableEmployees.add(employeeInstance)
-		
-		def projects = Project.findAllByLead(employeeInstance)
-		
-		projects.each {
-			def collaborators = it.collaborators
-			rateableEmployees.addAll(collaborators)
-		}
-		
-		rateableEmployees.unique()
-		
-		return rateableEmployees
-	}
-	
 	def separateRatingsPerCreator(def employeeId){
 		def separateRatings = []
 		def employee = Employee.get(employeeId)
