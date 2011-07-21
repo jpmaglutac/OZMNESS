@@ -20,6 +20,6 @@ class Rating {
     }
 	
 	String toString(){
-		return "${technology}: ${value}"
+		return "${technology}: ${rating.name}"
 	}
 }
