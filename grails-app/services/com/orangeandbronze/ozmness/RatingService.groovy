@@ -88,4 +88,37 @@ class RatingService {
 		
 		return rateableEmployees
 	}
+	
+	def separateRatingsPerCreator(def employeeId){
+		def separateRatings = []
+		def employee = Employee.get(employeeId)
+		def ratingList = Rating.findAllByEmployeeRated(employee)
+		getPossibleEvaluators(employee).each{ evaluator ->
+			separateRatings << orderRatingsByTechnology(evaluator, ratingList)
+		}
+		println separateRatings
+		return separateRatings
+	}
+	
+	def orderRatingsByTechnology(def evaluator, def ratingList){
+		def ratingsByTechnology = []
+		Technology.list().each{ tech ->
+			ratingsByTechnology << ratingList.find { it.technology == tech && it.creator == evaluator }
+		}
+		return ratingsByTechnology
+	}
+	
+	def getPossibleEvaluators(def employee){
+		return ([employee] + [employee.mentor?:[]] + getLeads(employee)).flatten().unique()
+	}
+	
+	def getLeads(def employee){
+		def leads = []
+		employee.projects.each {
+			leads << it.lead
+		}
+		return leads
+	}
+	
+	
 }
