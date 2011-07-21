@@ -107,6 +107,8 @@ class ProjectController {
 					if(employee){
 						projectInstance.addToCollaborators(employee)
 						projectInstance.save(flush: true)
+						employee.addToProjects(projectInstance)
+						employee.save(flush: true)
 					}
 				}
 				
@@ -131,6 +133,7 @@ class ProjectController {
 		def project = Project.get(params.projectId)
 		if(collaborator){
 			project.removeFromCollaborators(collaborator)
+			employee.removeFromProjects(project)
 			flash.message = "Removed \"${collaborator}\" from the project"
 		}else
 			flash.message = "Could not find employee"
