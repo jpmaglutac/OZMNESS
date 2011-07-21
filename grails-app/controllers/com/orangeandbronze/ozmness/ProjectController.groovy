@@ -106,7 +106,6 @@ class ProjectController {
 					def employee = Employee.get(it)
 					if(employee){
 						projectInstance.addToCollaborators(employee)
-						projectInstance.save(flush: true)
 					}
 				}
 				

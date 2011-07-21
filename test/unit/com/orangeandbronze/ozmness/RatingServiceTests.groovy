@@ -31,7 +31,8 @@ class RatingServiceTests extends GrailsUnitTestCase {
         mockDomain(Rating)
         project.addToCollaborators(mid)
         project.addToCollaborators(lower)
-        
+        mid.addToProjects(project)
+        lower.addToProjects(project)
     }
 
     protected void tearDown() {
@@ -175,4 +176,58 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		assertNull(ratingService.evaluateRatingParams(1, params))
 	}
 	
+	void testSeparateRatingsPerCreator() {
+		def higherRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: higher, dateCreated: new Date())
+		def midRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: mid, dateCreated: new Date())
+		mockDomain(Rating, [higherRating, midRating])
+		
+		def separateRatings = ratingService.separateRatingsPerCreator(3)
+		
+		assertEquals(3, separateRatings.size)
+		assertEquals(midRating, separateRatings[1][0])
+	}
+	
+	void testSeparateRatingsPerCreatorWithNewTech() {
+		def higherRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: mid, creator: higher, dateCreated: new Date())
+		def newTech = new Technology(name: "new", parent: tech)
+		mockDomain(Technology, [tech, newTech])
+		def midRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: newTech, employeeRated: mid, creator: mid, dateCreated: new Date())
+		mockDomain(Rating, [higherRating, midRating])
+		
+		def separateRatings = ratingService.separateRatingsPerCreator(2)
+		
+		assertEquals(2, separateRatings.size)
+		assertEquals(midRating, separateRatings[0][1])
+		assertNull(separateRatings[0][0])
+		assertEquals(higherRating, separateRatings[1][0])
+		assertNull(separateRatings[1][1])
+	}
+	
+	void testOrderRatingsByTechnology(){
+		def higherRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: higher, dateCreated: new Date())
+		def newTech = new Technology(name: "new", parent: tech)
+		mockDomain(Rating, [higherRating])
+		mockDomain(Technology, [tech, newTech])
+		def ratings = ratingService.orderRatingsByTechnology(higher, Rating.list())
+		
+		assertEquals(2, ratings.size())
+		assertEquals(higherRating, ratings[0])
+		assertNull(ratings[1])
+	}
+	
+	void testGetLeads(){
+		def leads = ratingService.getLeads(lower)
+		assertTrue(leads.contains(higher))
+	}
+	
+	void testGetPossibleEvaluators() {
+		def evaluators = ratingService.getPossibleEvaluators(lower)
+		assertEquals(3, evaluators.size())
+		
+		evaluators = ratingService.getPossibleEvaluators(mid)
+		assertEquals(2, evaluators.size())
+		
+		evaluators = ratingService.getPossibleEvaluators(higher)
+		assertEquals(1, evaluators.size())
+	}
 }

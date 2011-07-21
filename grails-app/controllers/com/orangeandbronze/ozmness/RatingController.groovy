@@ -128,7 +128,7 @@ class RatingController {
     }
 	
 	def showAvailableEmployeesToBeRated = {
-		def rateableEmployees = ratingService.listAllRateableEmployees(springSecurityService.principal.id)
+		def rateableEmployees = ratingService.getEmployeesThatCanBeRated(Employee.get(springSecurityService.principal.id))
 		
 		return [rateableEmployees: rateableEmployees, employeeInstanceTotal : rateableEmployees.size()]
 	}

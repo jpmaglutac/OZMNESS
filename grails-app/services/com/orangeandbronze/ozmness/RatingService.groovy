@@ -71,21 +71,39 @@ class RatingService {
 		}
 	}
 	
-	List listAllRateableEmployees(long raterID){
-		def employeeInstance = Employee.get(raterID)
-		
-		def rateableEmployees = Employee.findAllByMentor(employeeInstance)
-		rateableEmployees.add(employeeInstance)
-		
-		def projects = Project.findAllByLead(employeeInstance)
-		
-		projects.each {
-			def collaborators = it.collaborators
-			rateableEmployees.addAll(collaborators)
+	def separateRatingsPerCreator(def employeeId){
+		def separateRatings = []
+		def employee = Employee.get(employeeId)
+		def ratingList = Rating.findAllByEmployeeRated(employee)
+		getPossibleEvaluators(employee).each{ evaluator ->
+			separateRatings << orderRatingsByTechnology(evaluator, ratingList)
 		}
-		
-		rateableEmployees.unique()
-		
-		return rateableEmployees
+		println separateRatings
+		return separateRatings
 	}
+	
+	def orderRatingsByTechnology(def evaluator, def ratingList){
+		def ratingsByTechnology = []
+		Technology.list().each{ tech ->
+			ratingsByTechnology << ratingList.find { it.technology == tech && it.creator == evaluator }
+		}
+		return ratingsByTechnology
+	}
+	
+	def getPossibleEvaluators(def employee){
+		return ([employee] + [employee.mentor?:[]] + getLeads(employee)).flatten().unique()
+	}
+	
+	def getLeads(def employee){
+		def leads = []
+		Project.list().each {
+			if(it.collaborators.contains(employee)){
+				if(it.lead)
+					leads<<it.lead
+			}
+		}
+		return leads
+	}
+	
+	
 }
