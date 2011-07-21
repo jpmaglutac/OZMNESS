@@ -100,15 +100,17 @@ class ProjectController {
 	
 	def addCollaborator ={
 		def projectInstance = Project.get(params.id)
+		def lead = projectInstance.lead
 		if(projectInstance){
 			try{
 				params.collaboratorID.each{
 					def employee = Employee.get(it)
 					if(employee){
-						projectInstance.addToCollaborators(employee)
-						projectInstance.save(flush: true)
 						employee.addToProjects(projectInstance)
 						employee.save(flush: true)
+						projectInstance.addToCollaborators(employee)
+						projectInstance.lead = lead
+						projectInstance.save(flush: true)
 					}
 				}
 				
