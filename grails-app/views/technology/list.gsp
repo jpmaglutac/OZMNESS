@@ -19,46 +19,52 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                        
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'technology.id.label', default: 'ID')}" /></sec:access>
-                        
-                            <g:sortableColumn property="name" title="${message(code: 'technology.name.label', default: 'Name')}" />
-                        
-                            <g:sortableColumn property="parent" title="${message(code: 'technology.parent.label', default: 'Parent')}" />
-                            
-                            <th>&nbsp;</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${technologyInstanceList}" status="i" var="technologyInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;">${fieldValue(bean: technologyInstance, field: "id")}</td></sec:access>
-                        
-                            <td>${fieldValue(bean: technologyInstance, field: "name")}</td>
-                        
-                            <td>${fieldValue(bean: technologyInstance, field: "parent")}</td>
-                            
-                            <td>
-                            	<g:link action="show" id="${technologyInstance.id}">view more</g:link>
-                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${technologyInstance.id}">edit</g:link> | <g:link action="delete" id="${technologyInstance.id}">delete</g:link></sec:access>
-                           	</td>
-                        
-                        </tr>
-                    </g:each>
-                        <tr>
-                    		<td colspan="10" class="bottomWrapper">
-					            <div class="paginateButtons">
-					                <g:paginate total="${technologyInstanceTotal}" />
-					            </div>
-            				</td>
-          				</tr>
-                    </tbody>
-                </table>
+            
+            	<g:if test="${technologyInstanceList.size() > 0}">
+	                <table>
+	                    <thead>
+	                        <tr>
+	                        
+	                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn style="text-align:center;" property="id" title="${message(code: 'technology.id.label', default: 'ID')}" /></sec:access>
+	                        
+	                            <g:sortableColumn property="name" title="${message(code: 'technology.name.label', default: 'Name')}" />
+	                        
+	                            <g:sortableColumn property="parent" title="${message(code: 'technology.parent.label', default: 'Parent')}" />
+	                            
+	                            <th>&nbsp;</th>
+	                        
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                    <g:each in="${technologyInstanceList}" status="i" var="technologyInstance">
+	                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+	                        
+	                            <sec:access expression="hasRole('ROLE_ADMIN')"><td style="text-align:center;">${fieldValue(bean: technologyInstance, field: "id")}</td></sec:access>
+	                        
+	                            <td>${fieldValue(bean: technologyInstance, field: "name")}</td>
+	                        
+	                            <td>${fieldValue(bean: technologyInstance, field: "parent")}</td>
+	                            
+	                            <td>
+	                            	<g:link action="show" id="${technologyInstance.id}">view more</g:link>
+	                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link action="edit" id="${technologyInstance.id}">edit</g:link> | <g:link action="delete" id="${technologyInstance.id}">delete</g:link></sec:access>
+	                           	</td>
+	                        
+	                        </tr>
+	                    </g:each>
+	                        <tr>
+	                    		<td colspan="10" class="bottomWrapper">
+						            <div class="paginateButtons">
+						                <g:paginate total="${technologyInstanceTotal}" />
+						            </div>
+	            				</td>
+	          				</tr>
+	                    </tbody>
+	                </table>
+                </g:if>
+                <g:else>
+                 	No Technologies
+                </g:else>
             </div>
         </div>
     </body>
