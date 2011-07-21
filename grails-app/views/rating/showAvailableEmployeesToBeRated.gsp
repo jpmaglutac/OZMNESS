@@ -16,7 +16,7 @@
                     <thead>
                         <tr>
                             
-                            <g:sortableColumn property="Name" title="Employee" />
+                            <g:sortableColumn property="Name" title="Employee" style="text-align: center;" />
                         
                         	<th>&nbsp;</th>
                         
