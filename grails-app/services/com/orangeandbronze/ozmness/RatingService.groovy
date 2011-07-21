@@ -96,8 +96,11 @@ class RatingService {
 	
 	def getLeads(def employee){
 		def leads = []
-		employee.projects.each {
-			leads << it.lead
+		Project.list().each {
+			if(it.collaborators.contains(employee)){
+				if(it.lead)
+					leads<<it.lead
+			}
 		}
 		return leads
 	}
