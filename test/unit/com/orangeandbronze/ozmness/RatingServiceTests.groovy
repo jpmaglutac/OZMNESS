@@ -183,8 +183,9 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		
 		def separateRatings = ratingService.separateRatingsPerCreator(3)
 		
-		assertEquals(3, separateRatings.size)
-		assertEquals(midRating, separateRatings[1][0])
+		assertEquals(1, separateRatings.size)
+		assertNull(separateRatings[0][0])
+		assertEquals(midRating, separateRatings[0][1])
 	}
 	
 	void testSeparateRatingsPerCreatorWithNewTech() {
@@ -197,22 +198,22 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		def separateRatings = ratingService.separateRatingsPerCreator(2)
 		
 		assertEquals(2, separateRatings.size)
-		assertEquals(midRating, separateRatings[0][1])
+		assertEquals(midRating, separateRatings[1][0])
 		assertNull(separateRatings[0][0])
-		assertEquals(higherRating, separateRatings[1][0])
+		assertEquals(higherRating, separateRatings[0][1])
 		assertNull(separateRatings[1][1])
 	}
 	
-	void testOrderRatingsByTechnology(){
+	void testOrderRatingsByEvaluator(){
 		def higherRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: higher, dateCreated: new Date())
-		def newTech = new Technology(name: "new", parent: tech)
-		mockDomain(Rating, [higherRating])
-		mockDomain(Technology, [tech, newTech])
-		def ratings = ratingService.orderRatingsByTechnology(higher, Rating.list())
+		def midRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: mid, dateCreated: new Date())
+		mockDomain(Rating, [higherRating, midRating])
+		def ratings = ratingService.orderRatingsByEvaluator(lower, tech, Rating.list())
 		
-		assertEquals(2, ratings.size())
-		assertEquals(higherRating, ratings[0])
-		assertNull(ratings[1])
+		assertEquals(3, ratings.size())
+		assertEquals(midRating, ratings[1])
+		assertNull(ratings[0])
+		assertEquals(higherRating, ratings[2])
 	}
 	
 	void testGetLeads(){

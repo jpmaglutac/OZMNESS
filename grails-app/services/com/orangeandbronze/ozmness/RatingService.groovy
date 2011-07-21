@@ -75,19 +75,19 @@ class RatingService {
 		def separateRatings = []
 		def employee = Employee.get(employeeId)
 		def ratingList = Rating.findAllByEmployeeRated(employee)
-		getPossibleEvaluators(employee).each{ evaluator ->
-			separateRatings << orderRatingsByTechnology(evaluator, ratingList)
+		Technology.list().each{ tech ->
+			separateRatings << orderRatingsByEvaluator(employee, tech, ratingList)
 		}
 		println separateRatings
 		return separateRatings
 	}
 	
-	def orderRatingsByTechnology(def evaluator, def ratingList){
-		def ratingsByTechnology = []
-		Technology.list().each{ tech ->
-			ratingsByTechnology << ratingList.find { it.technology == tech && it.creator == evaluator }
+	def orderRatingsByEvaluator(def evaluated, def tech, def ratingList){
+		def ratingsByEvaluator = []
+		getPossibleEvaluators(evaluated).each{ evaluator ->
+			ratingsByEvaluator << ratingList.find { it.technology == tech && it.creator == evaluator }
 		}
-		return ratingsByTechnology
+		return ratingsByEvaluator
 	}
 	
 	def getPossibleEvaluators(def employee){
