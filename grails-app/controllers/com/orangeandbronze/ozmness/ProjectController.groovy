@@ -100,17 +100,12 @@ class ProjectController {
 	
 	def addCollaborator ={
 		def projectInstance = Project.get(params.id)
-		def lead = projectInstance.lead
 		if(projectInstance){
 			try{
 				params.collaboratorID.each{
 					def employee = Employee.get(it)
 					if(employee){
-						employee.addToProjects(projectInstance)
-						employee.save(flush: true)
 						projectInstance.addToCollaborators(employee)
-						projectInstance.lead = lead
-						projectInstance.save(flush: true)
 					}
 				}
 				
@@ -135,7 +130,6 @@ class ProjectController {
 		def project = Project.get(params.projectId)
 		if(collaborator){
 			project.removeFromCollaborators(collaborator)
-			employee.removeFromProjects(project)
 			flash.message = "Removed \"${collaborator}\" from the project"
 		}else
 			flash.message = "Could not find employee"
