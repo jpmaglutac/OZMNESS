@@ -68,24 +68,6 @@
                                     <g:select name="mentor.id" from="${possibleMentors}" optionKey="id" value="${employeeInstance?.mentor?.id}"  noSelection="['null': '']"/>
                                 </td>
                             </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="projects"><g:message code="employee.projects.label" default="Projects" /></label>
-                                  </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'projects', 'errors')}">
-						                                    
-									<ul>
-									<g:each in="${employeeInstance?.projects?}" var="p">
-									    <li><g:link controller="project" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-									</g:each>
-									</ul>
-									<br />
-                                  	<g:link controller="project" action="create" params="['employee.id': employeeInstance?.id]">new project</g:link>
-                                	<br />
-                                	<br />								
-                                </td>
-                            </tr>
                             
                             <tr class="prop">
                                 <td valign="top" class="name">
