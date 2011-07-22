@@ -176,11 +176,15 @@ class EmployeeController {
 		def canRate = false
 		def loggedInUser = Employee.get(springSecurityService.principal.id)
 		if(employeeInstance){
-			def ratings = Rating.findAllByEmployeeRated(employeeInstance)
+			def listOfRatings = ratingService.separateRatingsPerCreator(params.id)
+			def ratings = listOfRatings.allRatings
+			def avgRatings = listOfRatings.avgRatings
+			def techs = listOfRatings.techs
 			if(SpringSecurityUtils.ifAllGranted("ROLE_DEV")) {
 				canRate = ratingService.canRateEmployee(Employee.get(springSecurityService.principal.id), Employee.get(params.id))
 			}
-			return [loggedInUser: loggedInUser, ratings: ratings, canRate: canRate]
+			println listOfRatings.allRatings
+			return [loggedInUser: loggedInUser, ratings: ratings, avgRatings: avgRatings, canRate: canRate, techs: techs]
 		}
 	}
 	

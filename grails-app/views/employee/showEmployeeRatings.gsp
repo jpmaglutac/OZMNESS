@@ -27,43 +27,37 @@
                     <thead>
                         <tr>
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><g:sortableColumn property="id" title="ID" /></sec:access>
-                        
-                            <g:sortableColumn style="text-align: center;" property="value" title="${message(code: 'rating.rating.label', default: 'Rating')}" />
+                        	<g:set var="raters" value="${ratings[0]}"/>
                         
                             <g:sortableColumn property="technology" title="${message(code: 'rating.technology.label', default: 'Technology')}" />
                         
-							<g:sortableColumn property="creator" title="${message(code: 'rating.creator.label', default: 'Creator')}" />
-                                                      
-                            <g:sortableColumn property="comment" title="${message(code: 'rating.comment.label', default: 'Comment')}" />
-                        
-                            <g:sortableColumn property="dateCreated" title="${message(code: 'rating.dateCreated.label', default: 'Date Created')}" />
-                        
-                        	<th>&nbsp;</th>
+                        	<g:each in="${raters}" var = "rater">
+								<g:sortableColumn property="creator" title="${rater.creator.name}"/>
+                        	</g:each>
+                            
+                            <g:sortableColumn property="average" title="${message(code: 'rating.averageRating.label', default: 'Average Rating')}" />
                         
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${ratings}" status="i" var="ratingInstance">
+                    <g:each in="${ratings}" status="i" var="technology">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <sec:access expression="hasRole('ROLE_ADMIN')"><td><g:link controller="rating" action="show" id="${ratingInstance.id}">${fieldValue(bean: ratingInstance, field: "id")}</g:link></td></sec:access>
-                        
-                            <td style="text-align: center;"><b>${ratingInstance.rating.name}</b></td>
+                            <td style="text-align: center;"><b>${techs[i]}</b></td>
                                                
-                            <td>${fieldValue(bean: ratingInstance, field: "technology")}</td>
-                        
-                            <td>${ratingInstance.creator.name}</td>
+                            <g:each in="${technology}" var = "rate">
                             
-                            <td>${fieldValue(bean: ratingInstance, field: "comment")}</td>
-                        
-                            <td><g:formatDate date="${ratingInstance.dateCreated}" /></td>
+                            	<g:if test="${rate?.rating}">
+                            		<td style="text-align: center;"><b>${rate?.rating}</b></td>
+                            	</g:if>
+                            	<g:else>
+                            		<td style="text-align: center;"><b> - </b></td>
+                            	</g:else>
+                            	
+                            </g:each>
                             
-                            <td style="text-align:center;"><g:link controller="rating" action="show" id="${ratingInstance.id}">view</g:link>
-                            	<g:if test="${loggedInUser == ratingInstance.creator}"> | <g:link controller="rating" action="edit" id="${ratingInstance.id}">edit</g:link></g:if>
-                            	<sec:access expression="hasRole('ROLE_ADMIN')"> | <g:link controller="rating" action="edit" id="${ratingInstance.id}">edit</g:link> | <g:link controller="rating" action="delete" id="${ratingInstance.id}" params="[employee: params.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">delete</g:link></sec:access>
-                           	</td>
-                        
+                            <td style="text-align: center;"><b>${avgRatings[i]}</b></td>
+                                                    
                         </tr>
                     </g:each>
                         <tr>

@@ -73,26 +73,52 @@ class RatingService {
 	
 	def separateRatingsPerCreator(def employeeId){
 		def separateRatings = []
+		def avgRatings = []
+		def techList = []
 		def employee = Employee.get(employeeId)
 		def ratingList = Rating.findAllByEmployeeRated(employee)
 		Technology.list().each{ tech ->
-			separateRatings << orderRatingsByEvaluator(employee, tech, ratingList)
+			def orderRatings = orderRatingsByEvaluator(employee, tech, ratingList)
+			separateRatings << orderRatings.ratingsByEvaluator
+			avgRatings << orderRatings.avgRating
+			techList << tech
 		}
-		println separateRatings
-		return separateRatings
+		return [allRatings:separateRatings,  avgRatings:avgRatings, techs: techList]
 	}
 	
 	def orderRatingsByEvaluator(def evaluated, def tech, def ratingList){
 		def ratingsByEvaluator = []
-		getPossibleEvaluators(evaluated).each{ evaluator ->
-			ratingsByEvaluator << ratingList.find { it.technology == tech && it.creator == evaluator }
+		double avgRating = 0
+		def possibleEvaluators = getPossibleEvaluators(evaluated)
+		int numberOfActualEvaluators = 0
+		possibleEvaluators.each{ evaluator ->
+			def ratingresult = ratingList.find { 
+				it.technology.id == tech.id && it.creator.id == evaluator.id
+			}
+			if(ratingresult){
+				avgRating += ratingresult?.rating?.value
+				if(ratingresult?.rating?.value >0){
+					numberOfActualEvaluators++
+				}
+				ratingsByEvaluator << ratingresult
+			}else{
+				ratingsByEvaluator << [creator: evaluator, technology: tech, employeeRated: evaluated]
+			}
 		}
-		return ratingsByEvaluator
+		
+		if(numberOfActualEvaluators>0){
+			avgRating /= numberOfActualEvaluators
+		}
+		
+		println avgRating
+		
+		return [ratingsByEvaluator: ratingsByEvaluator, avgRating:avgRating]
 	}
 	
 	def getPossibleEvaluators(def employee){
 		return ([employee] + [employee.mentor?:[]] + getLeads(employee)).flatten().unique()
 	}
+	
 	
 	def getLeads(def employee){
 		def leads = []

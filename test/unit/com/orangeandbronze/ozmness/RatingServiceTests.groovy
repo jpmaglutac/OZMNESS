@@ -181,10 +181,13 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		def midRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: mid, dateCreated: new Date())
 		mockDomain(Rating, [higherRating, midRating])
 		
-		def separateRatings = ratingService.separateRatingsPerCreator(3)
+		def allRatings = ratingService.separateRatingsPerCreator(3)
+		println allRatings
+		def separateRatings = allRatings.allRatings		
+		
 		
 		assertEquals(1, separateRatings.size)
-		assertNull(separateRatings[0][0])
+		assertNull(separateRatings[0][0].rating)
 		assertEquals(midRating, separateRatings[0][1])
 	}
 	
@@ -195,24 +198,28 @@ class RatingServiceTests extends GrailsUnitTestCase {
 		def midRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: newTech, employeeRated: mid, creator: mid, dateCreated: new Date())
 		mockDomain(Rating, [higherRating, midRating])
 		
-		def separateRatings = ratingService.separateRatingsPerCreator(2)
+		def allRatings = ratingService.separateRatingsPerCreator(2)
+		
+		def separateRatings = allRatings.allRatings
 		
 		assertEquals(2, separateRatings.size)
 		assertEquals(midRating, separateRatings[1][0])
-		assertNull(separateRatings[0][0])
+		assertNull(separateRatings[0][0].rating)
 		assertEquals(higherRating, separateRatings[0][1])
-		assertNull(separateRatings[1][1])
+		assertNull(separateRatings[1][1].rating)
 	}
 	
 	void testOrderRatingsByEvaluator(){
 		def higherRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: higher, dateCreated: new Date())
 		def midRating = new Rating(rating: RatingValue.ONE, comment: "New", technology: tech, employeeRated: lower, creator: mid, dateCreated: new Date())
 		mockDomain(Rating, [higherRating, midRating])
-		def ratings = ratingService.orderRatingsByEvaluator(lower, tech, Rating.list())
+		
+		def orderedRatings = ratingService.orderRatingsByEvaluator(lower, tech, Rating.list()) 
+		def ratings = orderedRatings.ratingsByEvaluator
 		
 		assertEquals(3, ratings.size())
 		assertEquals(midRating, ratings[1])
-		assertNull(ratings[0])
+		assertNull(ratings[0].rating)
 		assertEquals(higherRating, ratings[2])
 	}
 	
