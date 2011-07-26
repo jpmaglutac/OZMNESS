@@ -20,6 +20,9 @@
 	            <span class="menuButton"><g:link class="delete" action="delete" id="${employeeInstance.id}">Delete Employee</g:link></span>
 	            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
 			</sec:access>
+			<g:if test="${loggedInUserId == employeeInstance.id}">
+				<span class="menuButton"><g:link class="edit" controller="employee" action="changePassword" id="${params.id}" >Change Password</g:link></span>
+	        </g:if>
         </div>
         <div class="body">
             <h1>${employeeInstance.name}'s Profile</h1>

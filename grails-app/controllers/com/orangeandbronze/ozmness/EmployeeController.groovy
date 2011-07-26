@@ -33,7 +33,7 @@ class EmployeeController {
 			if(SpringSecurityUtils.ifAllGranted("ROLE_DEV")) {
 				canRate = ratingService.canRateEmployee(Employee.get(springSecurityService.principal.id), Employee.get(params.id))
 			}
-            [employeeInstance: employeeInstance, canRate: canRate]
+            [employeeInstance: employeeInstance, canRate: canRate, loggedInUserId: springSecurityService.principal.id]
         }
     }
 
