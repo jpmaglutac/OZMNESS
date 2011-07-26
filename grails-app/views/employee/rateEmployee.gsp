@@ -39,14 +39,14 @@
                         		<tr class="prop">
                         			<td valign="top" class="name" >
                                     	<label for="value"><g:message code="rating.rating.label" default="Rating" /></label>:<br />
-                                    	<g:radioGroup name="${tech.id}_rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" value="NA" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" >
+                                    <g:radioGroup name="${tech.id}_rating" values="${com.orangeandbronze.ozmness.RatingValue.values()}" value="${ratingList[i].rating}" labels="${com.orangeandbronze.ozmness.RatingValue.values()*.name}" >
                                     		${it.label}: ${it.radio} &nbsp;&nbsp;
                                     	</g:radioGroup>
                                 	</td>
                                 	
                                 	<td valign="top" class="name" >
                                     	<label for="comment"><g:message code="rating.comment.label" default="Comment" /></label>:<br />
-                                    	<g:textArea name="${tech.id}_comment" cols="40" rows="5" />
+                                    	<g:textArea name="${tech.id}_comment" value="${ratingList[i].comment}" cols="40" rows="5" />
                                 	</td>
                         		</tr>
                         	</g:each>
