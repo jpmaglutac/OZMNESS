@@ -1,5 +1,7 @@
 package com.orangeandbronze.ozmness
 
+import javassist.bytecode.StackMapTable.NewRemover;
+
 class RatingService {
 
     static transactional = true
@@ -129,6 +131,27 @@ class RatingService {
 			}
 		}
 		return leads
+	}
+	
+	def getPreviousRatings(String rateeId, long raterId){
+		def ratee = Employee.get(rateeId)
+		def rater = Employee.get(raterId)
+		def technologies = Technology.list()
+		def ratingList = []
+		
+		technologies.each { technology->
+			
+			def rating = getRatingUsingCriteria(rater, technology, ratee)
+			if(rating){
+				ratingList += rating
+			}else{
+				ratingList << [technology: technology, rating: RatingValue.NA, comment: "" ]
+			}			
+		}
+		println ratingList
+		return ratingList
+		
+		
 	}
 	
 	
