@@ -48,7 +48,11 @@
                             <g:each in="${technology}" var = "rate">
                             
                             	<g:if test="${rate?.rating}">
-                            		<td style="text-align: center;"><b>${rate?.rating}</b></td>
+                            		<td style="text-align: center;">
+                            			<g:link controller="rating" action="show" id="${rate?.id}">
+                            				<b>${rate?.rating?.name}</b>
+                            			</g:link>
+                            		</td>
                             	</g:if>
                             	<g:else>
                             		<td style="text-align: center;"><b> - </b></td>
