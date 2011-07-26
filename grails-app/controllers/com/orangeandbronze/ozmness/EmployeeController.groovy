@@ -194,7 +194,8 @@ class EmployeeController {
 			redirect(action: "show", id: params.id)
 			return
 		}
-		[employeeId: params.id]
+		def ratingList = ratingService.getPreviousRatings(params.id, springSecurityService.principal.id)
+		[employeeId: params.id, ratingList: ratingList]
 	}
 	
 	def saveEmployeeRating = {
