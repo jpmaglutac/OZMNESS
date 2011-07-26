@@ -18,9 +18,6 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
         super.setUp()
 		mockSpringSecurityService = mockFor(SpringSecurityService, true)
 		mockSpringSecurityService.demand.encodePassword() {String p-> "encrypted"}
-	/*	mockSpringSecurityService.demand.reauthenticate() {String u, String p -> }
-		mockSpringSecurityService.demand.getLoggedIn() {-> true}
-		mockSpringSecurityService.demand.getPrincipal() {-> ["username": "Bob"]}*/
 		controller.springSecurityService = mockSpringSecurityService.createMock() 
 		
 		mentorPosition = new EmployeePosition(name :"Senior", recommendedRating:3.0 )
@@ -45,12 +42,7 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
         super.tearDown()
 
     }
-    
-    void testSomething() {
-    
-    }
 
-	/*
     void testList() {
 		def employeeList = Employee.list()
 		
@@ -62,27 +54,6 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 			i++  
 		}
     }
-	
-	void testCreate() {
-		
-		mockForConstraintsTests(Employee)
-		
-		controller.params.username = "april"
-		controller.params.name = "April"
-		controller.params.password = "12345"
-		controller.params."position.id" = mentorPosition.id
-		controller.params.enabled = true
-		controller.params.accountLocked = false
-		controller.params.accountExpired = false
-		controller.params.passwordExpired = false
-		controller.params."mentor.id" = ""
-		
-		def parameters = controller.create()
-		
-		def employee = parameters.employeeInstance
-		
-		assertTrue employee.validate()
-	}
 	
 	void testSave() {
 		mockForConstraintsTests(Employee)
@@ -197,5 +168,4 @@ class EmployeeControllerTests extends ControllerUnitTestCase {
 
 			
 		}
-	*/
 }
